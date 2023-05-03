@@ -15,3 +15,16 @@
 
 .HomeSlider {
 }
+
+
+@media (max-width: 600px) {
+    .home {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .HomeForm {
+        align-items: center;
+        width: 100%;
+    }
+}
