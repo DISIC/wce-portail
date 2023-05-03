@@ -1,0 +1,17 @@
+.home {
+    display: flex;
+    justify-content: space-around;
+    margin: 5% 10%;
+}
+
+.ButtonForm {
+    display: flex;
+}
+
+.HomeForm {
+    align-items: center;
+    width: 40%;
+}
+
+.HomeSlider {
+}
