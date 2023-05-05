@@ -2,19 +2,17 @@ import { Button } from '@codegouvfr/react-dsfr/Button';
 import { useState } from 'react';
 import Home from './pages/home/Home';
 import Layout from './components/layout/Layout';
+import Login from './pages/login/Login';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  const [state, setState] = useState(false);
-
-  function handle() {
-    setState(true);
-  }
   return (
-    <>
-      <Layout>
-        <Home />
-      </Layout>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path=":roomName" element={<Login />} />
+      </Route>
+    </Routes>
   );
 }
 

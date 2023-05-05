@@ -1,4 +1,3 @@
-import React, { ReactNode } from 'react';
 import { Header, HeaderProps } from '@codegouvfr/react-dsfr/Header';
 
 interface props {
@@ -11,19 +10,18 @@ function header({ headerFooterDisplayItem }: props) {
       <Header
         brandTop={
           <>
-            INTITULE
+            RÉPUBLIQUE
             <br />
-            OFFICIEL
+            FRANÇAISE
           </>
         }
         homeLinkProps={{
           href: '/',
-          title:
-            'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)',
+          title: "Accueil - Webconférence de l'Etat",
         }}
-        quickAccessItems={[headerFooterDisplayItem]}
-        serviceTagline="baseline - précisions sur l'organisation"
-        serviceTitle="Nom du site / service"
+        //quickAccessItems={[headerFooterDisplayItem]}
+        serviceTagline=""
+        serviceTitle={window.location.host}
       />
     </>
   );

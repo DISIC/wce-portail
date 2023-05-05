@@ -1,4 +1,3 @@
-import React from 'react';
 import { Footer, FooterProps } from '@codegouvfr/react-dsfr/Footer';
 
 interface props {
@@ -11,26 +10,43 @@ function footer({ headerFooterDisplayItem }: props) {
       accessibility="fully compliant"
       brandTop={
         <>
-          INTITULE
+          RÉPUBLIQUE
           <br />
-          OFFICIEL
+          FRANÇAISE
         </>
       }
-      contentDescription="
-    Ce message est à remplacer par les informations de votre site.
-
-    Comme exemple de contenu, vous pouvez indiquer les informations 
-    suivantes : Le site officiel d’information administrative pour les entreprises.
-    Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
-    à la gestion et au développement de votre entreprise.
-    "
+      contentDescription={
+        <div>
+          <a
+            style={{
+              marginRight: '10px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+            }}
+            href="https://www.numerique.gouv.fr"
+            target="_blank"
+          >
+            C'est une misssion de la DINUM
+          </a>
+          <a
+            style={{
+              marginRight: '10px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+            }}
+            href="https://www.ecologie.gouv.fr/"
+            target="_blank"
+          >
+            Ce site est Opéré par le MTE
+          </a>
+        </div>
+      }
       cookiesManagementLinkProps={{
         href: '#',
       }}
       homeLinkProps={{
         href: '/',
-        title:
-          'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)',
+        title: "Accueil - Webconférence de l'Etat",
       }}
       personalDataLinkProps={{
         href: '#',

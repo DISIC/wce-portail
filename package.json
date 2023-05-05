@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.52.0",
+    "@reduxjs/toolkit": "^1.9.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.1",
     "react-slideshow-image": "^4.2.1"
   },
   "devDependencies": {

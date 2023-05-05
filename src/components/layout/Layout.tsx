@@ -2,20 +2,19 @@ import React, { ReactNode } from 'react';
 import styles from './Layout.module.css';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import { Outlet } from 'react-router-dom';
 import {
   Display,
   headerFooterDisplayItem,
 } from '@codegouvfr/react-dsfr/Display';
 
-interface props {
-  children: ReactNode;
-}
-
-export default function Layout({ children }: props) {
+export default function Layout() {
   return (
     <div className={styles.layout}>
       <Header headerFooterDisplayItem={headerFooterDisplayItem} />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
       <Footer headerFooterDisplayItem={headerFooterDisplayItem} />
       <Display />
     </div>
