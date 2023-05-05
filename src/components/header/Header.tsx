@@ -22,6 +22,37 @@ function header({ headerFooterDisplayItem }: props) {
         //quickAccessItems={[headerFooterDisplayItem]}
         serviceTagline=""
         serviceTitle={window.location.host}
+        navigation={[
+          {
+            linkProps: {
+              href: '#',
+              target: '_self',
+            },
+            text: 'accès direct',
+          },
+          {
+            isActive: true,
+            linkProps: {
+              href: '#',
+              target: '_self',
+            },
+            text: 'accès direct',
+          },
+          {
+            linkProps: {
+              href: '#',
+              target: '_self',
+            },
+            text: 'accès direct',
+          },
+          {
+            linkProps: {
+              href: '#',
+              target: '_self',
+            },
+            text: 'accès direct',
+          },
+        ]}
       />
     </>
   );

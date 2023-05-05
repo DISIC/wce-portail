@@ -17,28 +17,9 @@ function footer({ headerFooterDisplayItem }: props) {
       }
       contentDescription={
         <div>
-          <a
-            style={{
-              marginRight: '10px',
-              fontWeight: 'bold',
-              textDecoration: 'none',
-            }}
-            href="https://www.numerique.gouv.fr"
-            target="_blank"
-          >
-            C'est une misssion de la DINUM
-          </a>
-          <a
-            style={{
-              marginRight: '10px',
-              fontWeight: 'bold',
-              textDecoration: 'none',
-            }}
-            href="https://www.ecologie.gouv.fr/"
-            target="_blank"
-          >
-            Ce site est Opéré par le MTE
-          </a>
+          Un service proposé par la Direction Interministérielle du Numérique
+          (DINUM) et opéré par le Ministère de la Transition Écologique et de la
+          Cohésion des Territoires (MTECT).
         </div>
       }
       cookiesManagementLinkProps={{

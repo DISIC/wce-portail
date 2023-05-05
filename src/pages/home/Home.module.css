@@ -16,14 +16,11 @@
 }
 
 .confButtons {
-  position: relative;
   display: flex;
-  flex-direction: column;
   width: 100%;
 }
 
 .confButtonsStretch {
-  position: absolute;
   top: 50px;
   display: flex;
   flex-direction: column;
@@ -35,7 +32,14 @@
   margin-top: 8px;
   margin-left: 10px;
   text-align: center;
-  width: 250px;
+}
+
+.plusButton {
+  display: inline-block;
+  height: 10px;
+  margin-top: 8px;
+  margin-left: 10px;
+  text-align: center;
 }
 
 @media (max-width: 600px) {
@@ -63,11 +67,11 @@
     width: 100%;
   }
 
-  .confButtonsStretch {
-    position: absolute;
-    top: 50px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  .plusButton {
+    display: inline-block;
+    height: 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    text-align: center;
   }
 }
