@@ -5,7 +5,6 @@ import styles from './Home.module.css';
 import AuthModal from './AuthModal';
 
 function HomeForm() {
-  const [newConfButtons, setNewConfButtons] = useState(false);
   return (
     <div className={styles.HomeForm}>
       <h3>La WebConférence de l'État pour tous les agents publics</h3>
@@ -16,14 +15,11 @@ function HomeForm() {
           hintText=""
           label=""
           nativeInputProps={{
-            placeholder: 'https://',
+            placeholder: 'Saisissez un nom de conférence...',
           }}
         />
         <div className={styles.confButtons}>
           <AuthModal />
-          {/* <Button className={styles.button} priority="primary" size="medium">
-            Rejoindre ou créer
-          </Button> */}
           <Button
             className={styles.plusButton}
             priority="primary"

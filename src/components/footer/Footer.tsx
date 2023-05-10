@@ -22,21 +22,24 @@ function footer({ headerFooterDisplayItem }: props) {
           Cohésion des Territoires (MTECT).
         </div>
       }
-      cookiesManagementLinkProps={{
-        href: '#',
-      }}
+      // cookiesManagementLinkProps={{
+      //   href: '#',
+      // }}
       homeLinkProps={{
         href: '/',
         title: "Accueil - Webconférence de l'Etat",
       }}
       personalDataLinkProps={{
-        href: '#',
+        href: '/donneespersonnelles',
       }}
       termsLinkProps={{
-        href: '#',
+        href: 'mentionslegales',
       }}
       websiteMapLinkProps={{
-        href: '#',
+        href: 'faq',
+      }}
+      accessibilityLinkProps={{
+        href: 'accessibilite',
       }}
       bottomItems={[headerFooterDisplayItem]}
     />

@@ -1,10 +1,6 @@
-import { Header, HeaderProps } from '@codegouvfr/react-dsfr/Header';
+import { Header } from '@codegouvfr/react-dsfr/Header';
 
-interface props {
-  headerFooterDisplayItem: HeaderProps.QuickAccessItem;
-}
-
-function header({ headerFooterDisplayItem }: props) {
+function header() {
   return (
     <>
       <Header
@@ -25,32 +21,31 @@ function header({ headerFooterDisplayItem }: props) {
         navigation={[
           {
             linkProps: {
-              href: '#',
+              href: 'faq',
               target: '_self',
             },
-            text: 'accès direct',
-          },
-          {
-            isActive: true,
-            linkProps: {
-              href: '#',
-              target: '_self',
-            },
-            text: 'accès direct',
+            text: 'Foire au questions',
           },
           {
             linkProps: {
-              href: '#',
+              href: 'cgu',
               target: '_self',
             },
-            text: 'accès direct',
+            text: "Conditions générales d'utilisation",
           },
           {
             linkProps: {
-              href: '#',
+              href: 'contact',
               target: '_self',
             },
-            text: 'accès direct',
+            text: 'Contact',
+          },
+          {
+            linkProps: {
+              href: 'apropos',
+              target: '_self',
+            },
+            text: 'À propos',
           },
         ]}
       />

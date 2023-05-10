@@ -11,7 +11,7 @@ import {
 export default function Layout() {
   return (
     <div className={styles.layout}>
-      <Header headerFooterDisplayItem={headerFooterDisplayItem} />
+      <Header />
       <main>
         <Outlet />
       </main>

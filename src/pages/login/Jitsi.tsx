@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-function Login() {
+function Jitsi() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  return <div>Login {searchParams}</div>;
+  return <div>jitsi {searchParams}</div>;
 }
 
-export default Login;
+export default Jitsi;
