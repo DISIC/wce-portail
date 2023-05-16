@@ -1,5 +1,3 @@
-import { Button } from '@codegouvfr/react-dsfr/Button';
-import { useState } from 'react';
 import Home from './pages/home/Home';
 import Layout from './components/layout/Layout';
 import Jitsi from './pages/login/Jitsi';
@@ -12,15 +10,17 @@ import Apropos from './pages/Apropos/Apropos.md';
 import Accessibilite from './pages/Accessibilite/Accessibilite.md';
 import Mentionslegales from './pages/MentionsLegales/MentionsLegales.md';
 import StaticPagesBuilder from './pages/staticPagesBuilder/StaticPagesBuilder';
+import Feedback from './pages/feedback/Feedback';
+import BrowserTest from './pages/browserTest/BrowserTest';
+import Jitsi_meet from './pages/Jitsi_meet/Jitsi_meet';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path=":roomName" element={<Jitsi />} />
-      </Route>
-      <Route path="/" element={<Layout />}>
+        <Route path="feedback" element={<Feedback />} />
+        <Route path="browser_test" element={<BrowserTest />} />
         <Route
           path="faq"
           element={<StaticPagesBuilder markDown={FAQ} contentTable={true} />}
@@ -63,6 +63,7 @@ function App() {
           }
         />
       </Route>
+      <Route path=":roomName" element={<Jitsi_meet />} />
     </Routes>
   );
 }
