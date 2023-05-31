@@ -11,8 +11,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 //import api from '../../axios/axios';
 import { useNavigate } from 'react-router-dom';
 
+type errorObj = {
+  message: string;
+  error?: {
+    status: string;
+    stack: string;
+  };
+};
+
 interface feedbackProps {
-  setError: () => void;
+  setError: (e: errorObj) => void;
 }
 
 export default function Feedback({ setError }: feedbackProps) {

@@ -789,7 +789,7 @@ export default function BrowserTest() {
               {/* <div style={{ display: 'none' }}>{iframe}</div> */}
               <div className={styles.iframe}>
                 <JitsiMeeting
-                  domain={import.meta.env.REACT_APP_JITSI_DOMAIN}
+                  domain={import.meta.env.VITE_JITSI_DOMAIN}
                   roomName={conference}
                   jwt={jwt}
                   spinner={renderSpinner}
@@ -821,7 +821,7 @@ export default function BrowserTest() {
                 />
                 <br />
                 <JitsiMeeting
-                  domain={import.meta.env.REACT_APP_JITSI_DOMAIN}
+                  domain={import.meta.env.VITE_JITSI_DOMAIN}
                   roomName={conference}
                   jwt={jwt}
                   spinner={renderSpinner}

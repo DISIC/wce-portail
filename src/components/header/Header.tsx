@@ -24,7 +24,7 @@ function header() {
               href: 'faq',
               target: '_self',
             },
-            text: 'Foire au questions',
+            text: 'Foire aux questions',
           },
           {
             linkProps: {
@@ -46,6 +46,13 @@ function header() {
               target: '_self',
             },
             text: 'À propos',
+          },
+          {
+            linkProps: {
+              href: 'browser_test',
+              target: '_self',
+            },
+            text: 'Tester votre matériel',
           },
         ]}
       />

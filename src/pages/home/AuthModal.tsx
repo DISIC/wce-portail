@@ -4,7 +4,7 @@ import { Input } from '@codegouvfr/react-dsfr/Input';
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './AuthModal.module.css';
 
@@ -13,16 +13,81 @@ const { AgentConnectModal, openAgentConnectModal } = createModal({
   isOpenedByDefault: false,
 });
 
-export default function AuthModal() {
+interface AuthModalProps {
+  roomName: string;
+  email: string;
+  isWhitelisted: boolean;
+  setEmail: (mail: string) => void;
+  sendEmail: (mail: string) => void;
+  setIsWhitelisted: (e: any) => void;
+  setRoomName: (e: any) => void;
+}
+
+export default function AuthModal({
+  roomName,
+  email,
+  isWhitelisted,
+  setEmail,
+  sendEmail,
+  setIsWhitelisted,
+  setRoomName,
+}: AuthModalProps) {
   const [msg, setMsg] = useState('');
   const [buttonMsg, setButtonMsg] = useState(
     'Recevoir le code de vérification par email'
   );
   const [isCheked, setIsChecked] = useState(false);
-  const [isWhitelisted, setIsWhitelisted] = useState(true);
+
   function handle() {
     openAgentConnectModal();
   }
+
+  // useEffect(() => {
+  //   const mail = localStorage.getItem('email');
+  //   const checked1 = localStorage.getItem('checked');
+  //   const checked = checked1 === 'true';
+  //   if (checked) {
+  //     setEmail(mail);
+  //   } else {
+  //     setEmail('');
+  //     localStorage.setItem('email', '');
+  //   }
+  //   setIsChecked(checked);
+  //   setMsg(null);
+  //   setButtonMsg('Recevoir le code de vérification par email');
+  //   if (!isOpen) {
+  //     setIsWhitelisted(null);
+  //   }
+  // }, []);
+
+  const agentConnect = (room: string) => {
+    fetch(`${import.meta.env.VITE_BASE_URL}/login_authorize?room=${room}`, {
+      redirect: 'manual',
+    }).then(res => {
+      if (res.type === 'opaqueredirect') {
+        // redirect to login page
+        window.location.href = res.url;
+      } else {
+        // handle normally / pass on to next handler
+        window.location.href = res.url;
+      }
+    });
+  };
+  console.log('==========' + import.meta.env.VITE_BASE_URL);
+  const onCheck = () => {
+    setIsChecked(!isCheked);
+    localStorage.setItem('checked', (!isCheked).toString());
+  };
+
+  const mailchanger = (e: any) => {
+    setEmail(e.target.value);
+    localStorage.setItem('email', e.target.value);
+  };
+
+  const mailSender = (e: any) => {
+    sendEmail(e);
+    setButtonMsg('Email non reçu ? Cliquez ici pour recevoir un nouvel email');
+  };
   return (
     <>
       <AgentConnectModal title="">
@@ -30,13 +95,13 @@ export default function AuthModal() {
         <p>
           <small>
             Nous avons besoin de vérifier votre identité afin de créer la
-            conférence {'roomName'}.
+            conférence {roomName}.
           </small>
         </p>
         <button>
           <img
             src="/static/media/ac-btn-bleu.svg"
-            //onClick={() => agentConnect("roomName")}
+            onClick={() => agentConnect(roomName)}
           />
         </button>
         <p>
@@ -47,10 +112,12 @@ export default function AuthModal() {
           </small>
         </p>
         <Input
-          //value={email}
-          //required
           label="Ou saissez votre adresse email professionnelle:"
-          //onChange={e => mailchanger(e)}
+          nativeInputProps={{
+            value: email,
+            onChange: e => mailchanger(e),
+            required: true,
+          }}
         />
         <Checkbox
           options={[
@@ -59,13 +126,14 @@ export default function AuthModal() {
               nativeInputProps: {
                 name: 'checkboxes-1',
                 value: 'value1',
+                onChange: () => onCheck(),
               },
             },
           ]}
         />
         <Button
           className={styles.modalButtons}
-          //onClick={() => mailSender(roomName)}
+          onClick={() => mailSender(roomName)}
         >
           {buttonMsg}
         </Button>

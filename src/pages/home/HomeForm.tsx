@@ -4,7 +4,17 @@ import { Button } from '@codegouvfr/react-dsfr/Button';
 import styles from './Home.module.css';
 import AuthModal from './AuthModal';
 
-function HomeForm() {
+interface AuthModalProps {
+  roomName: string;
+  email: string;
+  isWhitelisted: boolean;
+  setEmail: (mail: string) => void;
+  sendEmail: (mail: string) => void;
+  setIsWhitelisted: (e: any) => void;
+  setRoomName: (e: any) => void;
+}
+
+function HomeForm(props: AuthModalProps) {
   return (
     <div className={styles.HomeForm}>
       <h3>La WebConférence de l'État pour tous les agents publics</h3>
@@ -16,10 +26,11 @@ function HomeForm() {
           label=""
           nativeInputProps={{
             placeholder: 'Saisissez un nom de conférence...',
+            onChange: (e: any) => props.setRoomName(e.target.value),
           }}
         />
         <div className={styles.confButtons}>
-          <AuthModal />
+          <AuthModal {...props} />
           <Button
             className={styles.plusButton}
             priority="primary"
