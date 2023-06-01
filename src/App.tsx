@@ -18,6 +18,7 @@ import api from './axios/axios';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import LoginCallback from './pages/login/LoginCallback';
 import LogoutCallback from './pages/login/LogoutCallback';
+import Error from './pages/Error/Error';
 type errorObj = {
   message: string;
   error?: {
@@ -38,7 +39,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [emailCode, setEmailCode] = useState();
   const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [conferenceNumber, setConferenceNumber] = useState(0);
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
@@ -167,7 +168,16 @@ function App() {
   };
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route
+        path="/"
+        element={
+          <Layout
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            setError={setError}
+          />
+        }
+      >
         <Route
           index
           element={
@@ -191,6 +201,7 @@ function App() {
             />
           }
         />
+        <Route path="error" element={<Error error={error} />} />
         <Route
           path="logout_callback"
           element={

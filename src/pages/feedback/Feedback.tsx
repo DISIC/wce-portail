@@ -8,7 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-//import api from '../../axios/axios';
+import api from '../../axios/axios';
 import { useNavigate } from 'react-router-dom';
 
 type errorObj = {
@@ -33,37 +33,37 @@ export default function Feedback({ setError }: feedbackProps) {
   const [msginfo, setMsginfo] = useState(false);
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     api
-  //       .get('/feedback/whereami')
-  //       .then(res => {
-  //         if (res.data.toLowerCase() === 'rie') {
-  //           setFromRIE(true);
-  //         }
-  //       })
-  //       .catch(error => {
-  //         if (error.response) {
-  //           setMsg({
-  //             message: "erreur de détection de la provenance de l'utilisateur",
-  //             error: {},
-  //           });
-  //         } else {
-  //           if (error.request) {
-  //             setError({
-  //               message: "erreur de détection de la provenance de l'utilisateur",
-  //               error: {},
-  //             });
-  //             navigate('/error');
-  //           } else {
-  //             setError({
-  //               message: "erreur de détection de la provenance de l'utilisateur",
-  //               error: {},
-  //             });
-  //             navigate('/error');
-  //           }
-  //         }
-  //       });
-  //   });
+  useEffect(() => {
+    api
+      .get('/feedback/whereami')
+      .then(res => {
+        if (res.data.toLowerCase() === 'rie') {
+          setFromRIE(true);
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+          setMsg({
+            message: "erreur de détection de la provenance de l'utilisateur",
+            error: { status: '', stack: '' },
+          });
+        } else {
+          if (error.request) {
+            setError({
+              message: "erreur de détection de la provenance de l'utilisateur",
+              error: { status: '', stack: '' },
+            });
+            navigate('/error');
+          } else {
+            setError({
+              message: "erreur de détection de la provenance de l'utilisateur",
+              error: { status: '', stack: '' },
+            });
+            navigate('/error');
+          }
+        }
+      });
+  });
 
   useEffect(() => {
     if (qty !== 0) {
@@ -77,36 +77,36 @@ export default function Feedback({ setError }: feedbackProps) {
     }
   });
 
-  //   const sendFeedback = () => {
-  //     if (qty < 1) {
-  //       setMsg({ message: 'le champ qualité est oblogatoire!', error: {} });
-  //       return;
-  //     }
-  //     const jmmc_objectId = sessionStorage.getItem('jmmc_object_id');
-  //     api
-  //       .post('feedback', {
-  //         rt: { qty: qty, inv: inv },
-  //         isVPN: deskConnexion,
-  //         com: text,
-  //         jmmc_objectId: jmmc_objectId,
-  //       })
-  //       .then(res => {
-  //         if (res.data.error) {
-  //           setMsg(res.data);
-  //         } else {
-  //           setMsg(res.data);
-  //           setTimeout(() => {
-  //             return navigate('/');
-  //           }, 1000);
-  //         }
-  //       })
-  //       .catch(() => {
-  //         setMsg({
-  //           message: "erreur de l'envoi des données merci de réesayer",
-  //           error: {},
-  //         });
-  //       });
-  //   };
+  const sendFeedback = () => {
+    if (qty < 1) {
+      setMsg({ message: 'le champ qualité est oblogatoire!', error: {} });
+      return;
+    }
+    const jmmc_objectId = sessionStorage.getItem('jmmc_object_id');
+    api
+      .post('feedback', {
+        rt: { qty: qty, inv: inv },
+        isVPN: deskConnexion,
+        com: text,
+        jmmc_objectId: jmmc_objectId,
+      })
+      .then(res => {
+        if (res.data.error) {
+          setMsg(res.data);
+        } else {
+          setMsg(res.data);
+          setTimeout(() => {
+            return navigate('/');
+          }, 1000);
+        }
+      })
+      .catch(() => {
+        setMsg({
+          message: "erreur de l'envoi des données merci de réesayer",
+          error: {},
+        });
+      });
+  };
 
   return (
     <div className={styles.home}>
@@ -216,7 +216,7 @@ export default function Feedback({ setError }: feedbackProps) {
             nativeButtonProps={{
               id: 'submitBTN',
             }}
-            onClick={() => 'sendFeedback'}
+            onClick={sendFeedback}
           >
             Envoyer
           </Button>

@@ -50,13 +50,13 @@ export default function LoginCallback({
           if (error.request) {
             setError({
               message: "erreur d'authentification",
-              error: { status: '', stack: '' },
+              error: { status: '400', stack: '' },
             });
             navigate('/error');
           } else {
             setError({
               message: "erreur d'authentification",
-              error: { status: '', stack: '' },
+              error: { status: '500', stack: '' },
             });
             navigate('/error');
           }
