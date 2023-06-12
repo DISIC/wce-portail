@@ -21,6 +21,7 @@ export default function LoginCallback({
   const urlParams = new URLSearchParams(queryString);
 
   useEffect(() => {
+    console.log('============', urlParams.get('code'), urlParams.get('state'));
     if (urlParams.get('error_description')) {
       navigate(-2);
     }
@@ -36,10 +37,11 @@ export default function LoginCallback({
           localStorage.setItem('auth', 'true');
           setAuthenticated(true);
         } else {
-          navigate(`/login/${res.data.roomName}`);
+          navigate(`/`);
         }
       })
       .catch(error => {
+        localStorage.setItem('auth', 'false');
         if (error.response) {
           setError({
             message: "erreur d'authentification",
@@ -62,7 +64,7 @@ export default function LoginCallback({
           }
         }
       });
-  }, []);
+  });
 
   return (
     <div className={styles.home}>

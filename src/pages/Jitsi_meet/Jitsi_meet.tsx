@@ -28,9 +28,8 @@ const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
     []
   );
   const navigate = useNavigate();
-  const { roomNamevar } = useParams();
+  const { roomName } = useParams();
   const jwt = window.location.search.split('=')[1];
-  const roomName = roomNamevar;
 
   // const printEventOutput = payload => {
   //   updateLog(items => [...items, JSON.stringify(payload)]);
@@ -164,7 +163,7 @@ const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
         joinConference(roomName as string);
       }
     }
-  }, [roomNamevar]);
+  }, [roomName]);
 
   return (
     <>

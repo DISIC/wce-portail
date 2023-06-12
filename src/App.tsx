@@ -169,6 +169,16 @@ function App() {
   return (
     <Routes>
       <Route
+        path=":roomName"
+        element={
+          <Jitsi_meet
+            joinConference={joinConference}
+            setError={setError}
+            setMsg={setMsg}
+          />
+        }
+      />
+      <Route
         path="/"
         element={
           <Layout
@@ -255,16 +265,6 @@ function App() {
           }
         />
       </Route>
-      <Route
-        path=":roomName"
-        element={
-          <Jitsi_meet
-            joinConference={joinConference}
-            setError={setError}
-            setMsg={setMsg}
-          />
-        }
-      />
     </Routes>
   );
 }
