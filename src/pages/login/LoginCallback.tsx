@@ -64,7 +64,7 @@ export default function LoginCallback({
           }
         }
       });
-  }, [setAuthenticated, setError]);
+  }, []);
 
   return (
     <div className={styles.home}>

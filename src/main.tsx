@@ -7,11 +7,9 @@ import { startReactDsfr } from '@codegouvfr/react-dsfr/spa';
 startReactDsfr({ defaultColorScheme: 'system' });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<App />} />
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/*" element={<App />} />
+    </Routes>
+  </BrowserRouter>
 );
