@@ -6,11 +6,13 @@ import styles from './Home.module.css';
 interface AuthModalProps {
   roomName: string;
   email: string;
-  isWhitelisted: boolean;
+  isWhitelisted: boolean | null;
   setEmail: (mail: string) => void;
   sendEmail: (mail: string) => void;
   setIsWhitelisted: (e: any) => void;
   setRoomName: (e: any) => void;
+  joinConference: (e: any) => void;
+  authenticated: boolean | null
 }
 
 function Home(props: AuthModalProps) {

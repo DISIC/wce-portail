@@ -38,7 +38,7 @@ function App() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [emailCode, setEmailCode] = useState();
-  const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
+  const [isWhitelisted, setIsWhitelisted] = useState<boolean | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [conferenceNumber, setConferenceNumber] = useState(0);
   const [participantsNumber, setparticipantsNumber] = useState(0);
@@ -179,6 +179,24 @@ function App() {
         }
       />
       <Route
+          path="login_callback"
+          element={
+            <LoginCallback
+              setAuthenticated={setAuthenticated}
+              setError={setError}
+            />
+          }
+        />
+      <Route
+          path="logout_callback"
+          element={
+            <LogoutCallback
+              setAuthenticated={setAuthenticated}
+              setError={setError}
+            />
+          }
+        />
+      <Route
         path="/"
         element={
           <Layout
@@ -199,28 +217,12 @@ function App() {
               email={email}
               setEmail={setEmail}
               sendEmail={sendEmail}
-            />
-          }
-        />
-        <Route
-          path="login_callback"
-          element={
-            <LoginCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
+              joinConference={joinConference}
+              authenticated={authenticated}
             />
           }
         />
         <Route path="error" element={<Error error={error} />} />
-        <Route
-          path="logout_callback"
-          element={
-            <LogoutCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
         <Route path="feedback" element={<Feedback setError={setError} />} />
         <Route path="browser_test" element={<BrowserTest />} />
         <Route
