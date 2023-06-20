@@ -78,40 +78,38 @@ function App() {
   }, []);
 
   useEffect(() => {
-    api
-      .get('/stats/homePage')
-      .then(res => {
-        if (!res.data.authenticated) {
-          setAuthenticated(false);
-        }
-        setConferenceNumber(res.data.conf);
-        setparticipantsNumber(res.data.part);
-      })
-      .catch(error => {
-        if (error.response) {
-          setMsg(
-            <Badge noIcon severity="error">
-              erreur: les statistiques ne sont pas récupérables
-            </Badge>
-          );
-        } else {
-          if (error.request) {
-            setError({
-              message:
-                "erreur d'envoi de la requete pour récupérer les statistiques",
-              error: { status: '', stack: '' },
-            });
-            navigate('/error');
-          } else {
-            setError({
-              message:
-                "erreur d'envoi de la requete pour récupérer les statistiques",
-              error: { status: '', stack: '' },
-            });
-            navigate('/error');
-          }
-        }
-      });
+    api.get('/stats/homePage').then(res => {
+      if (!res.data.authenticated) {
+        setAuthenticated(false);
+      }
+      setConferenceNumber(res.data.conf);
+      setparticipantsNumber(res.data.part);
+    });
+    // .catch(error => {
+    //   if (error.response) {
+    //     setMsg(
+    //       <Badge noIcon severity="error">
+    //         erreur: les statistiques ne sont pas récupérables
+    //       </Badge>
+    //     );
+    //   } else {
+    //     if (error.request) {
+    //       setError({
+    //         message:
+    //           "erreur d'envoi de la requete pour récupérer les statistiques",
+    //         error: { status: '', stack: '' },
+    //       });
+    //       navigate('/error');
+    //     } else {
+    //       setError({
+    //         message:
+    //           "erreur d'envoi de la requete pour récupérer les statistiques",
+    //         error: { status: '', stack: '' },
+    //       });
+    //       navigate('/error');
+    //     }
+    //   }
+    // });
   }, []);
 
   const joinConference = (roomName: string) => {
@@ -179,23 +177,23 @@ function App() {
         }
       />
       <Route
-          path="login_callback"
-          element={
-            <LoginCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
+        path="login_callback"
+        element={
+          <LoginCallback
+            setAuthenticated={setAuthenticated}
+            setError={setError}
+          />
+        }
+      />
       <Route
-          path="logout_callback"
-          element={
-            <LogoutCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
+        path="logout_callback"
+        element={
+          <LogoutCallback
+            setAuthenticated={setAuthenticated}
+            setError={setError}
+          />
+        }
+      />
       <Route
         path="/"
         element={
