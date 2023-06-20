@@ -9,8 +9,8 @@ import { useState, useEffect } from 'react';
 
 import styles from './AuthModal.module.css';
 
-const { AgentConnectModal, openAgentConnectModal } = createModal({
-  name: 'AgentConnect',
+const modal = createModal({
+  id: 'AgentConnect',
   isOpenedByDefault: false,
 });
 
@@ -23,7 +23,7 @@ interface AuthModalProps {
   setIsWhitelisted: (e: any) => void;
   setRoomName: (e: any) => void;
   joinConference: (e: any) => void;
-  authenticated: boolean | null
+  authenticated: boolean | null;
 }
 
 function roomNameConstraintOk(roomName: string) {
@@ -47,7 +47,7 @@ export default function AuthModal({
   setIsWhitelisted,
   setRoomName,
   joinConference,
-  authenticated
+  authenticated,
 }: AuthModalProps) {
   const [msg, setMsg] = useState<string | null>('');
   const [buttonMsg, setButtonMsg] = useState(
@@ -56,38 +56,36 @@ export default function AuthModal({
   const [isCheked, setIsChecked] = useState(false);
 
   function handle() {
-    if(!roomName){
+    if (!roomName) {
       const room = generateRoomName();
       setRoomName(room);
       api.get('/feedback/whereami').then(res => {
-        if(res.data == "internet"){
-            if(!authenticated){
-              openAgentConnectModal();
-            }
-            if(authenticated){
-              joinConference(room);
-            }
+        if (res.data == 'internet') {
+          if (!authenticated) {
+            modal.open();
           }
-          if(res.data == "rie"){
+          if (authenticated) {
             joinConference(room);
           }
-      })
-      
-    }else
-    if(roomNameConstraintOk(roomName)){
+        }
+        if (res.data == 'rie') {
+          joinConference(room);
+        }
+      });
+    } else if (roomNameConstraintOk(roomName)) {
       api.get('/feedback/whereami').then(res => {
-      if(res.data == "internet"){
-          if(!authenticated){
-            openAgentConnectModal();
+        if (res.data == 'internet') {
+          if (!authenticated) {
+            modal.open();
           }
-          if(authenticated){
+          if (authenticated) {
             joinConference(roomName);
           }
         }
-        if(res.data == "rie"){
+        if (res.data == 'rie') {
           joinConference(roomName);
         }
-    })
+      });
     }
   }
 
@@ -97,7 +95,7 @@ export default function AuthModal({
     const checked1 = localStorage.getItem('checked');
     const checked = checked1 === 'true';
     if (checked) {
-      if(mail){
+      if (mail) {
         setEmail(mail);
       }
     } else {
@@ -139,7 +137,7 @@ export default function AuthModal({
   };
   return (
     <>
-      <AgentConnectModal title="">
+      <modal.Component title="">
         <h5>Vous êtes l’organisateur de la réunion ?</h5>
         <p>
           <small>
@@ -201,7 +199,7 @@ export default function AuthModal({
             <Badge severity="success">Message envoyé.</Badge>
           </p>
         ) : null}
-      </AgentConnectModal>
+      </modal.Component>
       <Button onClick={handle} className={styles.button}>
         Rejoindre ou créer
       </Button>
@@ -209,8 +207,11 @@ export default function AuthModal({
   );
 }
 
-
-
 function generateRoomName() {
-  return Math.random().toString(36).slice(2).toUpperCase() + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10);
+  return (
+    Math.random().toString(36).slice(2).toUpperCase() +
+    Math.floor(Math.random() * 10) +
+    Math.floor(Math.random() * 10) +
+    Math.floor(Math.random() * 10)
+  );
 }
