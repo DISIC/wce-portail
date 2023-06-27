@@ -9,7 +9,7 @@ import { ReactNode } from 'react';
 
 type errorObj = {
   message: string;
-  error?: {
+  error: {
     status: string;
     stack: string;
   };

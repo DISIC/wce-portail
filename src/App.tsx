@@ -21,7 +21,7 @@ import LogoutCallback from './pages/login/LogoutCallback';
 import Error from './pages/Error/Error';
 type errorObj = {
   message: string;
-  error?: {
+  error: {
     status: string;
     stack: string;
   };
@@ -32,7 +32,7 @@ function App() {
   const [hide, setHide] = useState(false);
   const [error, setError] = useState<errorObj>({
     message: "la page que vous demandez n'existe pas",
-    error: { status: 'bad request page not found', stack: '' },
+    error: { status: '404', stack: '' },
   });
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
@@ -49,7 +49,10 @@ function App() {
       .post('conference/create/byemail', { conference: room, email: email })
       .then(res => {
         if (res.data.error) {
-          setError(res.data);
+          setError({
+            message: "la page que vous demandez n'existe pas",
+            error: { status: '404', stack: '' },
+          });
           navigate('/error');
         } else {
           setIsWhitelisted(res.data.isWhitelisted);
@@ -60,8 +63,16 @@ function App() {
           setIsWhitelisted(false);
         } else {
           if (error.request) {
+            setError({
+              message: "la page que vous demandez n'existe pas",
+              error: { status: '404', stack: '' },
+            });
             navigate('/error');
           } else {
+            setError({
+              message: "la page que vous demandez n'existe pas",
+              error: { status: '500', stack: '' },
+            });
             navigate('/error');
           }
         }
@@ -78,38 +89,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    api.get('/stats/homePage').then(res => {
-      if (!res.data.authenticated) {
-        setAuthenticated(false);
-      }
-      setConferenceNumber(res.data.conf);
-      setparticipantsNumber(res.data.part);
-    });
-    // .catch(error => {
-    //   if (error.response) {
-    //     setMsg(
-    //       <Badge noIcon severity="error">
-    //         erreur: les statistiques ne sont pas récupérables
-    //       </Badge>
-    //     );
-    //   } else {
-    //     if (error.request) {
-    //       setError({
-    //         message:
-    //           "erreur d'envoi de la requete pour récupérer les statistiques",
-    //         error: { status: '', stack: '' },
-    //       });
-    //       navigate('/error');
-    //     } else {
-    //       setError({
-    //         message:
-    //           "erreur d'envoi de la requete pour récupérer les statistiques",
-    //         error: { status: '', stack: '' },
-    //       });
-    //       navigate('/error');
-    //     }
-    //   }
-    // });
+    api
+      .get('/stats/homePage')
+      .then(res => {
+        if (!res.data.authenticated) {
+          setAuthenticated(false);
+        }
+        setConferenceNumber(res.data.conf);
+        setparticipantsNumber(res.data.part);
+      })
+      .catch(error => {
+        setMsg(
+          <Badge noIcon severity="error">
+            erreur: les statistiques ne sont pas récupérables
+          </Badge>
+        );
+      });
   }, []);
 
   const joinConference = (roomName: string) => {
@@ -117,7 +112,10 @@ function App() {
       .get(`/${roomName}`)
       .then(res => {
         if (res.data.error) {
-          setError(res.data);
+          setError({
+            message: "la page que vous demandez n'existe pas",
+            error: { status: '404', stack: '' },
+          });
           navigate('/error');
         } else {
           setRoomName(roomName);
@@ -149,12 +147,23 @@ function App() {
       })
       .catch(error => {
         if (error.response) {
-          setError(error.response);
+          setError({
+            message: "la page que vous demandez n'existe pas",
+            error: { status: '404', stack: '' },
+          });
           navigate('/error');
         } else {
           if (error.request) {
+            setError({
+              message: "la page que vous demandez n'existe pas",
+              error: { status: '404', stack: '' },
+            });
             navigate('/error');
           } else {
+            setError({
+              message: "la page que vous demandez n'existe pas",
+              error: { status: '500', stack: '' },
+            });
             navigate('/error');
           }
         }

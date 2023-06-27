@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 type errorObj = {
   message: string;
-  error?: {
+  error: {
     status: string;
     stack: string;
   };

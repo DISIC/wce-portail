@@ -14,52 +14,89 @@ interface AuthModalProps {
   setIsWhitelisted: (e: any) => void;
   setRoomName: (e: any) => void;
   joinConference: (e: any) => void;
-  authenticated: boolean | null
+  authenticated: boolean | null;
 }
 
 function HomeForm(props: AuthModalProps) {
-
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
-  const [messageType, setMessageType] = useState<string>('')
+  const [messageType, setMessageType] = useState<string>('');
 
   const change = (e: string) => {
-    verifyAndSetVAlue(e)
-  }
-  const pattern = new RegExp("^(?=(?:[a-zA-Z0-9]*[a-zA-Z]))(?=(?:[a-zA-Z0-9]*[0-9]){3})[a-zA-Z0-9]{10,}$")
+    verifyAndSetVAlue(e);
+  };
+  const pattern = new RegExp(
+    '^(?=(?:[a-zA-Z0-9]*[a-zA-Z]))(?=(?:[a-zA-Z0-9]*[0-9]){3})[a-zA-Z0-9]{10,}$'
+  );
 
-const verifyAndSetVAlue = (value: string) => {
-    if(value) {
-          if(pattern.test(value)){
-              setMessageType('valid')
-              props.setRoomName(value)
-              setMessage(
-                  <div className={styles.message}>
-                      <small className={styles.roomNameConditionValid}> Au moins 3 chiffres</small>
-                      <small className={styles.roomNameConditionValid}> Un minimum de 10 caractères</small>
-                      <small className={styles.roomNameConditionValid}> Des chiffres et des lettres sans accents uniquement</small>
-                  </div>
-              )
-          }else {
-              setMessageType('error')
-              props.setRoomName(value)
-              const message = (
-                  <div className={styles.message}>
-                      {getCountOfDigits(value) >= 3 ? <small className={styles.roomNameConditionValid}> Au moins 3 chiffres</small> : <small className={styles.roomNameConditionNotValid}> Au moins 3 chiffres</small>}
-                      {getCountCaracters(value) >= 10 ? <small className={styles.roomNameConditionValid}> Un minimum de 10 caractères</small> : <small className={styles.roomNameConditionNotValid}> Un minimum de 10 caractères</small>}
-                      {isAlphaNumeric(value) ? <small className={styles.roomNameConditionValid}> Des chiffres et des lettres sans accents uniquement</small> : <small className={styles.roomNameConditionNotValid}> Des chiffres et des lettres sans accents uniquement</small>}
-                  </div>
-              )
-              setMessage(
-                  message
-              )
-          }
-        
-    }else{
-      setMessageType('')
-      props.setRoomName(value)
-      setMessage('')
+  const verifyAndSetVAlue = (value: string) => {
+    if (value) {
+      if (pattern.test(value)) {
+        setMessageType('valid');
+        props.setRoomName(value);
+        setMessage(
+          <div className={styles.message}>
+            <small className={styles.roomNameConditionValid}>
+              {' '}
+              Au moins 3 chiffres
+            </small>
+            <small className={styles.roomNameConditionValid}>
+              {' '}
+              Un minimum de 10 caractères
+            </small>
+            <small className={styles.roomNameConditionValid}>
+              {' '}
+              Des chiffres et des lettres sans accents uniquement
+            </small>
+          </div>
+        );
+      } else {
+        setMessageType('error');
+        props.setRoomName(value);
+        const message = (
+          <div className={styles.message}>
+            {getCountOfDigits(value) >= 3 ? (
+              <small className={styles.roomNameConditionValid}>
+                {' '}
+                Au moins 3 chiffres
+              </small>
+            ) : (
+              <small className={styles.roomNameConditionNotValid}>
+                {' '}
+                Au moins 3 chiffres
+              </small>
+            )}
+            {getCountCaracters(value) >= 10 ? (
+              <small className={styles.roomNameConditionValid}>
+                {' '}
+                Un minimum de 10 caractères
+              </small>
+            ) : (
+              <small className={styles.roomNameConditionNotValid}>
+                {' '}
+                Un minimum de 10 caractères
+              </small>
+            )}
+            {isAlphaNumeric(value) ? (
+              <small className={styles.roomNameConditionValid}>
+                {' '}
+                Des chiffres et des lettres sans accents uniquement
+              </small>
+            ) : (
+              <small className={styles.roomNameConditionNotValid}>
+                {' '}
+                Des chiffres et des lettres sans accents uniquement
+              </small>
+            )}
+          </div>
+        );
+        setMessage(message);
+      }
+    } else {
+      setMessageType('');
+      props.setRoomName(value);
+      setMessage('');
     }
-}
+  };
   return (
     <div className={styles.HomeForm}>
       <h3>La WebConférence de l'État pour tous les agents publics</h3>
@@ -77,7 +114,7 @@ const verifyAndSetVAlue = (value: string) => {
         />
         <div className={styles.confButtons}>
           <AuthModal {...props} />
-          <CalendarModalComponent/>
+          <CalendarModalComponent {...props} />
         </div>
       </div>
       <p>{message}</p>
@@ -91,22 +128,17 @@ const verifyAndSetVAlue = (value: string) => {
   );
 }
 
-
-
-
-
-
-function getCountOfDigits(str : string) {
+function getCountOfDigits(str: string) {
   return str.replace(/[^0-9]/g, '').length;
 }
 
-function getCountCaracters(str : string) {
+function getCountCaracters(str: string) {
   return str.length;
 }
 
-function isAlphaNumeric(str : string) {
-  const isAlphaNum =  new RegExp("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$") 
-  return (isAlphaNum.test(str));
+function isAlphaNumeric(str: string) {
+  const isAlphaNum = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$');
+  return isAlphaNum.test(str);
 }
 
 export default HomeForm;
