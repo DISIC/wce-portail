@@ -200,3 +200,9 @@
       width: 30%;
   }
 }
+
+
+.calendarModalButtons {
+  display: flex;
+  justify-content: space-between;
+}

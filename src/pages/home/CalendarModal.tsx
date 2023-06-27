@@ -1,3 +1,4 @@
+import React from 'react';
 import { createModal } from '@codegouvfr/react-dsfr/Modal';
 import { useIsModalOpen } from '@codegouvfr/react-dsfr/Modal/useIsModalOpen';
 import { Button } from '@codegouvfr/react-dsfr/Button';
@@ -7,6 +8,12 @@ import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import axios from 'axios';
 import styles from './Home.module.css';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 import { useState, useEffect } from 'react';
 
@@ -26,11 +33,42 @@ const modal = createModal({
 
 export default function CalendarModalComponent(props: any) {
   let roomName = props.roomName;
+  const date = new Date(new Date().setHours(new Date().getHours() + 2))
+    .toISOString()
+    .substring(0, 16);
+
   const isOpen = useIsModalOpen(modal);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [pin, setPin] = useState('');
   const [copied, setCopied] = useState('Copier les Informations');
   const [disabled, setDisabled] = useState(false);
+  const [dateTimeStart, setDateTimeStart] = useState(date);
+  const [duration, setDuration] = useState('00:00');
+  const dateTimeEnd = new Date(
+    new Date(dateTimeStart).setHours(
+      new Date(dateTimeStart).getHours() + 2 + parseInt(duration.split(':')[0]),
+      new Date(dateTimeStart).getMinutes() + parseInt(duration.split(':')[1])
+    )
+  )
+    .toISOString()
+    .substring(0, 16);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const copy = () => {
+    const par = `Lien vers la conférence: ${roomName} Numéro de téléphone: ${phoneNumber} PIN: ${pin}`;
+    navigator.clipboard.writeText(par);
+    setCopied('text copié');
+    setDisabled(true);
+  };
 
   console.log(`Modal is currently: ${isOpen ? 'open' : 'closed'}`);
   const handle = async () => {
@@ -83,11 +121,37 @@ export default function CalendarModalComponent(props: any) {
     }
   }, [roomName, isOpen]);
 
+  const copyEvent = () => {
+    const transformDate = (date: any) => {
+      const date1 = date.split('T')[0].split('-').reverse().join('/');
+      const time = date.split('T')[1];
+      return date1 + ' ' + time;
+    };
+    const par = `
+    Lien vers la conférence: ${window.location}${roomName}
+    date de début: ${
+      dateTimeStart &&
+      transformDate((dateTimeStart || '').toString().substring(0, 16))
+    } 
+    date de fin: ${
+      dateTimeEnd &&
+      transformDate((dateTimeEnd || '').toString().substring(0, 16))
+    } 
+    Coordonnées téléphoniques de la conférence :
+         - Numéro de téléphone: ${phoneNumber} 
+         - PIN: ${pin}
+    `;
+    navigator.clipboard.writeText(par);
+    setCopied('Informations copiées');
+    setOpen(true);
+    setDisabled(true);
+  };
+
   const event = {
     title: `Webconférence de l'État : ${roomName}`,
     description: `Lien vers la conférence: ${window.location}${roomName} Numéro de téléphone: ${phoneNumber} PIN: ${pin}`,
-    startTime: '',
-    endTime: '',
+    startTime: dateTimeStart && dateTimeStart,
+    endTime: dateTimeEnd && dateTimeEnd,
     location: `${window.location}${roomName}`,
     // attendees: [
     //   "Hello World <hello@world.com>",
@@ -102,61 +166,68 @@ export default function CalendarModalComponent(props: any) {
         <h6>Générer une invitation: {roomName}</h6>
 
         <p>
-          Date de début :
+          Date de début : {dateTimeStart}
           <Input
-            label="Label champs de saisie"
+            label=""
             nativeInputProps={{
-              type: 'date',
+              type: 'datetime-local',
+              value: dateTimeStart,
+              onChange: e => setDateTimeStart(e.target.value),
             }}
           />
-          {/* <TextInput
-            onBlur={function noRefCheck() {}}
-            value={(dateTimeStart || '').toString().substring(0, 16)}
-            onChange={handleChangeStart}
-            type="datetime-local"
-          /> */}
         </p>
         <p>
-          Durée
+          Durée {`(${duration.split(':')[0]}h ${duration.split(':')[1]}min)`} :{' '}
+          {dateTimeEnd}
           <Input
-            label="Label champs de saisie"
+            label=""
             nativeInputProps={{
-              type: 'date',
+              type: 'time',
+              value: duration,
+              onChange: e => setDuration(e.target.value),
             }}
           />
-          {/* {`(${duration.split(':')[0]}h ${duration.split(':')[1]}min)`} :{' '}
-          <TextInput
-            onBlur={function noRefCheck() {}}
-            value={duration}
-            onChange={handleChangeDuration}
-            type="time"
-          /> */}
         </p>
         <h6>Coordonnées téléphoniques de la conférence :</h6>
         <p>- Téléphone: {phoneNumber}</p>
         <p>- Code de la conférence: {`${pin}#`}</p>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: '100%' }}
+          >
+            Les informations ont été copiées
+          </Alert>
+        </Snackbar>
 
-        <div>
+        <div className={styles.calendarModalButtons}>
           <ICalendarLink
             event={event}
             className={styles.modalButton}
             filename={`WebConf de l'Etat - Conférence ${roomName}`}
-          />
-          {/* <Button
+          >
+            <Button
               // variant="contained"
               style={{ backgroundColor: '#0a76f6', textTransform: 'none' }}
             >
               Ajouter au calendrier
-            </Button> */}
-          {/* </ICalendarLink> */}
+            </Button>
+          </ICalendarLink>
           <Button
             style={{ backgroundColor: '#0a76f6', textTransform: 'none' }}
             className={styles.modalButton}
             title="copy"
-            // onClick={() => copyEvent()}
+            onClick={() => copyEvent()}
+            disabled={disabled}
             // variant="contained"
           >
-            Copier les informations
+            {copied}
           </Button>
         </div>
       </modal.Component>
