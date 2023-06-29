@@ -166,7 +166,7 @@ export default function CalendarModalComponent(props: any) {
         <h6>Générer une invitation: {roomName}</h6>
 
         <p>
-          Date de début : {dateTimeStart}
+          Date de début :
           <Input
             label=""
             nativeInputProps={{
@@ -177,8 +177,7 @@ export default function CalendarModalComponent(props: any) {
           />
         </p>
         <p>
-          Durée {`(${duration.split(':')[0]}h ${duration.split(':')[1]}min)`} :{' '}
-          {dateTimeEnd}
+          Durée {`(${duration.split(':')[0]}h ${duration.split(':')[1]}min)`} :
           <Input
             label=""
             nativeInputProps={{
