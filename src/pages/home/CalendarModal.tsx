@@ -11,10 +11,6 @@ import styles from './Home.module.css';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 import { useState, useEffect } from 'react';
 
 function generateRoomName() {
@@ -55,7 +51,7 @@ export default function CalendarModalComponent(props: any) {
 
   const [open, setOpen] = useState(false);
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event, reason: any) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -147,6 +143,22 @@ export default function CalendarModalComponent(props: any) {
     setDisabled(true);
   };
 
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return (
+      <MuiAlert
+        onClose={handleClose}
+        severity="success"
+        sx={{ width: '100%' }}
+        elevation={6}
+        ref={ref}
+        variant="filled"
+        {...props}
+      >
+        Les informations ont été copiées
+      </MuiAlert>
+    );
+  });
+
   const event = {
     title: `Webconférence de l'État : ${roomName}`,
     description: `Lien vers la conférence: ${window.location}${roomName} Numéro de téléphone: ${phoneNumber} PIN: ${pin}`,
@@ -196,13 +208,7 @@ export default function CalendarModalComponent(props: any) {
           onClose={handleClose}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: '100%' }}
-          >
-            Les informations ont été copiées
-          </Alert>
+          <Alert />
         </Snackbar>
 
         <div className={styles.calendarModalButtons}>
