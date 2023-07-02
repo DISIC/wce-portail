@@ -56,7 +56,11 @@ const HomeSlider = () => {
         <Fade>
           {fadeImages.map((fadeImage, index) => (
             <div key={index}>
-              <img style={{ width: '100%' }} src={fadeImage.url} />
+              <img
+                alt="placeholder"
+                style={{ width: '100%' }}
+                src={fadeImage.url}
+              />
               <h2>{fadeImage.caption}</h2>
             </div>
           ))}

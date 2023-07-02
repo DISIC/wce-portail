@@ -145,8 +145,12 @@ export default function AuthModal({
             conférence {roomName}.
           </small>
         </p>
-        <button>
+        <button type="button">
+          <span className={styles.hidden} id="input-desc-error">
+            text
+          </span>
           <img
+            alt="agentConnect"
             src="/static/media/ac-btn-bleu.svg"
             onClick={() => agentConnect(roomName)}
           />
@@ -183,6 +187,9 @@ export default function AuthModal({
           className={styles.modalButtons}
           onClick={() => mailSender(roomName)}
         >
+          <span className={styles.hidden} id="input-desc-error">
+            text
+          </span>
           {buttonMsg}
         </Button>
         {msg}

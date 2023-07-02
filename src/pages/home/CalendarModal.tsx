@@ -173,15 +173,20 @@ export default function CalendarModalComponent(props: any) {
 
   return (
     <>
-      <modal.Component title="">
+      <modal.Component
+        title={
+          <span className={styles.hidden} id="h1">
+            heading
+          </span>
+        }
+      >
         <br />
         <h6>Générer une invitation: {roomName}</h6>
-
         <p>
-          Date de début :
           <Input
-            label=""
+            label={<small id="input1-desc-error">Date de début :</small>}
             nativeInputProps={{
+              id: 'input1',
               type: 'datetime-local',
               value: dateTimeStart,
               onChange: e => setDateTimeStart(e.target.value),
@@ -189,10 +194,15 @@ export default function CalendarModalComponent(props: any) {
           />
         </p>
         <p>
-          Durée {`(${duration.split(':')[0]}h ${duration.split(':')[1]}min)`} :
           <Input
-            label=""
+            label={
+              <span id="input2-desc-error">
+                Durée{' '}
+                {`(${duration.split(':')[0]}h ${duration.split(':')[1]}min)`} :
+              </span>
+            }
             nativeInputProps={{
+              id: 'input2',
               type: 'time',
               value: duration,
               onChange: e => setDuration(e.target.value),

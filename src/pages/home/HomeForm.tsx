@@ -105,8 +105,13 @@ function HomeForm(props: AuthModalProps) {
         <Input
           style={{ width: '100%' }}
           hintText=""
-          label=""
+          label={
+            <span className={styles.hidden} id="input-desc-error">
+              label
+            </span>
+          }
           nativeInputProps={{
+            id: 'input',
             value: props.roomName,
             placeholder: 'Saisissez un nom de conférence...',
             onChange: (e: any) => change(e.target.value),
