@@ -13,6 +13,10 @@
   margin-bottom: 3%;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .button {
     display: inline-block;

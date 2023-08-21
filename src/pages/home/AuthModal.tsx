@@ -137,8 +137,8 @@ export default function AuthModal({
   };
   return (
     <>
-      <modal.Component title="">
-        <h5>Vous êtes l’organisateur de la réunion ?</h5>
+      <modal.Component title="Vous êtes l’organisateur de la réunion ?">
+        {/* <h5>Vous êtes l’organisateur de la réunion ?</h5> */}
         <p>
           <small>
             Nous avons besoin de vérifier votre identité afin de créer la
@@ -163,8 +163,15 @@ export default function AuthModal({
           </small>
         </p>
         <Input
-          label="Ou saissez votre adresse email professionnelle:"
+          label={
+            <span id="input3-desc-error">
+              Ou saissez votre adresse email professionnelle:
+            </span>
+          }
           nativeInputProps={{
+            'aria-describedby': 'input3-desc-error',
+            'aria-labelledby': 'input3-desc-error',
+            id: 'input3',
             value: email,
             onChange: e => mailchanger(e),
             required: true,
