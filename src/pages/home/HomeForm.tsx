@@ -4,6 +4,8 @@ import { Button } from '@codegouvfr/react-dsfr/Button';
 import styles from './Home.module.css';
 import AuthModal from './AuthModal';
 import CalendarModalComponent from './CalendarModal';
+import { Accordion } from '@codegouvfr/react-dsfr/Accordion';
+import { fr } from '@codegouvfr/react-dsfr';
 
 interface AuthModalProps {
   roomName: string;
@@ -129,6 +131,21 @@ function HomeForm(props: AuthModalProps) {
         Il est recommandé de ne pas dépasser 40 participants par conférence pour
         optimiser le confort de vos différents échanges.
       </p>
+      <p>
+        En savoir plus sur la <strong>WebConf</strong> de l'Etat
+      </p>
+      <div className={fr.cx('fr-accordions-group')}>
+        <Accordion label="Pré-requis">Content of the Accordion 1</Accordion>
+        <Accordion label="Démarrer avec la WebConf">
+          Content of the Accordion 2
+        </Accordion>
+        <Accordion label="Ressources supplémentaires">
+          Content of the Accordion 1
+        </Accordion>
+        <Accordion label="le MOOC de la WebConf">
+          Content of the Accordion 2
+        </Accordion>
+      </div>
     </div>
   );
 }
