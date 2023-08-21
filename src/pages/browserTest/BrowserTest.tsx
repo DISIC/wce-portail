@@ -540,14 +540,12 @@ export default function BrowserTest() {
               }}
             >
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  microphone
-                </InputLabel>
+                <InputLabel id="microphone">microphone</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId="microphone"
+                  id="microphoneSelect"
                   value={mic}
-                  label="mic"
+                  label="microphone"
                   onChange={handleMicChange}
                 >
                   {micItems.map(item =>
@@ -661,12 +659,12 @@ export default function BrowserTest() {
             }}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Caméra</InputLabel>
+              <InputLabel id="camera">Caméra</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="camera"
+                id="cameraSelect"
                 value={cam}
-                label="cam"
+                label="camera"
                 onChange={handleCamChange}
               >
                 {camItems.map(item =>
