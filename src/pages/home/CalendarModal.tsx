@@ -247,12 +247,13 @@ export default function CalendarModalComponent(props: any) {
         </div>
       </modal.Component>
       <Button
+        style={{ width: '230px' }}
         onClick={handle}
-        className={styles.plusButton}
+        className={styles.buttonGroup}
         priority="primary"
         size="medium"
       >
-        +
+        planifier une conférence
       </Button>
     </>
   );

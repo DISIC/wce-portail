@@ -22,6 +22,7 @@ interface AuthModalProps {
 function HomeForm(props: AuthModalProps) {
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
   const [messageType, setMessageType] = useState<string>('');
+  const [buttons, setButtons] = useState<boolean>(false);
 
   const change = (e: string) => {
     verifyAndSetVAlue(e);
@@ -121,7 +122,25 @@ function HomeForm(props: AuthModalProps) {
         />
         <div className={styles.confButtons}>
           <AuthModal {...props} />
-          <CalendarModalComponent {...props} />
+          <div>
+            <Button
+              className={styles.plusButton}
+              onClick={() => setButtons(!buttons)}
+            >
+              {buttons ? '_' : '+'}
+            </Button>
+            {buttons ? (
+              <div className={styles.buttonsGroup}>
+                <CalendarModalComponent {...props} />
+                <Button
+                  style={{ width: '230px', textAlign: 'center' }}
+                  className={styles.buttonGroup}
+                >
+                  copier le lien
+                </Button>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
       <p>{message}</p>
