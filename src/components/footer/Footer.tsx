@@ -29,9 +29,6 @@ function footer({ headerFooterDisplayItem }: props) {
         href: '/',
         title: "Accueil - Webconférence de l'Etat",
       }}
-      personalDataLinkProps={{
-        href: '/donneespersonnelles',
-      }}
       termsLinkProps={{
         href: 'mentionslegales',
       }}
