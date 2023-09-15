@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { ReactComponentElement } from 'react';
 import { createModal } from '@codegouvfr/react-dsfr/Modal';
 import { useIsModalOpen } from '@codegouvfr/react-dsfr/Modal/useIsModalOpen';
 import { Button } from '@codegouvfr/react-dsfr/Button';
-import ICalendarLink from 'react-icalendar-link';
+import ICalLink from 'react-icalendar-link';
 import { Input } from '@codegouvfr/react-dsfr/Input';
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import axios from 'axios';
 import styles from './Home.module.css';
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 import { useState, useEffect } from 'react';
+
+const ICalendarLink = ICalLink as any;
 
 function generateRoomName() {
   return (
@@ -51,7 +53,10 @@ export default function CalendarModalComponent(props: any) {
 
   const [open, setOpen] = useState(false);
 
-  const handleClose = (event, reason: any) => {
+  const handleClose = (
+    event: Event | React.SyntheticEvent<any, Event>,
+    reason: SnackbarCloseReason
+  ) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -146,11 +151,11 @@ export default function CalendarModalComponent(props: any) {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return (
       <MuiAlert
-        onClose={handleClose}
+        onClose={event => handleClose(event, 'timeout')}
         severity="success"
         sx={{ width: '100%' }}
         elevation={6}
-        ref={ref}
+        ref={ref as any}
         variant="filled"
         {...props}
       >
@@ -247,12 +252,13 @@ export default function CalendarModalComponent(props: any) {
         </div>
       </modal.Component>
       <Button
+        style={{ width: '230px' }}
         onClick={handle}
-        className={styles.plusButton}
+        className={styles.buttonGroup}
         priority="primary"
         size="medium"
       >
-        +
+        planifier une conférence
       </Button>
     </>
   );
