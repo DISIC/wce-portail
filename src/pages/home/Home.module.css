@@ -51,6 +51,7 @@
 .plusButton {
   display: inline-block;
   height: 10px;
+  min-width: 43px;
   margin-top: 8px;
   margin-bottom: 5px;
   margin-left: 10px;

@@ -17,12 +17,13 @@ interface AuthModalProps {
   setRoomName: (e: any) => void;
   joinConference: (e: any) => void;
   authenticated: boolean | null;
+  setButtons: (a: boolean) => void;
+  buttons: boolean;
 }
 
 function HomeForm(props: AuthModalProps) {
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
   const [messageType, setMessageType] = useState<string>('');
-  const [buttons, setButtons] = useState<boolean>(false);
 
   const change = (e: string) => {
     verifyAndSetVAlue(e);
@@ -110,7 +111,7 @@ function HomeForm(props: AuthModalProps) {
           hintText=""
           label={
             <span className={styles.hidden} id="input-desc-error">
-              label
+              Champ de saisi du nom de la conférence
             </span>
           }
           nativeInputProps={{
@@ -125,18 +126,20 @@ function HomeForm(props: AuthModalProps) {
           <div>
             <Button
               className={styles.plusButton}
-              onClick={() => setButtons(!buttons)}
+              onClick={() => props.setButtons(!props.buttons)}
+              nativeButtonProps={{ id: 'plusButton' }}
             >
-              {buttons ? '_' : '+'}
+              {props.buttons ? '--' : '+'}
             </Button>
-            {buttons ? (
-              <div className={styles.buttonsGroup}>
+            {props.buttons ? (
+              <div className={styles.buttonsGroup} id="Calendar">
                 <CalendarModalComponent {...props} />
                 <Button
                   style={{ width: '230px', textAlign: 'center' }}
                   className={styles.buttonGroup}
+                  nativeButtonProps={{ id: 'copyButton' }}
                 >
-                  copier le lien
+                  Copier le lien
                 </Button>
               </div>
             ) : null}

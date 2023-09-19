@@ -25,7 +25,7 @@ function generateRoomName() {
 }
 
 const modal = createModal({
-  id: 'Calendar',
+  id: 'Calendar1',
   isOpenedByDefault: false,
 });
 
@@ -177,11 +177,11 @@ export default function CalendarModalComponent(props: any) {
   };
 
   return (
-    <>
+    <div id="hh">
       <modal.Component
         title={
           <span className={styles.hidden} id="h1">
-            heading
+            Heading
           </span>
         }
       >
@@ -245,7 +245,7 @@ export default function CalendarModalComponent(props: any) {
             title="copy"
             onClick={() => copyEvent()}
             disabled={disabled}
-            // variant="contained"
+            // nativeButtonProps={{ id: 'copyCalendarButton' }}
           >
             {copied}
           </Button>
@@ -257,9 +257,10 @@ export default function CalendarModalComponent(props: any) {
         className={styles.buttonGroup}
         priority="primary"
         size="medium"
+        nativeButtonProps={{ id: 'calendarButton' }}
       >
-        planifier une conférence
+        Planifier une conférence
       </Button>
-    </>
+    </div>
   );
 }

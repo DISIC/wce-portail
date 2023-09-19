@@ -85,14 +85,18 @@ function HeaderComponent({
             <div className={styles.logout}>
               <Link to={'faq'}>
                 <Button priority="tertiary no outline">
-                  centre de resources
+                  Centre de resources
                 </Button>
               </Link>
               {authenticated ? (
                 <Button priority="tertiary no outline" onClick={logOut}>
                   Se déconnecter
                 </Button>
-              ) : null}
+              ) : (
+                <Button priority="tertiary no outline" onClick={logOut}>
+                  Se déconnecter
+                </Button>
+              )}
             </div>
 
             {/* 
