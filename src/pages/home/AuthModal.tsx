@@ -215,7 +215,7 @@ export default function AuthModal({
         ) : null}
       </modal.Component>
       <Button onClick={handle} className={styles.button}>
-        Rejoindre ou créer
+        {roomName ? 'Rejoindre ou créer' : 'Générer un nom aléatoire'}
       </Button>
     </>
   );

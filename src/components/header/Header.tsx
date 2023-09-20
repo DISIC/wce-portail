@@ -3,7 +3,7 @@ import { Button } from '@codegouvfr/react-dsfr/Button';
 import { useNavigate } from 'react-router-dom';
 import api from '../../axios/axios';
 import { useState } from 'react';
-import { Badge } from '@dataesr/react-dsfr';
+// import { Badge } from '@dataesr/react-dsfr';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 
@@ -40,12 +40,13 @@ function HeaderComponent({
       })
       .catch(error => {
         if (error.response) {
-          setMsg(
-            <Badge
-              text="une erreur est survenue lors de la déconnexion"
-              type="error"
-            />
-          );
+          //TODO
+          // setMsg(
+          //   <Badge
+          //     text="une erreur est survenue lors de la déconnexion"
+          //     type="error"
+          //   />
+          // );
         } else {
           if (error.request) {
             setError({
@@ -92,11 +93,7 @@ function HeaderComponent({
                 <Button priority="tertiary no outline" onClick={logOut}>
                   Se déconnecter
                 </Button>
-              ) : (
-                <Button priority="tertiary no outline" onClick={logOut}>
-                  Se déconnecter
-                </Button>
-              )}
+              ) : null}
             </div>
 
             {/* 

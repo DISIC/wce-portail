@@ -5,6 +5,7 @@ import styles from './Home.module.css';
 import AuthModal from './AuthModal';
 import CalendarModalComponent from './CalendarModal';
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion';
+import { Alert } from '@codegouvfr/react-dsfr/Alert';
 import { fr } from '@codegouvfr/react-dsfr';
 
 interface AuthModalProps {
@@ -149,10 +150,18 @@ function HomeForm(props: AuthModalProps) {
       <p>{message}</p>
       <p>Actuellement, il y a 0 conférences et 0 participants.</p>
       <hr />
-      <p>
-        Il est recommandé de ne pas dépasser 40 participants par conférence pour
-        optimiser le confort de vos différents échanges.
-      </p>
+      <Alert
+        closable
+        description="Il est recommandé de ne pas dépasser 40 participants par conférence pour
+        optimiser le confort de vos différents échanges."
+        onClose={function noRefCheck() {
+          return;
+        }}
+        severity="info"
+        small
+        title=""
+      />
+      <br />
       <p>
         En savoir plus sur la <strong>WebConf</strong> de l'Etat
       </p>
