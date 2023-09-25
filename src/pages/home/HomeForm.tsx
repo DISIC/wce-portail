@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Input } from '@codegouvfr/react-dsfr/Input';
 import { Button } from '@codegouvfr/react-dsfr/Button';
+import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import styles from './Home.module.css';
 import AuthModal from './AuthModal';
 import CalendarModalComponent from './CalendarModal';
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion';
 import { Alert } from '@codegouvfr/react-dsfr/Alert';
+import MuiAlert from '@mui/material/Alert';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import { fr } from '@codegouvfr/react-dsfr';
 
 interface AuthModalProps {
@@ -25,6 +28,12 @@ interface AuthModalProps {
 function HomeForm(props: AuthModalProps) {
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
   const [messageType, setMessageType] = useState<string>('');
+  const [open, setOpen] = useState(false);
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href + props.roomName);
+    setOpen(true);
+  };
 
   const change = (e: string) => {
     verifyAndSetVAlue(e);
@@ -50,7 +59,7 @@ function HomeForm(props: AuthModalProps) {
             </small>
             <small className={styles.roomNameConditionValid}>
               {' '}
-              Des chiffres et des lettres sans accents uniquement
+              Des chiffres et des lettres sans accents
             </small>
           </div>
         );
@@ -84,12 +93,12 @@ function HomeForm(props: AuthModalProps) {
             {isAlphaNumeric(value) ? (
               <small className={styles.roomNameConditionValid}>
                 {' '}
-                Des chiffres et des lettres sans accents uniquement
+                Des chiffres et des lettres sans accents
               </small>
             ) : (
               <small className={styles.roomNameConditionNotValid}>
                 {' '}
-                Des chiffres et des lettres sans accents uniquement
+                Des chiffres et des lettres sans accents
               </small>
             )}
           </div>
@@ -102,6 +111,33 @@ function HomeForm(props: AuthModalProps) {
       setMessage('');
     }
   };
+
+  const handleClose = (
+    event: Event | React.SyntheticEvent<any, Event>,
+    reason: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const AlertMui = React.forwardRef(function Alert(props, ref) {
+    return (
+      <MuiAlert
+        onClose={event => handleClose(event, 'timeout')}
+        severity="success"
+        sx={{ width: '100%' }}
+        elevation={6}
+        ref={ref as any}
+        variant="filled"
+        {...props}
+      >
+        Le lien a été copié
+      </MuiAlert>
+    );
+  });
   return (
     <div className={styles.HomeForm}>
       <h3>La WebConférence de l'État pour tous les agents publics</h3>
@@ -139,6 +175,7 @@ function HomeForm(props: AuthModalProps) {
                   style={{ width: '230px', textAlign: 'center' }}
                   className={styles.buttonGroup}
                   nativeButtonProps={{ id: 'copyButton' }}
+                  onClick={copyLink}
                 >
                   Copier le lien
                 </Button>
@@ -148,7 +185,9 @@ function HomeForm(props: AuthModalProps) {
         </div>
       </div>
       <p>{message}</p>
-      <p>Actuellement, il y a 0 conférences et 0 participants.</p>
+      <Badge severity="info">
+        Actuellement, il y a 0 conférences et 0 participants.
+      </Badge>
       <hr />
       <Alert
         closable
@@ -177,6 +216,14 @@ function HomeForm(props: AuthModalProps) {
           Content of the Accordion 2
         </Accordion>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <AlertMui />
+      </Snackbar>
     </div>
   );
 }
