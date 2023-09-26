@@ -177,7 +177,7 @@ export default function CalendarModalComponent(props: any) {
   };
 
   return (
-    <div id="hh">
+    <div id="">
       <modal.Component
         title={
           <span className={styles.hidden} id="h1">
@@ -252,11 +252,10 @@ export default function CalendarModalComponent(props: any) {
         </div>
       </modal.Component>
       <Button
-        style={{ width: '230px' }}
         onClick={handle}
-        className={styles.buttonGroup}
+        className={styles.button}
         priority="primary"
-        size="medium"
+        // size="medium"
         nativeButtonProps={{ id: 'calendarButton' }}
       >
         Planifier une conférence

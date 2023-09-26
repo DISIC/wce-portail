@@ -4,8 +4,20 @@
   margin: 5% 10%;
 }
 
+.button {
+  display: inline-block;
+  height: 10px;
+  margin-top: 8px;
+  margin-left: 0px;
+  text-align: center;
+  /* min-width: 170px;  */
+  /* font-size: 11px; */
+  width: 100%;
+}
+
 .form {
   display: flex;
+  flex-direction: column;
 }
 
 .HomeForm {
@@ -17,7 +29,8 @@
 
 .confButtons {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
+  margin-top: -3%;
 }
 
 .confButtonsStretch {
@@ -26,13 +39,13 @@
   flex-direction: column;
 }
 
-.button {
+/* .button {
   display: inline-block;
   height: 10px;
   margin-top: 8px;
   margin-left: 10px;
   text-align: center;
-}
+} */
 
 .buttonsGroup {
   position: absolute;
@@ -44,18 +57,19 @@
   display: inline-block;
   height: 10px;
   margin-top: 5px;
-  margin-left: -179px;
+  margin-left: -197%;
+  width: 197%;
   text-align: center;
 }
 
 .plusButton {
   display: inline-block;
   height: 10px;
-  min-width: 43px;
+  min-width: 60px;
   margin-top: 8px;
   margin-bottom: 5px;
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 0px;
   text-align: center;
 }
 

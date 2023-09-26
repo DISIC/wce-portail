@@ -3,6 +3,7 @@ import { Button } from '@codegouvfr/react-dsfr/Button';
 import { Input } from '@codegouvfr/react-dsfr/Input';
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
+import CalendarModalComponent from './CalendarModal';
 import api from '../../axios/axios';
 
 import { useState, useEffect } from 'react';
@@ -24,6 +25,8 @@ interface AuthModalProps {
   setRoomName: (e: any) => void;
   joinConference: (e: any) => void;
   authenticated: boolean | null;
+  setOpen: (e: boolean) => void;
+  buttons: boolean;
 }
 
 function roomNameConstraintOk(roomName: string) {
@@ -38,68 +41,64 @@ function roomNameConstraintOk(roomName: string) {
   return regex.test(roomName);
 }
 
-export default function AuthModal({
-  roomName,
-  email,
-  isWhitelisted,
-  setEmail,
-  sendEmail,
-  setIsWhitelisted,
-  setRoomName,
-  joinConference,
-  authenticated,
-}: AuthModalProps) {
+export default function AuthModal(props: AuthModalProps) {
   const [msg, setMsg] = useState<string | null>('');
   const [buttonMsg, setButtonMsg] = useState(
     'Recevoir le code de vérification par email'
   );
   const [isCheked, setIsChecked] = useState(false);
 
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href + props.roomName);
+    props.setOpen(true);
+  };
+
   function handle() {
-    if (!roomName) {
-      const room = generateRoomName();
-      setRoomName(room);
+    // if (!roomName) {
+    //   // const room = generateRoomName();
+    //   // setRoomName(room);
+    //   api.get('/feedback/whereami').then(res => {
+    //     if (res.data == 'internet') {
+    //       if (!authenticated) {
+    //         modal.open();
+    //       }
+    //       if (authenticated) {
+    //         joinConference(room);
+    //       }
+    //     }
+    //     if (res.data == 'rie') {
+    //       joinConference(room);
+    //     }
+    //   });
+    // } else
+    if (roomNameConstraintOk(props.roomName)) {
       api.get('/feedback/whereami').then(res => {
         if (res.data == 'internet') {
-          if (!authenticated) {
+          if (!props.authenticated) {
             modal.open();
           }
-          if (authenticated) {
-            joinConference(room);
+          if (props.authenticated) {
+            props.joinConference(props.roomName);
           }
         }
         if (res.data == 'rie') {
-          joinConference(room);
-        }
-      });
-    } else if (roomNameConstraintOk(roomName)) {
-      api.get('/feedback/whereami').then(res => {
-        if (res.data == 'internet') {
-          if (!authenticated) {
-            modal.open();
-          }
-          if (authenticated) {
-            joinConference(roomName);
-          }
-        }
-        if (res.data == 'rie') {
-          joinConference(roomName);
+          props.joinConference(props.roomName);
         }
       });
     }
   }
 
   useEffect(() => {
-    setIsWhitelisted(null);
+    props.setIsWhitelisted(null);
     const mail = localStorage.getItem('email');
     const checked1 = localStorage.getItem('checked');
     const checked = checked1 === 'true';
     if (checked) {
       if (mail) {
-        setEmail(mail);
+        props.setEmail(mail);
       }
     } else {
-      setEmail('');
+      props.setEmail('');
       localStorage.setItem('email', '');
     }
     setIsChecked(checked);
@@ -127,12 +126,12 @@ export default function AuthModal({
   };
 
   const mailchanger = (e: any) => {
-    setEmail(e.target.value);
+    props.setEmail(e.target.value);
     localStorage.setItem('email', e.target.value);
   };
 
   const mailSender = (e: any) => {
-    sendEmail(e);
+    props.sendEmail(e);
     setButtonMsg('Email non reçu ? Cliquez ici pour recevoir un nouvel email');
   };
   return (
@@ -142,7 +141,7 @@ export default function AuthModal({
         <p>
           <small>
             Nous avons besoin de vérifier votre identité afin de créer la
-            conférence {roomName}.
+            conférence {props.roomName}.
           </small>
         </p>
         <button type="button">
@@ -152,7 +151,7 @@ export default function AuthModal({
           <img
             alt="agentConnect"
             src="/static/media/ac-btn-bleu.svg"
-            onClick={() => agentConnect(roomName)}
+            onClick={() => agentConnect(props.roomName)}
           />
         </button>
         <p>
@@ -172,7 +171,7 @@ export default function AuthModal({
             'aria-describedby': 'input3-desc-error',
             'aria-labelledby': 'input3-desc-error',
             id: 'input3',
-            value: email,
+            value: props.email,
             onChange: e => mailchanger(e),
             required: true,
           }}
@@ -192,7 +191,7 @@ export default function AuthModal({
         />
         <Button
           className={styles.modalButtons}
-          onClick={() => mailSender(roomName)}
+          onClick={() => mailSender(props.roomName)}
         >
           <span className={styles.hidden} id="input-desc-error">
             text
@@ -200,7 +199,7 @@ export default function AuthModal({
           {buttonMsg}
         </Button>
         {msg}
-        {isWhitelisted === false ? (
+        {props.isWhitelisted === false ? (
           <p>
             <Badge severity="error">
               votre adresse email n'est pas valide. Merci de saisir votre
@@ -208,24 +207,41 @@ export default function AuthModal({
             </Badge>
           </p>
         ) : null}
-        {isWhitelisted === true ? (
+        {props.isWhitelisted === true ? (
           <p>
             <Badge severity="success">Message envoyé.</Badge>
           </p>
         ) : null}
       </modal.Component>
-      <Button onClick={handle} className={styles.button}>
-        {roomName ? 'Rejoindre ou créer' : 'Générer un nom aléatoire'}
-      </Button>
+      <div className={styles.buttons}>
+        <Button onClick={handle} className={styles.button}>
+          {/* {roomName ?  */}
+          Rejoindre ou créer
+          {/* : 'Générer un nom aléatoire'} */}
+        </Button>
+        <br />
+        {props.buttons ? (
+          <div id="Calendar">
+            <CalendarModalComponent {...props} />
+            <Button
+              className={styles.button}
+              nativeButtonProps={{ id: 'copyButton' }}
+              onClick={copyLink}
+            >
+              Copier le lien
+            </Button>
+          </div>
+        ) : null}
+      </div>
     </>
   );
 }
 
-function generateRoomName() {
-  return (
-    Math.random().toString(36).slice(2).toUpperCase() +
-    Math.floor(Math.random() * 10) +
-    Math.floor(Math.random() * 10) +
-    Math.floor(Math.random() * 10)
-  );
-}
+// function generateRoomName() {
+//   return (
+//     Math.random().toString(36).slice(2).toUpperCase() +
+//     Math.floor(Math.random() * 10) +
+//     Math.floor(Math.random() * 10) +
+//     Math.floor(Math.random() * 10)
+//   );
+// }

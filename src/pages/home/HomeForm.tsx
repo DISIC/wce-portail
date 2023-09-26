@@ -9,6 +9,9 @@ import { Accordion } from '@codegouvfr/react-dsfr/Accordion';
 import { Alert } from '@codegouvfr/react-dsfr/Alert';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { fr } from '@codegouvfr/react-dsfr';
 
 interface AuthModalProps {
@@ -138,50 +141,48 @@ function HomeForm(props: AuthModalProps) {
       </MuiAlert>
     );
   });
+
+  const up = '+';
+  const down = '--';
   return (
     <div className={styles.HomeForm}>
       <h3>La WebConférence de l'État pour tous les agents publics</h3>
       <p>Audio, vidéo, chat, partage d'écran et de documents</p>
       <div className={styles.form}>
-        <Input
-          style={{ width: '100%' }}
-          hintText=""
-          label={
-            <span className={styles.hidden} id="input-desc-error">
-              Champ de saisi du nom de la conférence
-            </span>
-          }
-          nativeInputProps={{
-            id: 'input',
-            value: props.roomName,
-            placeholder: 'Saisissez un nom de conférence...',
-            onChange: (e: any) => change(e.target.value),
-          }}
-        />
         <div className={styles.confButtons}>
-          <AuthModal {...props} />
-          <div>
-            <Button
-              className={styles.plusButton}
-              onClick={() => props.setButtons(!props.buttons)}
-              nativeButtonProps={{ id: 'plusButton' }}
-            >
-              {props.buttons ? '--' : '+'}
-            </Button>
-            {props.buttons ? (
-              <div className={styles.buttonsGroup} id="Calendar">
-                <CalendarModalComponent {...props} />
-                <Button
-                  style={{ width: '230px', textAlign: 'center' }}
-                  className={styles.buttonGroup}
-                  nativeButtonProps={{ id: 'copyButton' }}
-                  onClick={copyLink}
-                >
-                  Copier le lien
-                </Button>
-              </div>
-            ) : null}
-          </div>
+          <Input
+            style={{ width: '100%' }}
+            hintText=""
+            label={
+              <span className={styles.hidden} id="input-desc-error">
+                Champ de saisi du nom de la conférence
+              </span>
+            }
+            nativeInputProps={{
+              id: 'input',
+              value: props.roomName,
+              placeholder: 'Saisissez un nom de conférence...',
+              onChange: (e: any) => change(e.target.value),
+            }}
+          />
+          <Button
+            className={styles.plusButton}
+            onClick={() => {
+              props.setRoomName(generateRoomName());
+            }}
+          >
+            <ShuffleIcon />
+          </Button>
+        </div>
+        <div className={styles.confButtons}>
+          <AuthModal {...props} setOpen={setOpen} buttons={props.buttons} />
+          <Button
+            className={styles.plusButton}
+            onClick={() => props.setButtons(!props.buttons)}
+            nativeButtonProps={{ id: 'plusButton' }}
+          >
+            {props.buttons ? up : down}
+          </Button>
         </div>
       </div>
       <p>{message}</p>
@@ -242,3 +243,12 @@ function isAlphaNumeric(str: string) {
 }
 
 export default HomeForm;
+
+function generateRoomName() {
+  return (
+    Math.random().toString(36).slice(2).toUpperCase() +
+    Math.floor(Math.random() * 10) +
+    Math.floor(Math.random() * 10) +
+    Math.floor(Math.random() * 10)
+  );
+}
