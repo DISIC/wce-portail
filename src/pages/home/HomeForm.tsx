@@ -181,7 +181,7 @@ function HomeForm(props: AuthModalProps) {
             onClick={() => props.setButtons(!props.buttons)}
             nativeButtonProps={{ id: 'plusButton' }}
           >
-            {props.buttons ? up : down}
+            {props.buttons ? down : up}
           </Button>
         </div>
       </div>
