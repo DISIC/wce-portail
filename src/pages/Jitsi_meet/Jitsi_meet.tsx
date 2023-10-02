@@ -22,11 +22,11 @@ interface JitsiMeetProps {
 }
 
 const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
-  const apiRef = useRef();
-  const [logItems, updateLog] = useState<any[]>();
-  const [knockingParticipants, updateKnockingParticipants] = useState<any[]>(
-    []
-  );
+  // const apiRef = useRef();
+  // const [logItems, updateLog] = useState<any[]>();
+  // const [knockingParticipants, updateKnockingParticipants] = useState<any[]>(
+  //   []
+  // );
   const navigate = useNavigate();
   const { roomName } = useParams();
   const jwt = window.location.search.split('=')[1];

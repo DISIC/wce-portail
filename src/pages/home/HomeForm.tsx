@@ -4,14 +4,11 @@ import { Button } from '@codegouvfr/react-dsfr/Button';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import styles from './Home.module.css';
 import AuthModal from './AuthModal';
-import CalendarModalComponent from './CalendarModal';
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion';
 import { Alert } from '@codegouvfr/react-dsfr/Alert';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { fr } from '@codegouvfr/react-dsfr';
 
 interface AuthModalProps {
@@ -32,11 +29,6 @@ function HomeForm(props: AuthModalProps) {
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
   const [messageType, setMessageType] = useState<string>('');
   const [open, setOpen] = useState(false);
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href + props.roomName);
-    setOpen(true);
-  };
 
   const change = (e: string) => {
     verifyAndSetVAlue(e);
