@@ -143,9 +143,7 @@ export default function CalendarModalComponent(props: any) {
          - PIN: ${pin}
     `;
     navigator.clipboard.writeText(par);
-    setCopied('Informations copiées');
     setOpen(true);
-    setDisabled(true);
   };
 
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -247,7 +245,7 @@ export default function CalendarModalComponent(props: any) {
             disabled={disabled}
             // nativeButtonProps={{ id: 'copyCalendarButton' }}
           >
-            {copied}
+            Informations copiées
           </Button>
         </div>
       </modal.Component>

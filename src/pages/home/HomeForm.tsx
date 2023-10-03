@@ -183,12 +183,9 @@ function HomeForm(props: AuthModalProps) {
       </Badge>
       <hr />
       <Alert
-        closable
+        closable={false}
         description="Il est recommandé de ne pas dépasser 40 participants par conférence pour
         optimiser le confort de vos différents échanges."
-        onClose={function noRefCheck() {
-          return;
-        }}
         severity="info"
         small
         title=""
