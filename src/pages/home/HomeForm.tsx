@@ -44,7 +44,16 @@ function HomeForm(props: AuthModalProps) {
         props.setRoomName(value);
         setMessage(
           <div className={styles.message}>
-            <small className={styles.roomNameConditionValid}>
+            <Badge className={styles.badge} severity="success">
+              Au moins 3 chiffres
+            </Badge>
+            <Badge className={styles.badge} severity="success">
+              Un minimum de 10 caractères
+            </Badge>
+            <Badge className={styles.badge} severity="success">
+              Des chiffres et des lettres sans accents
+            </Badge>
+            {/* <small className={styles.roomNameConditionValid}>
               {' '}
               Au moins 3 chiffres
             </small>
@@ -55,7 +64,7 @@ function HomeForm(props: AuthModalProps) {
             <small className={styles.roomNameConditionValid}>
               {' '}
               Des chiffres et des lettres sans accents
-            </small>
+            </small> */}
           </div>
         );
       } else {
@@ -64,37 +73,57 @@ function HomeForm(props: AuthModalProps) {
         const message = (
           <div className={styles.message}>
             {getCountOfDigits(value) >= 3 ? (
-              <small className={styles.roomNameConditionValid}>
-                {' '}
+              <Badge className={styles.badge} severity="success">
                 Au moins 3 chiffres
-              </small>
+              </Badge>
             ) : (
-              <small className={styles.roomNameConditionNotValid}>
-                {' '}
+              // <small className={styles.roomNameConditionValid}>
+              //   {' '}
+              //   Au moins 3 chiffres
+              // </small>
+              <Badge className={styles.badge} severity="error">
                 Au moins 3 chiffres
-              </small>
+              </Badge>
+              // <small className={styles.roomNameConditionNotValid}>
+              //   {' '}
+              //   Au moins 3 chiffres
+              // </small>
             )}
             {getCountCaracters(value) >= 10 ? (
-              <small className={styles.roomNameConditionValid}>
-                {' '}
+              <Badge className={styles.badge} severity="success">
                 Un minimum de 10 caractères
-              </small>
+              </Badge>
             ) : (
-              <small className={styles.roomNameConditionNotValid}>
-                {' '}
+              // <small className={styles.roomNameConditionValid}>
+              //   {' '}
+              //   Un minimum de 10 caractères
+              // </small>
+              <Badge className={styles.badge} severity="error">
                 Un minimum de 10 caractères
-              </small>
+              </Badge>
+              // <small className={styles.roomNameConditionNotValid}>
+              //   {' '}
+              //   Un minimum de 10 caractères
+              // </small>
             )}
             {isAlphaNumeric(value) ? (
-              <small className={styles.roomNameConditionValid}>
+              <Badge className={styles.badge} severity="success">
                 {' '}
                 Des chiffres et des lettres sans accents
-              </small>
+              </Badge>
             ) : (
-              <small className={styles.roomNameConditionNotValid}>
+              // <small className={styles.roomNameConditionValid}>
+              //   {' '}
+              //   Des chiffres et des lettres sans accents
+              // </small>
+              <Badge className={styles.badge} severity="error">
                 {' '}
                 Des chiffres et des lettres sans accents
-              </small>
+              </Badge>
+              // <small className={styles.roomNameConditionNotValid}>
+              //   {' '}
+              //   Des chiffres et des lettres sans accents
+              // </small>
             )}
           </div>
         );
@@ -160,7 +189,7 @@ function HomeForm(props: AuthModalProps) {
           <Button
             className={styles.plusButton}
             onClick={() => {
-              props.setRoomName(generateRoomName());
+              verifyAndSetVAlue(generateRoomName());
             }}
           >
             <ShuffleIcon />

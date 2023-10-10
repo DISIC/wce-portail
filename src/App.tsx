@@ -20,6 +20,7 @@ import LoginCallback from './pages/login/LoginCallback';
 import LogoutCallback from './pages/login/LogoutCallback';
 import Error from './pages/Error/Error';
 import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
+import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
 type errorObj = {
   message: string;
   error: {
@@ -278,6 +279,7 @@ function App() {
               />
             }
           />
+          <Route path="plan-du-site" element={<PlanDuSite />} />
         </Route>
       </Routes>
     </MuiDsfrThemeProvider>

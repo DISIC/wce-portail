@@ -26,17 +26,17 @@ function footer({ headerFooterDisplayItem }: props) {
       //   href: '#',
       // }}
       homeLinkProps={{
-        href: '/',
+        to: '/',
         title: "Accueil - Webconférence de l'Etat",
       }}
       termsLinkProps={{
-        href: 'mentionslegales',
+        to: 'mentionslegales',
       }}
       websiteMapLinkProps={{
-        href: 'faq',
+        to: 'plan-du-site',
       }}
       accessibilityLinkProps={{
-        href: 'accessibilite',
+        to: 'accessibilite',
       }}
       bottomItems={[headerFooterDisplayItem]}
     />

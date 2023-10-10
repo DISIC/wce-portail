@@ -8,3 +8,8 @@
     right: 20%;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+

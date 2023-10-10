@@ -245,7 +245,7 @@ export default function CalendarModalComponent(props: any) {
             disabled={disabled}
             // nativeButtonProps={{ id: 'copyCalendarButton' }}
           >
-            Informations copiées
+            Copier
           </Button>
         </div>
       </modal.Component>
