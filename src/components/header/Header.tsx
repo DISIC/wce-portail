@@ -105,7 +105,7 @@ function HeaderComponent({
               to: '/',
               target: '_self',
             },
-            text: 'Acceuil',
+            text: 'Accueil',
           },
           {
             menuLinks: [
