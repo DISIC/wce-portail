@@ -104,6 +104,7 @@ function HeaderComponent({
             linkProps: {
               to: '/',
               target: '_self',
+              replace: true,
             },
             text: 'Accueil',
           },

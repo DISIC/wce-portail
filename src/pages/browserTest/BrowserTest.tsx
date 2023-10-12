@@ -37,7 +37,7 @@ export default function BrowserTest() {
   const [record, setRecord] = useState(false);
   const [errorMessage, setErrorMessage] = useState<ReactNode | null>(<></>);
   const [confTest, setConfTest] = useState<boolean | null>(null);
-  const webcamRef = React.useRef(null);
+  const webcamRef = React.useRef<any>(null);
   const mediaRecorderRef = React.useRef<any>();
   const [capturing, setCapturing] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
@@ -96,6 +96,7 @@ export default function BrowserTest() {
     navigator.mediaDevices
       .getUserMedia({ video: { deviceId: cam }, audio: false })
       .then((mediaStream: MediaStream) => {
+        // webcamRef.current = mediaStream;
         setErrorMessage(null);
         setCapturing(true);
         mediaRecorderRef.current = new MediaRecorder(mediaStream, {
@@ -106,6 +107,14 @@ export default function BrowserTest() {
           handleDataAvailable
         );
         mediaRecorderRef.current.start();
+
+        setTimeout(
+          () =>
+            mediaStream.getTracks().forEach(function (track) {
+              track.stop();
+            }),
+          2500
+        );
       })
       .catch((err: Error) => {
         setCamTest(false);
@@ -141,15 +150,18 @@ export default function BrowserTest() {
       .then(mediaStream => {
         setErrorMessage(null);
         const stream = mediaStream;
-        const tracks = stream.getTracks();
-        tracks[0].stop();
+        // const tracks = stream.getTracks();
+        // tracks[0].stop();
+        stream.getTracks().forEach(function (track) {
+          track.stop();
+        });
       })
       .catch(err => {
         setCamTest(false);
         setErrorMessage(
           <Alert
             closable
-            description="Veuillez autoriser le navigateur à utiliser la caméra. hhhhhhhh"
+            description="Veuillez autoriser le navigateur à utiliser la caméra."
             onClose={function noRefCheck() {
               return;
             }}
@@ -247,6 +259,7 @@ export default function BrowserTest() {
     setConfTest(null);
     setLoading(true);
     const isChromium = navigator.userAgent.includes('Chrome');
+
     setTimeout(() => {
       setNavTest(navTest => isChromium);
       setExpanded('panel1');
@@ -263,7 +276,7 @@ export default function BrowserTest() {
           stopRecording();
           setMicTest(true);
           setExpanded('');
-        }, 2500);
+        }, 3000);
       })
       .catch(err => {
         setMicTest(false);
@@ -284,14 +297,13 @@ export default function BrowserTest() {
     setTimeout(() => {
       setExpanded('panel3');
       handleStartCaptureClick();
-    }, 3000);
+    }, 3500);
     setTimeout(() => {
       handleStopCaptureClick();
       setExpanded('');
-    }, 8000);
-
-    await setTimeout(() => {
-      setExpanded('panel4');
+      setTimeout(() => {
+        setExpanded('panel4');
+      }, 500);
     }, 8500);
   };
 
@@ -793,7 +805,7 @@ export default function BrowserTest() {
                   spinner={renderSpinner}
                   configOverwrite={{
                     prejoinConfig: {
-                      enabled: false,
+                      enabled: true,
                     },
                     toolbarButtons: [
                       'camera',
@@ -825,7 +837,7 @@ export default function BrowserTest() {
                   spinner={renderSpinner}
                   configOverwrite={{
                     prejoinConfig: {
-                      enabled: false,
+                      enabled: true,
                     },
                     toolbarButtons: [
                       'camera',
