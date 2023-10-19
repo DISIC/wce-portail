@@ -54,15 +54,15 @@ function HomeForm(props: AuthModalProps) {
               Des chiffres et des lettres sans accents
             </Badge>
             {/* <small className={styles.roomNameConditionValid}>
-              {' '}
+              
               Au moins 3 chiffres
             </small>
             <small className={styles.roomNameConditionValid}>
-              {' '}
+              
               Un minimum de 10 caractères
             </small>
             <small className={styles.roomNameConditionValid}>
-              {' '}
+              
               Des chiffres et des lettres sans accents
             </small> */}
           </div>
@@ -78,14 +78,14 @@ function HomeForm(props: AuthModalProps) {
               </Badge>
             ) : (
               // <small className={styles.roomNameConditionValid}>
-              //   {' '}
+              //
               //   Au moins 3 chiffres
               // </small>
               <Badge className={styles.badge} severity="error">
                 Au moins 3 chiffres
               </Badge>
               // <small className={styles.roomNameConditionNotValid}>
-              //   {' '}
+              //
               //   Au moins 3 chiffres
               // </small>
             )}
@@ -95,33 +95,31 @@ function HomeForm(props: AuthModalProps) {
               </Badge>
             ) : (
               // <small className={styles.roomNameConditionValid}>
-              //   {' '}
+              //
               //   Un minimum de 10 caractères
               // </small>
               <Badge className={styles.badge} severity="error">
                 Un minimum de 10 caractères
               </Badge>
               // <small className={styles.roomNameConditionNotValid}>
-              //   {' '}
+              //
               //   Un minimum de 10 caractères
               // </small>
             )}
             {isAlphaNumeric(value) ? (
               <Badge className={styles.badge} severity="success">
-                {' '}
                 Des chiffres et des lettres sans accents
               </Badge>
             ) : (
               // <small className={styles.roomNameConditionValid}>
-              //   {' '}
+              //
               //   Des chiffres et des lettres sans accents
               // </small>
               <Badge className={styles.badge} severity="error">
-                {' '}
                 Des chiffres et des lettres sans accents
               </Badge>
               // <small className={styles.roomNameConditionNotValid}>
-              //   {' '}
+              //
               //   Des chiffres et des lettres sans accents
               // </small>
             )}
