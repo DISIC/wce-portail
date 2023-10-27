@@ -29,8 +29,6 @@ function HeaderComponent({
   const [msg, setMsg] = useState<any>();
   const [expanded, setExpanded] = useState(false);
 
-  authenticated = true;
-
   const logOut = () => {
     api
       .get('/logout')
