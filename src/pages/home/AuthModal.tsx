@@ -75,8 +75,22 @@ export default function AuthModal(props: AuthModalProps) {
     if (!props.roomName) {
       const room = generateRoomName();
       props.setRoomName(room);
-    }
-    if (roomNameConstraintOk(props.roomName)) {
+      if (roomNameConstraintOk(room)) {
+        api.get('/feedback/whereami').then(res => {
+          if (res.data.toLowerCase() == 'internet') {
+            if (!props.authenticated) {
+              modal.open();
+            }
+            if (props.authenticated) {
+              props.joinConference(room);
+            }
+          }
+          if (res.data.toLowerCase() == 'rie') {
+            props.joinConference(room);
+          }
+        });
+      }
+    } else if (roomNameConstraintOk(props.roomName)) {
       api.get('/feedback/whereami').then(res => {
         if (res.data.toLowerCase() == 'internet') {
           if (!props.authenticated) {
