@@ -71,6 +71,11 @@ export default function AuthModal(props: AuthModalProps) {
     //     }
     //   });
     // } else
+
+    if (!props.roomName) {
+      const room = generateRoomName();
+      props.setRoomName(room);
+    }
     if (roomNameConstraintOk(props.roomName)) {
       api.get('/feedback/whereami').then(res => {
         if (res.data.toLowerCase() == 'internet') {
@@ -237,11 +242,11 @@ export default function AuthModal(props: AuthModalProps) {
   );
 }
 
-// function generateRoomName() {
-//   return (
-//     Math.random().toString(36).slice(2).toUpperCase() +
-//     Math.floor(Math.random() * 10) +
-//     Math.floor(Math.random() * 10) +
-//     Math.floor(Math.random() * 10)
-//   );
-// }
+function generateRoomName() {
+  return (
+    Math.random().toString(36).slice(2).toUpperCase() +
+    Math.floor(Math.random() * 10) +
+    Math.floor(Math.random() * 10) +
+    Math.floor(Math.random() * 10)
+  );
+}
