@@ -28,6 +28,8 @@ type errorObj = {
     stack: string;
   };
 };
+
+
 function App() {
   const [roomName, setRoomName] = useState('');
   const [jwt, setJwt] = useState('');
