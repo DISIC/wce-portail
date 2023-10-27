@@ -81,7 +81,7 @@ export default function AuthModal(props: AuthModalProps) {
             props.joinConference(props.roomName);
           }
         }
-        if (res.data == 'rie') {
+        if (res.data.toLowerCase() == 'rie') {
           props.joinConference(props.roomName);
         }
       });
