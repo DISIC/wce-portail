@@ -29,6 +29,8 @@ function HeaderComponent({
   const [msg, setMsg] = useState<any>();
   const [expanded, setExpanded] = useState(false);
 
+  authenticated = true;
+
   const logOut = () => {
     api
       .get('/logout')
@@ -88,13 +90,22 @@ function HeaderComponent({
             },
             text: 'Contact',
           },
-          <Button
-            style={{ display: authenticated ? undefined : 'none' }}
-            priority="tertiary no outline"
-            onClick={logOut}
-          >
-            Se déconnecter
-          </Button>,
+          authenticated
+            ? {
+                iconId: 'fr-icon-user-fill',
+                buttonProps: {
+                  onClick: logOut,
+                },
+                text: 'Se déconnecter',
+              }
+            : null,
+          // <Button
+          //   style={{ display: authenticated ? undefined : 'none' }}
+          //   priority="tertiary no outline"
+          //   onClick={logOut}
+          // >
+          //   Se déconnecter
+          // </Button>,
         ]}
         id="fr-header-header-with-quick-access-items"
         serviceTagline=""
