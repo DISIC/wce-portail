@@ -73,7 +73,7 @@ export default function AuthModal(props: AuthModalProps) {
     // } else
     if (roomNameConstraintOk(props.roomName)) {
       api.get('/feedback/whereami').then(res => {
-        if (res.data == 'internet') {
+        if (res.data.toLowerCase() == 'internet') {
           if (!props.authenticated) {
             modal.open();
           }
