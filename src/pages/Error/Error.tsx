@@ -23,7 +23,7 @@ export default function Error({ error }: errorObj) {
               {' '}
               <div className="fr-py-0 fr-col-12 fr-col-md-6">
                 {' '}
-                <h1>Page non trouvée</h1>{' '}
+                <h1>Page non trouvée</h1> <h3>{error.message}</h3>
                 <p className="fr-text--sm fr-mb-3w">Erreur 404</p>{' '}
                 <p className="fr-text--lead fr-mb-3w">
                   La page que vous cherchez est introuvable. Excusez-nous pour

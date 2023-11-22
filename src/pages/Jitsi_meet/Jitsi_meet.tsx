@@ -19,48 +19,18 @@ interface JitsiMeetProps {
   setError: (e: errorObj) => void;
   joinConference: (e: string) => void;
   setMsg: (e: ReactNode) => void;
+  setRoomName: (e: string) => void;
 }
 
-const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
-  // const apiRef = useRef();
-  // const [logItems, updateLog] = useState<any[]>();
-  // const [knockingParticipants, updateKnockingParticipants] = useState<any[]>(
-  //   []
-  // );
+const Jitsi_meet = ({
+  setError,
+  joinConference,
+  setMsg,
+  setRoomName,
+}: JitsiMeetProps) => {
   const navigate = useNavigate();
   const { roomName } = useParams();
   const jwt = window.location.search.split('=')[1];
-
-  // const printEventOutput = payload => {
-  //   updateLog(items => [...items, JSON.stringify(payload)]);
-  // };
-
-  // const handleAudioStatusChange = (payload, feature) => {
-  //   if (payload.muted) {
-  //     updateLog(items => [...items, `${feature} off`]);
-  //   } else {
-  //     updateLog(items => [...items, `${feature} on`]);
-  //   }
-  // };
-
-  // const handleChatUpdates = (payload: any) => {
-  //   if (payload.isOpen || !payload.unreadCount) {
-  //     return;
-  //   }
-  //   apiRef.current.executeCommand('toggleChat');
-  //   updateLog((items: any) => [
-  //     ...items,
-  //     `you have ${payload.unreadCount} unread messages`,
-  //   ]);
-  // };
-
-  // const handleKnockingParticipant = (payload: any) => {
-  //   updateLog(items => [...items, JSON.stringify(payload)]);
-  //   updateKnockingParticipants(participants => [
-  //     ...participants,
-  //     payload?.participant,
-  //   ]);
-  // };
 
   const handleJitsiIFrameRef1 = (iframeRef: any) => {
     iframeRef.style.border = '10px solid #3d3d3d';
@@ -69,21 +39,6 @@ const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
     iframeRef.style.height = '100%';
     iframeRef.style.width = '100%';
   };
-
-  // const handleApiReady = (apiObj: any) => {
-  //   apiRef.current = apiObj;
-  //   apiRef.current.on('knockingParticipant', handleKnockingParticipant);
-  //   apiRef.current.on('audioMuteStatusChanged', payload =>
-  //     handleAudioStatusChange(payload, 'audio')
-  //   );
-  //   apiRef.current.on('videoMuteStatusChanged', payload =>
-  //     handleAudioStatusChange(payload, 'video')
-  //   );
-  //   apiRef.current.on('raiseHandUpdated', printEventOutput);
-  //   apiRef.current.on('titleViewChanged', printEventOutput);
-  //   apiRef.current.on('chatUpdated', handleChatUpdates);
-  //   apiRef.current.on('knockingParticipant', handleKnockingParticipant);
-  // };
 
   const handleReadyToClose = () => {
     if (roomNameConstraintOk(roomName)) {
@@ -117,6 +72,14 @@ const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
   useEffect(() => {
     console.log(roomName, jwt);
     if (roomName && jwt) {
+      if (!roomNameConstraintOk(roomName)) {
+        setError({
+          message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+          error: { status: '404', stack: '' },
+        });
+        navigate('/error');
+      }
+
       try {
         decodedToken = jwt_decode(jwt);
         const currentDate = new Date();
@@ -128,22 +91,14 @@ const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
           setError({
             message:
               "le jwt est expiré ou le nom de la conférence n'est pas valide",
-            error: { status: 'bad request page not found', stack: '' },
+            error: { status: '404', stack: '' },
           });
           navigate('/error');
         }
       } catch (error) {
         setError({
           message: "le jwt n'est pas valid",
-          error: { status: 'bad request page not found', stack: '' },
-        });
-        navigate('/error');
-      }
-
-      if (!roomNameConstraintOk(roomName)) {
-        setError({
-          message: "la page que vous demandez n'existe pas",
-          error: { status: 'bad request page not found', stack: '' },
+          error: { status: '404', stack: '' },
         });
         navigate('/error');
       }
@@ -151,14 +106,14 @@ const Jitsi_meet = ({ setError, joinConference, setMsg }: JitsiMeetProps) => {
       if (roomName === 'error') {
         navigate('/error');
       }
-      if (!roomNameConstraintOk(roomName)) {
-        setMsg(
-          <Badge
-            noIcon
-            severity="error"
-          >{`Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`}</Badge>
-        );
+      if (roomName && !roomNameConstraintOk(roomName)) {
+        setRoomName(roomName);
         navigate('/');
+        // setError({
+        //   message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+        //   error: { status: '404', stack: '' },
+        // });
+        // navigate('/error');
       } else {
         joinConference(roomName as string);
       }

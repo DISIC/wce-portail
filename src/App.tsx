@@ -29,7 +29,6 @@ type errorObj = {
   };
 };
 
-
 function App() {
   const [roomName, setRoomName] = useState('');
   const [jwt, setJwt] = useState('');
@@ -187,6 +186,7 @@ function App() {
               joinConference={joinConference}
               setError={setError}
               setMsg={setMsg}
+              setRoomName={setRoomName}
             />
           }
         />

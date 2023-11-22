@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@codegouvfr/react-dsfr/Input';
 import { Button } from '@codegouvfr/react-dsfr/Button';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
@@ -133,6 +133,10 @@ function HomeForm(props: AuthModalProps) {
       setMessage('');
     }
   };
+
+  useEffect(() => {
+    verifyAndSetVAlue(props.roomName);
+  }, [props.roomName]);
 
   const handleClose = (
     event: Event | React.SyntheticEvent<any, Event>,
