@@ -143,7 +143,7 @@ function App() {
               if (window.location.pathname.includes('/login')) {
                 window.location.reload();
               }
-              return navigate(`/login/${roomName}`);
+              return navigate(`/${roomName}`);
             }
           }
         }

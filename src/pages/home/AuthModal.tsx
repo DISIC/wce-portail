@@ -7,6 +7,7 @@ import CalendarModalComponent from './CalendarModal';
 import api from '../../axios/axios';
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './AuthModal.module.css';
 
@@ -53,6 +54,8 @@ export default function AuthModal(props: AuthModalProps) {
     props.setOpen(true);
   };
 
+  const navigate = useNavigate();
+
   function handle() {
     // if (!roomName) {
     //   // const room = generateRoomName();
@@ -91,19 +94,27 @@ export default function AuthModal(props: AuthModalProps) {
         });
       }
     } else if (roomNameConstraintOk(props.roomName)) {
-      api.get('/feedback/whereami').then(res => {
-        if (res.data.toLowerCase() == 'internet') {
-          if (!props.authenticated) {
-            modal.open();
-          }
-          if (props.authenticated) {
-            props.joinConference(props.roomName);
-          }
-        }
-        if (res.data.toLowerCase() == 'rie') {
-          props.joinConference(props.roomName);
-        }
-      });
+      api
+        .get('/roomExists/' + props.roomName)
+        .then(res => {
+          return navigate('/' + props.roomName);
+        })
+        .catch(err => {
+          console.log('hhhhhh' + err);
+          api.get('/feedback/whereami').then(res => {
+            if (res.data.toLowerCase() == 'internet') {
+              if (!props.authenticated) {
+                return modal.open();
+              }
+              if (props.authenticated) {
+                return props.joinConference(props.roomName);
+              }
+            }
+            if (res.data.toLowerCase() == 'rie') {
+              return props.joinConference(props.roomName);
+            }
+          });
+        });
     }
   }
 
