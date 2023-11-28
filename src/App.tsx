@@ -1,6 +1,5 @@
 import Home from './pages/home/Home';
 import Layout from './components/layout/Layout';
-import Jitsi from './pages/login/Jitsi';
 import { useState, useEffect, ReactNode } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import FAQ from './pages/FAQ/FAQ.md';

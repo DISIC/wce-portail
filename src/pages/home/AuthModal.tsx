@@ -57,24 +57,6 @@ export default function AuthModal(props: AuthModalProps) {
   const navigate = useNavigate();
 
   function handle() {
-    // if (!roomName) {
-    //   // const room = generateRoomName();
-    //   // setRoomName(room);
-    //   api.get('/feedback/whereami').then(res => {
-    //     if (res.data == 'internet') {
-    //       if (!authenticated) {
-    //         modal.open();
-    //       }
-    //       if (authenticated) {
-    //         joinConference(room);
-    //       }
-    //     }
-    //     if (res.data == 'rie') {
-    //       joinConference(room);
-    //     }
-    //   });
-    // } else
-
     if (!props.roomName) {
       const room = generateRoomName();
       props.setRoomName(room);
@@ -100,7 +82,6 @@ export default function AuthModal(props: AuthModalProps) {
           return navigate('/' + props.roomName);
         })
         .catch(err => {
-          console.log('hhhhhh' + err);
           api.get('/feedback/whereami').then(res => {
             if (res.data.toLowerCase() == 'internet') {
               if (!props.authenticated) {
@@ -149,7 +130,6 @@ export default function AuthModal(props: AuthModalProps) {
       }
     });
   };
-  console.log('==========' + import.meta.env.VITE_BASE_URL);
   const onCheck = () => {
     setIsChecked(!isCheked);
     localStorage.setItem('checked', (!isCheked).toString());
@@ -167,7 +147,6 @@ export default function AuthModal(props: AuthModalProps) {
   return (
     <>
       <modal.Component title="Vous êtes l’organisateur de la réunion ?">
-        {/* <h5>Vous êtes l’organisateur de la réunion ?</h5> */}
         <p>
           <small>
             Nous avons besoin de vérifier votre identité afin de créer la
@@ -245,9 +224,7 @@ export default function AuthModal(props: AuthModalProps) {
       </modal.Component>
       <div className={styles.buttons}>
         <Button onClick={handle} className={styles.button}>
-          {/* {roomName ?  */}
           Rejoindre ou créer
-          {/* : 'Générer un nom aléatoire'} */}
         </Button>
         <br />
         {props.buttons ? (

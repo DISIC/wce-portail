@@ -21,7 +21,6 @@ export default function LoginCallback({
   const urlParams = new URLSearchParams(queryString);
 
   useEffect(() => {
-    console.log('============', urlParams.get('code'), urlParams.get('state'));
     if (urlParams.get('error_description')) {
       navigate(-2);
     }

@@ -1,11 +1,9 @@
-import React, { ReactComponentElement } from 'react';
+import React from 'react';
 import { createModal } from '@codegouvfr/react-dsfr/Modal';
 import { useIsModalOpen } from '@codegouvfr/react-dsfr/Modal/useIsModalOpen';
 import { Button } from '@codegouvfr/react-dsfr/Button';
 import ICalLink from 'react-icalendar-link';
 import { Input } from '@codegouvfr/react-dsfr/Input';
-import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox';
-import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import axios from 'axios';
 import styles from './Home.module.css';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
@@ -71,7 +69,6 @@ export default function CalendarModalComponent(props: any) {
     setDisabled(true);
   };
 
-  console.log(`Modal is currently: ${isOpen ? 'open' : 'closed'}`);
   const handle = async () => {
     modal.open();
     if (!roomName) {

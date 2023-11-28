@@ -1,10 +1,9 @@
 import { JitsiMeeting } from '@jitsi/react-sdk';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './jitsi_meet.module.css';
 import jwt_decode from 'jwt-decode';
-import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import { ReactNode } from 'react';
 
 type errorObj = {
@@ -70,7 +69,6 @@ const Jitsi_meet = ({
   let decodedToken: any;
 
   useEffect(() => {
-    console.log(roomName, jwt);
     if (roomName && jwt) {
       if (!roomNameConstraintOk(roomName)) {
         setError({
