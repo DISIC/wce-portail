@@ -139,15 +139,16 @@ function App() {
             return navigate(`/${roomName}`);
           } else {
             if (res.data.login) {
-              if (window.location.pathname.includes('/login')) {
-                window.location.reload();
-              }
-              return navigate(`/${roomName}`);
+              setError({
+                message: "Vous n'etes pas authentifié.",
+                error: { status: '404', stack: '' },
+              });
+              return navigate('/error');
             }
           }
         }
       })
-      .catch(error => {
+      .catch((error: any) => {
         if (error.response) {
           setError({
             message: "la page que vous demandez n'existe pas",
