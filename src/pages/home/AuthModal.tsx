@@ -7,7 +7,7 @@ import CalendarModalComponent from './CalendarModal';
 import api from '../../axios/axios';
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 
 import styles from './AuthModal.module.css';
 
@@ -123,10 +123,12 @@ export default function AuthModal(props: AuthModalProps) {
     }).then(res => {
       if (res.type === 'opaqueredirect') {
         // redirect to login page
-        window.location.href = res.url;
+        // window.location.href = res.url;
+        return redirect(res.url);
       } else {
         // handle normally / pass on to next handler
-        window.location.href = res.url;
+        // window.location.href = res.url;
+        return redirect(res.url);
       }
     });
   };
