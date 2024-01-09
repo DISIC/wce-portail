@@ -7,7 +7,7 @@ import CalendarModalComponent from './CalendarModal';
 import api from '../../axios/axios';
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 
 import styles from './AuthModal.module.css';
 
