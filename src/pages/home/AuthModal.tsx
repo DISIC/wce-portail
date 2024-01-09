@@ -122,7 +122,6 @@ export default function AuthModal(props: AuthModalProps) {
       redirect: 'manual',
     }).then(res => {
       if (res.type === 'opaqueredirect') {
-        // redirect to login page
         window.location.href = res.url;
       } else {
         // handle normally / pass on to next handler
