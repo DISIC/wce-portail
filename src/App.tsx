@@ -1,7 +1,7 @@
 import Home from './pages/home/Home';
 import Layout from './components/layout/Layout';
 import { useState, useEffect, ReactNode } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate, useParams } from 'react-router-dom';
 import FAQ from './pages/FAQ/FAQ.md';
 import DonneesPerso from './pages/DonneesPerso/DonneesPerso.md';
 import Contact from './pages/Contact/Contact.md';
@@ -20,6 +20,7 @@ import LogoutCallback from './pages/login/LogoutCallback';
 import Error from './pages/Error/Error';
 import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
 import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
+
 type errorObj = {
   message: string;
   error: {
@@ -176,18 +177,50 @@ function App() {
   const login = () => {
     setModal(!modal);
   };
+
+  function isAlphanumeric(str: any) {
+    return /^[a-zA-Z0-9]+$/.test(str);
+  }
+
+  const Wrapper = () => {
+    const { roomName } = useParams();
+  
+    if (isAlphanumeric(roomName)) { // only A and not B
+      return <Jitsi_meet
+      joinConference={joinConference}
+      setError={setError}
+      setMsg={setMsg}
+      setRoomName={setRoomName}
+    />;
+    } else {        // only B
+      return  <Navigate to={`/backend/${roomName}`} replace={true} />;
+    }
+  };
+
+  const OtherRoutes = () => {
+    api
+    .get(`/backend/${window.location.href}`)
+    .then(res => {
+      <Navigate to={`/${roomName}`} replace={true} />;
+      // window.location.href = `/${roomName}`;
+       return window.location.reload();
+    })
+    .catch(res => {
+      <Navigate to={`/error`} replace={true} />;
+      //  window.location.href = `/error`;
+       return window.location.reload();
+    })
+
+    return <></>
+  };
+  
   return (
     <MuiDsfrThemeProvider>
       <Routes>
         <Route
           path=":roomName"
           element={
-            <Jitsi_meet
-              joinConference={joinConference}
-              setError={setError}
-              setMsg={setMsg}
-              setRoomName={setRoomName}
-            />
+           <Wrapper/>
           }
         />
         <Route
@@ -234,6 +267,7 @@ function App() {
               />
             }
           />
+          <Route path="*" element={<OtherRoutes />} />
           <Route path="error" element={<Error error={error} />} />
           <Route path="feedback" element={<Feedback setError={setError} />} />
           <Route path="browser_test" element={<BrowserTest />} />
