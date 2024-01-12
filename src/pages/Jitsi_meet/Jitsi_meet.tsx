@@ -106,12 +106,12 @@ const Jitsi_meet = ({
       }
       if (roomName && !roomNameConstraintOk(roomName)) {
         setRoomName(roomName);
-        navigate('/');
-        // setError({
-        //   message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
-        //   error: { status: '404', stack: '' },
-        // });
-        // navigate('/error');
+        // navigate('/');
+        setError({
+          message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+          error: { status: '404', stack: '' },
+        });
+        navigate('/error');
       } else {
         joinConference(roomName as string);
       }
