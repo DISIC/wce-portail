@@ -137,7 +137,7 @@ function App() {
           return window.location.reload();
         } else {
           if (!res.data.error && !res.data.login) {
-            return window.location.replace(`https://${import.meta.env.VITE_JITSI_DOMAIN}/${roomName}`);
+            return navigate(`/${roomName}`);
           } else {
             if (res.data.login) {
               setError({

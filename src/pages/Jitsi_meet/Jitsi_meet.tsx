@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styles from './jitsi_meet.module.css';
 import jwt_decode from 'jwt-decode';
 import { ReactNode } from 'react';
+import api from '../../axios/axios';
 
 type errorObj = {
   message: string;
@@ -113,7 +114,14 @@ const Jitsi_meet = ({
         });
         navigate('/error');
       } else {
-        joinConference(roomName as string);
+        api
+      .get(`/${roomName}`)
+      .then(res => {
+        if (res.data.error || res.data.login) {
+          return navigate('/error');
+        }
+      })
+        // joinConference(roomName as string);
       }
     }
   }, [roomName]);
