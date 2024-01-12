@@ -192,9 +192,11 @@ function App() {
       setMsg={setMsg}
       setRoomName={setRoomName}
     />;
-    } else {       
-      return  <Navigate to={`/${roomName}`} />;
-    }
+    } 
+    // else {       
+    //   return  <Navigate to={`/${roomName}`} />;
+    // }
+    return <></>
   };
 
   const OtherRoutes = () => {

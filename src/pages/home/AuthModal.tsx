@@ -118,7 +118,7 @@ export default function AuthModal(props: AuthModalProps) {
   }, []);
 
   const agentConnect = (room: string) => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/login_authorize?room=${room}`, {
+    fetch(`${import.meta.env.VITE_BASE_URL}/auth/login_authorize?room=${room}`, {
       redirect: 'manual',
     }).then(res => {
       if (res.type === 'opaqueredirect') {

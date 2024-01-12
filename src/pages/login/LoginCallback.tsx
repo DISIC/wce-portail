@@ -26,7 +26,7 @@ export default function LoginCallback({
     }
     api
       .get(
-        `/login_callback?code=${urlParams.get('code')}&state=${urlParams.get(
+        `/auth/login_callback?code=${urlParams.get('code')}&state=${urlParams.get(
           'state'
         )}`
       )

@@ -26,7 +26,7 @@ function HeaderComponent({
 
   const logOut = () => {
     api
-      .get('/logout')
+      .get('/auth/logout')
       .then(res => {
         if (res.data.error) {
           localStorage.setItem('auth', 'false');
