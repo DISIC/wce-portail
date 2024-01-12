@@ -185,15 +185,15 @@ function App() {
   const Wrapper = () => {
     const { roomName } = useParams();
   
-    if (isAlphanumeric(roomName)) { // only A and not B
+    if (isAlphanumeric(roomName)) {
       return <Jitsi_meet
       joinConference={joinConference}
       setError={setError}
       setMsg={setMsg}
       setRoomName={setRoomName}
     />;
-    } else {        // only B
-      return  <Navigate to={`/backend/${roomName}`} replace={true} />;
+    } else {       
+      return  <Navigate to={`/${roomName}`} />;
     }
   };
 
@@ -267,7 +267,7 @@ function App() {
               />
             }
           />
-          <Route path="*" element={<OtherRoutes />} />
+          <Route path="/wce-api/*" element={<Navigate to={`/${import.meta.env.VITE_BASE_URL}`} replace={true} />} />
           <Route path="error" element={<Error error={error} />} />
           <Route path="feedback" element={<Feedback setError={setError} />} />
           <Route path="browser_test" element={<BrowserTest />} />
