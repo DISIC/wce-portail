@@ -70,7 +70,7 @@ export default function AuthModal(props: AuthModalProps) {
               props.joinConference(room);
             }
           }
-          if (res.data.toLowerCase() == 'rie') {
+          if (res.data.toLowerCase() !== 'internet') {
             props.joinConference(room);
           }
         });

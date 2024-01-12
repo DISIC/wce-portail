@@ -37,7 +37,7 @@ export default function Feedback({ setError }: feedbackProps) {
     api
       .get('/feedback/whereami')
       .then(res => {
-        if (res.data.toLowerCase() === 'rie') {
+        if (res.data.toLowerCase() !== 'internet') {
           setFromRIE(true);
         }
       })
