@@ -114,21 +114,20 @@ const Jitsi_meet = ({
         });
         navigate('/error');
       } else {
-        api
-      .get(`/${roomName}`)
-      .then(res => {
-        if (res.data.error || res.data.login) {
-          return navigate('/error');
-        }else {
-          joinConference(roomName as string)
-        }
-        // if (res.data.jwt) {
-        //   navigate(`/${res.data.roomName}?jwt=${res.data.jwt}`, {
-        //     replace: true,
-        //   });
-        //   return window.location.reload();
-        // }
-      })
+        api.get(`/${roomName}`).then(res => {
+          if (res.data.error || res.data.login) {
+            return navigate('/error');
+          }
+          if (res.data.jwt) {
+            joinConference(roomName as string);
+          }
+          // if (res.data.jwt) {
+          //   navigate(`/${res.data.roomName}?jwt=${res.data.jwt}`, {
+          //     replace: true,
+          //   });
+          //   return window.location.reload();
+          // }
+        });
         // joinConference(roomName as string);
       }
     }
