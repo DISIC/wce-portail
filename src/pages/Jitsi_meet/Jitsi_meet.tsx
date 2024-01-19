@@ -119,7 +119,15 @@ const Jitsi_meet = ({
       .then(res => {
         if (res.data.error || res.data.login) {
           return navigate('/error');
+        }else {
+          joinConference(roomName as string)
         }
+        // if (res.data.jwt) {
+        //   navigate(`/${res.data.roomName}?jwt=${res.data.jwt}`, {
+        //     replace: true,
+        //   });
+        //   return window.location.reload();
+        // }
       })
         // joinConference(roomName as string);
       }
