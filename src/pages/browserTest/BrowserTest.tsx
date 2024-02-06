@@ -805,7 +805,7 @@ export default function BrowserTest() {
                   spinner={renderSpinner}
                   configOverwrite={{
                     prejoinConfig: {
-                      enabled: true,
+                      enabled: false,
                     },
                     toolbarButtons: [
                       'camera',
@@ -837,7 +837,7 @@ export default function BrowserTest() {
                   spinner={renderSpinner}
                   configOverwrite={{
                     prejoinConfig: {
-                      enabled: true,
+                      enabled: false,
                     },
                     toolbarButtons: [
                       'camera',
