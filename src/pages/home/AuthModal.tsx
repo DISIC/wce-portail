@@ -61,7 +61,7 @@ export default function AuthModal(props: AuthModalProps) {
       const room = generateRoomName();
       props.setRoomName(room);
       if (roomNameConstraintOk(room)) {
-        api.get('/feedback/whereami').then(res => {
+        api.get('/authentication/whereami').then(res => {
           if (res.data.toLowerCase() == 'internet') {
             if (!props.authenticated) {
               modal.open();
@@ -82,7 +82,7 @@ export default function AuthModal(props: AuthModalProps) {
           return navigate('/' + props.roomName);
         })
         .catch(err => {
-          api.get('/feedback/whereami').then(res => {
+          api.get('/authentication/whereami').then(res => {
             if (res.data.toLowerCase() == 'internet') {
               if (!props.authenticated) {
                 return modal.open();
@@ -118,7 +118,7 @@ export default function AuthModal(props: AuthModalProps) {
   }, []);
 
   const agentConnect = (room: string) => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/auth/login_authorize?room=${room}`, {
+    fetch(`${import.meta.env.VITE_BASE_URL}/authentication/login_authorize?room=${room}`, {
       redirect: 'manual',
     }).then(res => {
       if (res.type === 'opaqueredirect') {
