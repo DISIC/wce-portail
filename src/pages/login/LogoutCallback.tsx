@@ -22,7 +22,7 @@ export default function LogoutCallback({
 
   useEffect(() => {
     api
-      .get(`/auth/logout_callback?state=${urlParams.get('state')}`)
+      .get(`/authentication/logout_callback?state=${urlParams.get('state')}`)
       .then(res => {
         setAuthenticated(false);
         localStorage.setItem('auth', 'false');
