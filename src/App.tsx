@@ -53,9 +53,9 @@ function App() {
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
 
-  const sendEmail = (room: string) => {
+  const sendEmail = (roomName: string) => {
     api
-      .post('conference/create/byemail', { conference: room, email: email })
+      .post('conference/create/byemail', { roomName, email: email })
       .then(res => {
         if (res.data.error) {
           setError({
