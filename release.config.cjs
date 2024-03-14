@@ -5,14 +5,14 @@ module.exports = {
         '@semantic-release/release-notes-generator',
         [
             "@semantic-release/git", {
-            "assets": ["wce-portail.tar.gz"],
             "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
             }
         ],
         [
             "@semantic-release/github", {
-            "assets": ["wce-portail.tar.gz"],
-            "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+            "assets": [
+                {"path": "wce-portail.tar.gz", "label": "version: ${nextRelease.version}"}
+            ]
             }
         ]
     ]
