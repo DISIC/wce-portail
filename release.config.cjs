@@ -3,10 +3,17 @@ module.exports = {
     plugins: [
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
-        ["@semantic-release/git", {
-        "assets": ["wce-portail.tar.gz"],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }],
-        '@semantic-release/github'
+        [
+            "@semantic-release/git", {
+            "assets": ["wce-portail.tar.gz"],
+            "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+            }
+        ],
+        [
+            "@semantic-release/github", {
+            "assets": ["wce-portail.tar.gz"],
+            "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+            }
+        ]
     ]
 };
