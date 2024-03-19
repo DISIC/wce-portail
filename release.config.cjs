@@ -1,4 +1,5 @@
 // configuration file for semantic-release
+
 module.exports = {
     branches: [
         'main',
