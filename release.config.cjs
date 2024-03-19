@@ -1,5 +1,5 @@
 // configuration file for semantic-release
-
+// this is file is used by github actions
 module.exports = {
     branches: [
         'main',
