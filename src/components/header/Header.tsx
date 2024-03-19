@@ -25,40 +25,50 @@ function HeaderComponent({
   const [msg, setMsg] = useState<any>();
 
   const logOut = () => {
-    api
-      .get('/auth/logout')
-      .then(res => {
-        if (res.data.error) {
-          localStorage.setItem('auth', 'false');
-          setAuthenticated(false);
-          navigate('/');
-        } else {
-          open(res.data, '_self');
-        }
-      })
-      .catch(error => {
-        if (error.response) {
-          setMsg(
-            <Badge noIcon severity="error">
-              une erreur est survenue lors de la déconnexion
-            </Badge>
-          );
-        } else {
-          if (error.request) {
-            setError({
-              message: 'une erreur est survenue lors de la déconnexion',
-              error: { status: '', stack: '' },
-            });
-            navigate('/error');
-          } else {
-            setError({
-              message: 'une erreur est survenue lors de la déconnexion',
-              error: { status: '', stack: '' },
-            });
-            navigate('/error');
-          }
-        }
-      });
+    fetch(`${import.meta.env.VITE_BASE_URL}/authentication/logout`, {
+      redirect: 'manual',
+    }).then(res => {
+      if (res.type === 'opaqueredirect') {
+        window.location.href = res.url;
+      } else {
+        // handle normally / pass on to next handler
+        window.location.href = res.url;
+      }
+    });
+    // api
+    //   .get('/authentication/logout')
+    //   .then(res => {
+    //     if (res.data.error) {
+    //       localStorage.setItem('auth', 'false');
+    //       setAuthenticated(false);
+    //       navigate('/');
+    //     } else {
+    //       open(res.data, '_self');
+    //     }
+    //   })
+    //   .catch(error => {
+    //     if (error.response) {
+    //       setMsg(
+    //         <Badge noIcon severity="error">
+    //           une erreur est survenue lors de la déconnexion
+    //         </Badge>
+    //       );
+    //     } else {
+    //       if (error.request) {
+    //         setError({
+    //           message: 'une erreur est survenue lors de la déconnexion',
+    //           error: { status: '', stack: '' },
+    //         });
+    //         navigate('/error');
+    //       } else {
+    //         setError({
+    //           message: 'une erreur est survenue lors de la déconnexion',
+    //           error: { status: '', stack: '' },
+    //         });
+    //         navigate('/error');
+    //       }
+    //     }
+    //   });
   };
   return (
     <div className={styles.parent}>
