@@ -2,7 +2,10 @@ name: Release
 
 on:
   push:
-
+    branches:
+      - "preprod"
+      - "main"
+      
 jobs:
   release:
     permissions:
