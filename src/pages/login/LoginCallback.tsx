@@ -26,14 +26,14 @@ export default function LoginCallback({
     }
     api
       .get(
-        `/authentication/login_callback?code=${urlParams.get('code')}&state=${urlParams.get(
-          'state'
-        )}`
+        `/authentication/login_callback?code=${urlParams.get(
+          'code'
+        )}&state=${urlParams.get('state')}`
       )
       .then(res => {
         if (res.data.roomName && res.data.jwt) {
           navigate(`/${res.data.roomName}?jwt=${res.data.jwt}`);
-          localStorage.setItem('auth', 'true');
+          localStorage.setItem('auth', res.data.accessToken);
           setAuthenticated(true);
         } else {
           navigate(`/`);
