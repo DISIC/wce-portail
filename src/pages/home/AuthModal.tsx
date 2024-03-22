@@ -56,7 +56,8 @@ export default function AuthModal(props: AuthModalProps) {
 
   const navigate = useNavigate();
 
-  function handle() {
+  function handle(e: any) {
+    e.preventDefault();
     if (!props.roomName) {
       const room = generateRoomName();
       props.setRoomName(room);
@@ -118,9 +119,14 @@ export default function AuthModal(props: AuthModalProps) {
   }, []);
 
   const agentConnect = (room: string) => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/authentication/login_authorize?room=${room}`, {
-      redirect: 'manual',
-    }).then(res => {
+    fetch(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/authentication/login_authorize?room=${room}`,
+      {
+        redirect: 'manual',
+      }
+    ).then(res => {
       if (res.type === 'opaqueredirect') {
         window.location.href = res.url;
       } else {
@@ -222,7 +228,12 @@ export default function AuthModal(props: AuthModalProps) {
         ) : null}
       </modal.Component>
       <div className={styles.buttons}>
-        <Button onClick={handle} className={styles.button}>
+        <Button
+          onClick={handle}
+          className={styles.button}
+          disabled={!roomNameConstraintOk(props.roomName)}
+          type="submit"
+        >
           Rejoindre ou créer
         </Button>
         <br />
