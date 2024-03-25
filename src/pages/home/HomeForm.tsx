@@ -190,7 +190,8 @@ function HomeForm(props: AuthModalProps) {
           />
           <Button
             className={styles.plusButton}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               verifyAndSetVAlue(generateRoomName());
             }}
           >

@@ -26,6 +26,7 @@ import LogoutCallback from './pages/login/LogoutCallback';
 import Error from './pages/Error/Error';
 import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
 import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
+import jwtDecode from 'jwt-decode';
 
 type errorObj = {
   message: string;
@@ -34,6 +35,10 @@ type errorObj = {
     stack: string;
   };
 };
+
+interface JwtPayload {
+  exp: number;
+}
 
 function App() {
   const [roomName, setRoomName] = useState('');
@@ -88,13 +93,41 @@ function App() {
       });
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('auth') == 'true') {
-      setAuthenticated(true);
-    }
-    if (localStorage.getItem('auth') == 'false') {
+  // const { exp } = jwtDecode(
+  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQwMDAwMDAwMDB9.MtC2hJ9IZD0vpaW1algbUCDvd6HLXtJ6ayv_jqZfQY'
+  // ) as JwtPayload;
+  // console.log(exp);
+
+  const verifyAccessToken = () => {
+    console.log('tatatattaat');
+    if (
+      localStorage.getItem('auth') &&
+      localStorage.getItem('auth') !== 'false'
+    ) {
+      const { exp } = jwtDecode(
+        localStorage.getItem('auth') as string
+      ) as JwtPayload;
+      if (Date.now() <= exp * 1000) {
+        setAuthenticated(true);
+      } else {
+        api
+          .get('authentication/refreshToken')
+          .then(res => {
+            return localStorage.setItem('auth', res.data.accessToken);
+          })
+          .catch(err => {
+            localStorage.setItem('auth', 'false');
+            return setAuthenticated(false);
+          });
+      }
+    } else {
       setAuthenticated(false);
     }
+  };
+
+  useEffect(() => {
+    verifyAccessToken();
+    setInterval(verifyAccessToken, 1000 * 3600);
   }, []);
 
   useEffect(() => {
@@ -102,7 +135,7 @@ function App() {
       .get('/stats/homePage')
       .then(res => {
         if (!res.data.authenticated) {
-          setAuthenticated(false);
+          // setAuthenticated(false);
         }
         setConferenceNumber(res.data.conf);
         setparticipantsNumber(res.data.part);

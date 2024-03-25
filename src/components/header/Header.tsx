@@ -35,40 +35,6 @@ function HeaderComponent({
         window.location.href = res.url;
       }
     });
-    // api
-    //   .get('/authentication/logout')
-    //   .then(res => {
-    //     if (res.data.error) {
-    //       localStorage.setItem('auth', 'false');
-    //       setAuthenticated(false);
-    //       navigate('/');
-    //     } else {
-    //       open(res.data, '_self');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     if (error.response) {
-    //       setMsg(
-    //         <Badge noIcon severity="error">
-    //           une erreur est survenue lors de la déconnexion
-    //         </Badge>
-    //       );
-    //     } else {
-    //       if (error.request) {
-    //         setError({
-    //           message: 'une erreur est survenue lors de la déconnexion',
-    //           error: { status: '', stack: '' },
-    //         });
-    //         navigate('/error');
-    //       } else {
-    //         setError({
-    //           message: 'une erreur est survenue lors de la déconnexion',
-    //           error: { status: '', stack: '' },
-    //         });
-    //         navigate('/error');
-    //       }
-    //     }
-    //   });
   };
   return (
     <div className={styles.parent}>
