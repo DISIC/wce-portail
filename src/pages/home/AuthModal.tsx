@@ -53,9 +53,57 @@ export default function AuthModal(props: AuthModalProps) {
     props.setOpen(true);
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     props.openModal ? modal.open() : null;
   }, [props.openModal]);
+=======
+  const navigate = useNavigate();
+
+  function handle(e: any) {
+    e.preventDefault();
+    if (!props.roomName) {
+      const room = generateRoomName();
+      props.setRoomName(room);
+      if (roomNameConstraintOk(room)) {
+        api.get('/authentication/whereami').then(res => {
+          if (res.data.toLowerCase() == 'internet') {
+            if (!props.authenticated) {
+              modal.open();
+            }
+            if (props.authenticated) {
+              props.joinConference(room);
+            }
+          }
+          if (res.data.toLowerCase() !== 'internet') {
+            props.joinConference(room);
+          }
+        });
+      }
+    } else if (roomNameConstraintOk(props.roomName)) {
+      api
+        .get('/roomExists/' + props.roomName)
+        .then(res => {
+          return navigate('/' + props.roomName);
+        })
+        .catch(err => {
+          api.get('/authentication/whereami').then(res => {
+            if (res.data.toLowerCase() == 'internet') {
+              if (!props.authenticated) {
+                return modal.open();
+              }
+              if (props.authenticated) {
+                return props.joinConference(props.roomName);
+              }
+            }
+            if (res.data.toLowerCase() !== 'internet') {
+              return props.joinConference(props.roomName);
+            }
+          });
+        });
+    }
+  }
+>>>>>>> a306054b2c0e02f9d605371837dbce6a817ff84f
 
   useEffect(() => {
     props.setIsWhitelisted(null);
@@ -186,10 +234,17 @@ export default function AuthModal(props: AuthModalProps) {
       </modal.Component>
       <div className={styles.buttons}>
         <Button
+<<<<<<< HEAD
           // onClick={handle}
           type="submit"
           className={styles.button}
           disabled={!roomNameConstraintOk(props.roomName)}
+=======
+          onClick={handle}
+          className={styles.button}
+          disabled={!roomNameConstraintOk(props.roomName)}
+          type="submit"
+>>>>>>> a306054b2c0e02f9d605371837dbce6a817ff84f
         >
           Rejoindre ou créer
         </Button>
