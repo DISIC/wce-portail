@@ -73,7 +73,7 @@ function HomeForm(props: AuthModalProps) {
           api.get('/authentication/whereami').then(res => {
             if (res.data.toLowerCase() == 'internet') {
               if (!props.authenticated) {
-                return setOpenModal(true);
+                setOpenModal(true);
               }
               if (props.authenticated) {
                 return props.joinConference(props.roomName);
@@ -85,6 +85,7 @@ function HomeForm(props: AuthModalProps) {
           });
         });
     }
+    setOpenModal(false);
   }
 
   const change = (e: string) => {
@@ -274,6 +275,7 @@ function HomeForm(props: AuthModalProps) {
             className={styles.plusButton}
             onClick={() => props.setButtons(!props.buttons)}
             nativeButtonProps={{ id: 'plusButton' }}
+            type="button"
           >
             {props.buttons ? down : up}
           </Button>
