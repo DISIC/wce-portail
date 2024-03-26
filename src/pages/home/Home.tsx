@@ -13,6 +13,8 @@ interface AuthModalProps {
   setRoomName: (e: any) => void;
   joinConference: (e: any) => void;
   authenticated: boolean | null;
+  conferenceNumber: number;
+  participantNumber: number;
 }
 
 function Home(props: AuthModalProps) {
