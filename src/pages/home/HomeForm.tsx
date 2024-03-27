@@ -9,6 +9,8 @@ import { Alert } from '@codegouvfr/react-dsfr/Alert';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import api from '../../axios/axios';
+import { redirect, useNavigate } from 'react-router-dom';
 import { fr } from '@codegouvfr/react-dsfr';
 
 interface AuthModalProps {
@@ -23,12 +25,68 @@ interface AuthModalProps {
   authenticated: boolean | null;
   setButtons: (a: boolean) => void;
   buttons: boolean;
+  conferenceNumber: number;
+  participantNumber: number;
 }
 
 function HomeForm(props: AuthModalProps) {
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
   const [messageType, setMessageType] = useState<string>('');
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  const navigate = useNavigate();
+
+  function handle() {
+    function roomNameConstraintOk(roomName: string) {
+      const regex = new RegExp(
+        '^(?=(?:[a-zA-Z0-9]*[a-zA-Z]))(?=(?:[a-zA-Z0-9]*[0-9]){3})[a-zA-Z0-9]{10,}$'
+      );
+      return regex.test(roomName);
+    }
+    if (!props.roomName) {
+      const room = generateRoomName();
+      props.setRoomName(room);
+      if (roomNameConstraintOk(room)) {
+        api.get('/authentication/whereami').then(res => {
+          if (res.data.toLowerCase() == 'internet') {
+            if (!props.authenticated) {
+              // modal.open();
+              setOpenModal(true);
+            }
+            if (props.authenticated) {
+              props.joinConference(room);
+            }
+          }
+          if (res.data.toLowerCase() !== 'internet') {
+            props.joinConference(room);
+          }
+        });
+      }
+    } else if (roomNameConstraintOk(props.roomName)) {
+      api
+        .get('/roomExists/' + props.roomName)
+        .then(res => {
+          return navigate('/' + props.roomName);
+        })
+        .catch(err => {
+          api.get('/authentication/whereami').then(res => {
+            if (res.data.toLowerCase() == 'internet') {
+              if (!props.authenticated) {
+                setOpenModal(true);
+              }
+              if (props.authenticated) {
+                return props.joinConference(props.roomName);
+              }
+            }
+            if (res.data.toLowerCase() !== 'internet') {
+              return props.joinConference(props.roomName);
+            }
+          });
+        });
+    }
+    setOpenModal(false);
+  }
 
   const change = (e: string) => {
     verifyAndSetVAlue(e);
@@ -171,7 +229,13 @@ function HomeForm(props: AuthModalProps) {
     <div className={styles.HomeForm}>
       <h3>La WebConférence de l'État pour tous les agents publics</h3>
       <p>Audio, vidéo, chat, partage d'écran et de documents</p>
-      <div className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={e => {
+          e.preventDefault();
+          handle();
+        }}
+      >
         <div className={styles.confButtons}>
           <Input
             style={{ width: '100%' }}
@@ -188,30 +252,39 @@ function HomeForm(props: AuthModalProps) {
               onChange: (e: any) => change(e.target.value),
             }}
           />
+
           <Button
             className={styles.plusButton}
             onClick={e => {
               e.preventDefault();
               verifyAndSetVAlue(generateRoomName());
             }}
+            type="button"
           >
             <ShuffleIcon />
           </Button>
         </div>
         <div className={styles.confButtons}>
-          <AuthModal {...props} setOpen={setOpen} buttons={props.buttons} />
+          <AuthModal
+            {...props}
+            setOpen={setOpen}
+            buttons={props.buttons}
+            openModal={openModal}
+          />
           <Button
             className={styles.plusButton}
             onClick={() => props.setButtons(!props.buttons)}
             nativeButtonProps={{ id: 'plusButton' }}
+            type="button"
           >
             {props.buttons ? down : up}
           </Button>
         </div>
-      </div>
+      </form>
       <p>{message}</p>
       <Badge severity="info">
-        Actuellement, il y a 0 conférences et 0 participants.
+        Actuellement, il y a {props.conferenceNumber} conférences et{' '}
+        {props.participantNumber} participants.
       </Badge>
       <hr />
       <Alert

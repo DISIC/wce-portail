@@ -302,6 +302,8 @@ function App() {
                 sendEmail={sendEmail}
                 joinConference={joinConference}
                 authenticated={authenticated}
+                conferenceNumber={conferenceNumber}
+                participantNumber={participantsNumber}
               />
             }
           />
