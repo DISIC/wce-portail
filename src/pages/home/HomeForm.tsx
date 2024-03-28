@@ -235,6 +235,7 @@ function HomeForm(props: AuthModalProps) {
           e.preventDefault();
           handle();
         }}
+        noValidate
       >
         <div className={styles.confButtons}>
           <Input
