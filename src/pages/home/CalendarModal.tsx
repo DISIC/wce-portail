@@ -230,6 +230,7 @@ export default function CalendarModalComponent(props: any) {
             <Button
               // variant="contained"
               style={{ backgroundColor: '#0a76f6', textTransform: 'none' }}
+              type="button"
             >
               Ajouter au calendrier
             </Button>
@@ -240,6 +241,7 @@ export default function CalendarModalComponent(props: any) {
             title="copy"
             onClick={() => copyEvent()}
             disabled={disabled}
+            type="button"
             // nativeButtonProps={{ id: 'copyCalendarButton' }}
           >
             Copier
@@ -250,6 +252,7 @@ export default function CalendarModalComponent(props: any) {
         onClick={handle}
         className={styles.button}
         priority="primary"
+        type="button"
         // size="medium"
         nativeButtonProps={{ id: 'calendarButton' }}
       >
