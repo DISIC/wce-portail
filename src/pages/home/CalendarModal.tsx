@@ -253,7 +253,6 @@ export default function CalendarModalComponent(props: any) {
         className={styles.button}
         priority="primary"
         type="button"
-        // size="medium"
         nativeButtonProps={{ id: 'calendarButton' }}
       >
         Planifier une conférence
