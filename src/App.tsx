@@ -93,13 +93,7 @@ function App() {
       });
   };
 
-  // const { exp } = jwtDecode(
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQwMDAwMDAwMDB9.MtC2hJ9IZD0vpaW1algbUCDvd6HLXtJ6ayv_jqZfQY'
-  // ) as JwtPayload;
-  // console.log(exp);
-
   const verifyAccessToken = () => {
-    console.log('tatatattaat');
     if (
       localStorage.getItem('auth') &&
       localStorage.getItem('auth') !== 'false'
