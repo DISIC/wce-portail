@@ -1,8 +1,6 @@
 import { Header } from '@codegouvfr/react-dsfr/Header';
 import { useNavigate } from 'react-router-dom';
-import api from '../../axios/axios';
 import { useState } from 'react';
-import { Badge } from '@codegouvfr/react-dsfr/Badge';
 import styles from './Header.module.css';
 
 type errorObj = {
@@ -16,14 +14,7 @@ interface headerProps {
   setError: (obj: errorObj) => void;
 }
 
-function HeaderComponent({
-  authenticated,
-  setAuthenticated,
-  setError,
-}: headerProps) {
-  const navigate = useNavigate();
-  const [msg, setMsg] = useState<any>();
-
+function HeaderComponent({ authenticated }: headerProps) {
   const logOut = () => {
     fetch(`${import.meta.env.VITE_BASE_URL}/authentication/logout`, {
       redirect: 'manual',
@@ -119,7 +110,6 @@ function HeaderComponent({
           },
         ]}
       />
-      {msg}
     </div>
   );
 }

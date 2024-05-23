@@ -1,4 +1,4 @@
-import React, { useState, MouseEventHandler, MouseEvent } from 'react';
+import { useState, MouseEventHandler, MouseEvent } from 'react';
 import HomeForm from './HomeForm';
 import HomeSlider from './HomeSlider';
 import styles from './Home.module.css';

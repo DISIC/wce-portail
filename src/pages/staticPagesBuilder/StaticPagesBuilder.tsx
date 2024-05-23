@@ -10,6 +10,8 @@ interface StaticPagesBuilderProps {
   contentTable: boolean;
   markDown: string;
 }
+
+// a component wich transforms all .md files to react components/pages
 export default function StaticPagesBuilder({
   contentTable,
   markDown,
@@ -68,7 +70,7 @@ export default function StaticPagesBuilder({
   );
 }
 
-// The code from above:
+// selects all the headings from the DOM
 function useHeadings() {
   const [headings, setHeadings] = useState<Element[]>();
   useEffect(() => {
@@ -80,7 +82,7 @@ function useHeadings() {
   return headings as Element[];
 }
 
-// Now, the function that renders it all
+// makes the refresh of the page stateful (preserve the hash location)
 function TableOfContent() {
   const headings = useHeadings();
   return (

@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import { startReactDsfr } from '@codegouvfr/react-dsfr/spa';
 import { Link } from 'react-router-dom';
