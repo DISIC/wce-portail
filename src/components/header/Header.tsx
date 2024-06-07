@@ -1,7 +1,7 @@
 import { Header } from '@codegouvfr/react-dsfr/Header';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Gaufre } from '@gouvfr-lasuite/integration';
 import styles from './Header.module.css';
+import '@gouvfr-lasuite/integration/dist/css/gaufre.css';
 
 type errorObj = {
   message: string;
@@ -42,6 +42,7 @@ function HeaderComponent({ authenticated }: headerProps) {
           title: "Accueil - Webconférence de l'Etat",
         }}
         quickAccessItems={[
+          <Gaufre />,
           {
             iconId: 'fr-icon-mail-fill',
             linkProps: {
