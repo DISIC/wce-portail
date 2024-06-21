@@ -1,9 +1,14 @@
 .home {
   display: flex;
   justify-content: space-around;
-  margin: 5% 10%;
+  margin: 0% 10%;
 }
 
+.homeContainer {
+  background-image: url(../../assets/webconf_img_40sssOP.png);
+  padding: 5% 0%;
+  background-size: cover;
+}
 .button {
   display: inline-block;
   height: 10px;
@@ -188,7 +193,6 @@
     width: 100%;
     padding: 0 32%;
   }
-
 
   .modal {
     display: flex;
