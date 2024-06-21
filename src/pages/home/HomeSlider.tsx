@@ -1,4 +1,6 @@
 import { Fade } from 'react-slideshow-image';
+import { Alert } from '@codegouvfr/react-dsfr/Alert';
+
 import 'react-slideshow-image/dist/styles.css';
 import styles from './Home.module.css';
 
@@ -34,6 +36,14 @@ const HomeSlider = () => {
           ))}
         </Fade>
       </div>
+      <Alert
+        closable={false}
+        description="Il est recommandé de ne pas dépasser 40 participants par conférence pour
+        optimiser le confort de vos différents échanges."
+        severity="info"
+        small
+        title=""
+      />
     </div>
   );
 };

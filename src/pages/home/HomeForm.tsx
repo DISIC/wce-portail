@@ -288,14 +288,14 @@ function HomeForm(props: AuthModalProps) {
         {props.participantNumber} participants.
       </Badge>
       <hr />
-      <Alert
+      {/* <Alert
         closable={false}
         description="Il est recommandé de ne pas dépasser 40 participants par conférence pour
         optimiser le confort de vos différents échanges."
         severity="info"
         small
         title=""
-      />
+      /> */}
       <br />
       <p>
         En savoir plus sur la <strong>WebConf</strong> de l'Etat
