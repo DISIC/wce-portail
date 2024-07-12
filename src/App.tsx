@@ -42,7 +42,7 @@ interface JwtPayload {
 
 function App() {
   const [roomName, setRoomName] = useState('');
-  const [jwt, setJwt] = useState('');
+  const [jwt, setJwt] = useState(null);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState<errorObj>({
     message: "la page que vous demandez n'existe pas",
@@ -170,12 +170,15 @@ function App() {
       })
       .then((res: any) => {
         if (res.data.jwt) {
-          navigate(`/${res.data.roomName}?jwt=${res.data.jwt}`, {
+          setJwt(res.data.jwt);
+          console.log('--------------------', res.data.jwt);
+          return navigate(`/${res.data.roomName}`, {
             replace: true,
           });
-          return window.location.reload();
+          // return window.location.reload();
         } else {
           if (!res.data.error && !res.data.login) {
+            setJwt(null);
             return navigate(`/${roomName}`);
           } else {
             if (res.data.login) {
@@ -231,6 +234,7 @@ function App() {
           setError={setError}
           setMsg={setMsg}
           setRoomName={setRoomName}
+          jwt={jwt}
         />
       );
     }

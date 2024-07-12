@@ -20,6 +20,7 @@ interface JitsiMeetProps {
   joinConference: (e: string) => void;
   setMsg: (e: ReactNode) => void;
   setRoomName: (e: string) => void;
+  jwt: any;
 }
 
 const Jitsi_meet = ({
@@ -27,10 +28,11 @@ const Jitsi_meet = ({
   joinConference,
   setMsg,
   setRoomName,
+  jwt,
 }: JitsiMeetProps) => {
   const navigate = useNavigate();
   const { roomName } = useParams();
-  const jwt = window.location.search.split('=')[1];
+  // const jwt = window.location.search.split('=')[1];
 
   const handleJitsiIFrameRef1 = (iframeRef: any) => {
     iframeRef.style.border = '10px solid #3d3d3d';
