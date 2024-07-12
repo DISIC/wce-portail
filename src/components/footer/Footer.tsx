@@ -2,11 +2,13 @@ import { Footer, FooterProps } from '@codegouvfr/react-dsfr/Footer';
 
 interface props {
   headerFooterDisplayItem: FooterProps.BottomItem;
+  style: any;
 }
 
-function footer({ headerFooterDisplayItem }: props) {
+function footer({ headerFooterDisplayItem, style }: props) {
   return (
     <Footer
+      className={style}
       accessibility="fully compliant"
       brandTop={
         <>

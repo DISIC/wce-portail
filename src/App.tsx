@@ -51,7 +51,6 @@ function App() {
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [emailCode, setEmailCode] = useState();
   const [isWhitelisted, setIsWhitelisted] = useState<boolean | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [conferenceNumber, setConferenceNumber] = useState(0);
@@ -93,13 +92,7 @@ function App() {
       });
   };
 
-  // const { exp } = jwtDecode(
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjQwMDAwMDAwMDB9.MtC2hJ9IZD0vpaW1algbUCDvd6HLXtJ6ayv_jqZfQY'
-  // ) as JwtPayload;
-  // console.log(exp);
-
   const verifyAccessToken = () => {
-    console.log('tatatattaat');
     if (
       localStorage.getItem('auth') &&
       localStorage.getItem('auth') !== 'false'
@@ -216,10 +209,6 @@ function App() {
       });
   };
 
-  const login = () => {
-    setModal(!modal);
-  };
-
   function isAlphanumeric(str: any) {
     return /^[a-zA-Z0-9]+$/.test(str);
   }
@@ -238,26 +227,6 @@ function App() {
         />
       );
     }
-    // else {
-    //   return  <Navigate to={`/${roomName}`} />;
-    // }
-    return <></>;
-  };
-
-  const OtherRoutes = () => {
-    api
-      .get(`/backend/${window.location.href}`)
-      .then(res => {
-        <Navigate to={`/${roomName}`} replace={true} />;
-        // window.location.href = `/${roomName}`;
-        return window.location.reload();
-      })
-      .catch(res => {
-        <Navigate to={`/error`} replace={true} />;
-        //  window.location.href = `/error`;
-        return window.location.reload();
-      });
-
     return <></>;
   };
 

@@ -35,7 +35,7 @@ export default function Feedback({ setError }: feedbackProps) {
 
   useEffect(() => {
     api
-      .get('/feedback/whereami')
+      .get('/authentication/whereami')
       .then(res => {
         if (res.data.toLowerCase() !== 'internet') {
           setFromRIE(true);

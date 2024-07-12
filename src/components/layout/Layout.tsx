@@ -20,11 +20,18 @@ interface headerProps {
 export default function Layout(propos: headerProps) {
   return (
     <div className={styles.layout}>
-      <Header {...propos} />
+      <header>
+        <Header {...propos} />
+      </header>
       <main>
         <Outlet />
       </main>
-      <Footer headerFooterDisplayItem={headerFooterDisplayItem} />
+      <footer className={styles.footer}>
+        <Footer
+          style="footer"
+          headerFooterDisplayItem={headerFooterDisplayItem}
+        />
+      </footer>
       <Display />
     </div>
   );

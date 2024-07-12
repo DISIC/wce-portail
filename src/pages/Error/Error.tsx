@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styles from './Error.module.css';
 
 type errorObj = {

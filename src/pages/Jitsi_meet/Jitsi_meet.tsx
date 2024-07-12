@@ -45,6 +45,7 @@ const Jitsi_meet = ({
   const handleReadyToClose = () => {
     if (roomNameConstraintOk(roomName)) {
       //setHide(false);
+      return;
     }
     navigate('/feedback');
   };
@@ -109,7 +110,6 @@ const Jitsi_meet = ({
       }
       if (roomName && !roomNameConstraintOk(roomName)) {
         setRoomName(roomName);
-        // navigate('/');
         setError({
           message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
           error: { status: '404', stack: '' },
@@ -123,14 +123,7 @@ const Jitsi_meet = ({
           if (res.data.jwt) {
             joinConference(roomName as string);
           }
-          // if (res.data.jwt) {
-          //   navigate(`/${res.data.roomName}?jwt=${res.data.jwt}`, {
-          //     replace: true,
-          //   });
-          //   return window.location.reload();
-          // }
         });
-        // joinConference(roomName as string);
       }
     }
   }, [roomName]);
