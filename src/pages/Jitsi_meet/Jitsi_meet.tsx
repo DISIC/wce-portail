@@ -14,7 +14,6 @@ type errorObj = {
     stack: string;
   };
 };
-
 interface JitsiMeetProps {
   setError: (e: errorObj) => void;
   joinConference: (e: string) => void;
