@@ -31,7 +31,7 @@ const Jitsi_meet = ({
 }: JitsiMeetProps) => {
   const navigate = useNavigate();
   const { roomName } = useParams();
-  // const jwt = window.location.search.split('=')[1];
+  const jwt1 = jwt ? jwt : window.location.search.split('=')[1];
 
   const handleJitsiIFrameRef1 = (iframeRef: any) => {
     iframeRef.style.border = '10px solid #3d3d3d';
@@ -41,11 +41,9 @@ const Jitsi_meet = ({
     iframeRef.style.width = '100%';
   };
 
+  console.log('jwt', jwt);
+
   const handleReadyToClose = () => {
-    if (roomNameConstraintOk(roomName)) {
-      //setHide(false);
-      return;
-    }
     navigate('/feedback');
   };
 
@@ -132,7 +130,7 @@ const Jitsi_meet = ({
       <JitsiMeeting
         domain={import.meta.env.VITE_JITSI_DOMAIN}
         roomName={roomName as string}
-        jwt={jwt ? jwt : undefined}
+        jwt={jwt1 ? jwt1 : undefined}
         spinner={renderSpinner}
         // config={{
         //   hideConferenceSubject: false,

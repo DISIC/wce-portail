@@ -95,9 +95,7 @@ export default function Feedback({ setError }: feedbackProps) {
           setMsg(res.data);
         } else {
           setMsg(res.data);
-          setTimeout(() => {
-            return navigate('/');
-          }, 1000);
+          return navigate('/');
         }
       })
       .catch(() => {

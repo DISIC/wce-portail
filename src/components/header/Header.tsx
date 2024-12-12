@@ -102,13 +102,13 @@ function HeaderComponent({ authenticated }: headerProps) {
             },
             text: 'Centre de ressources',
           },
-          {
-            linkProps: {
-              to: 'browser_test',
-              target: '_self',
-            },
-            text: 'Tester votre matériel',
-          },
+          // {
+          //   linkProps: {
+          //     to: 'browser_test',
+          //     target: '_self',
+          //   },
+          //   text: 'Tester votre matériel',
+          // },
         ]}
       />
     </div>
