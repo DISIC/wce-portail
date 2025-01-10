@@ -12,7 +12,6 @@
     "preview": "vite preview",
     "postinstall": "npm run copy-lasuite-assets",
     "predev": "only-include-used-icons",
-    "prebuild": "only-include-used-icons",
     "copy-lasuite-assets": "cp -r node_modules/@gouvfr-lasuite/integration/dist/ public/@gouvfr-lasuite/integration"
   },
   "dependencies": {
