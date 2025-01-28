@@ -48,7 +48,6 @@ function App() {
     message: "la page que vous demandez n'existe pas",
     error: { status: '404', stack: '' },
   });
-  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [isWhitelisted, setIsWhitelisted] = useState<boolean | null>(null);
