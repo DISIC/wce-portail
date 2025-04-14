@@ -38,6 +38,7 @@ function HomeForm(props: AuthModalProps) {
   const navigate = useNavigate();
 
   function handle() {
+    console.log('handle method')
     function roomNameConstraintOk(roomName: string) {
       const regex = new RegExp(
         '^(?=(?:[a-zA-Z0-9]*[a-zA-Z]))(?=(?:[a-zA-Z0-9]*[0-9]){3})[a-zA-Z0-9]{10,}$'
@@ -47,9 +48,12 @@ function HomeForm(props: AuthModalProps) {
     if (!props.roomName) {
       const room = generateRoomName();
       props.setRoomName(room);
+      console.log(room)
       if (roomNameConstraintOk(room)) {
+        console.log('room constraint ok')
         api.get('/authentication/whereami').then(res => {
           if (res.data.toLowerCase() == 'internet') {
+            console.log(res.data.toLowerCase())
             if (!props.authenticated) {
               // modal.open();
               setOpenModal(true);
@@ -59,27 +63,37 @@ function HomeForm(props: AuthModalProps) {
             }
           }
           if (res.data.toLowerCase() !== 'internet') {
+            console.log('not from internet')
             props.joinConference(room);
           }
         });
       }
     } else if (roomNameConstraintOk(props.roomName)) {
+      console.log('!roomName')
+
       api
         .get('/roomExists/' + props.roomName)
         .then(res => {
+          console.log('room exists')
           return navigate('/' + props.roomName);
         })
         .catch(err => {
+          console.log('catched');
           api.get('/authentication/whereami').then(res => {
+            console.log('1');
             if (res.data.toLowerCase() == 'internet') {
+              console.log('2');
               if (!props.authenticated) {
+                console.log('3');
                 setOpenModal(true);
               }
               if (props.authenticated) {
+                console.log('4');
                 return props.joinConference(props.roomName);
               }
             }
             if (res.data.toLowerCase() !== 'internet') {
+              console.log('5');
               return props.joinConference(props.roomName);
             }
           });
