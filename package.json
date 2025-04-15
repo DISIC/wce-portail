@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:preprod": "tsc && vite build --mode staging",
-    "build:main": "tsc && vite build --mode production",
+    "build:dev": "tsc && vite build --mode dev",
+    "build:preprod": "tsc && vite build --mode preprod",
+    "build:prod": "tsc && vite build --mode production",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "postinstall": "npm run copy-lasuite-assets",
