@@ -28,6 +28,8 @@ import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
 import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
 import jwtDecode from 'jwt-decode';
 
+import './OverrideCssApp.css'
+
 type errorObj = {
   message: string;
   error: {
@@ -232,25 +234,6 @@ function App() {
   return (
     <MuiDsfrThemeProvider>
       <Routes>
-        <Route path=":roomName" element={<Wrapper />} />
-        <Route
-          path="login_callback"
-          element={
-            <LoginCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
-        <Route
-          path="logout_callback"
-          element={
-            <LogoutCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
         <Route
           path="/"
           element={
@@ -279,64 +262,7 @@ function App() {
               />
             }
           />
-          <Route
-            path="/wce-api/*"
-            element={
-              <Navigate
-                to={`/${import.meta.env.VITE_BASE_URL}`}
-                replace={true}
-              />
-            }
-          />
-          <Route path="error" element={<Error error={error} />} />
-          <Route path="feedback" element={<Feedback setError={setError} />} />
-          <Route path="browser_test" element={<BrowserTest />} />
-          <Route
-            path="faq"
-            element={<StaticPagesBuilder markDown={FAQ} contentTable={true} />}
-          />
-          <Route
-            path="donneespersonnelles"
-            element={
-              <StaticPagesBuilder markDown={DonneesPerso} contentTable={true} />
-            }
-          />
-          <Route
-            path="contact"
-            element={
-              <StaticPagesBuilder markDown={Contact} contentTable={false} />
-            }
-          />
-          <Route
-            path="apropos"
-            element={
-              <StaticPagesBuilder markDown={Apropos} contentTable={true} />
-            }
-          />
-          <Route
-            path="cgu"
-            element={<StaticPagesBuilder markDown={Cgu} contentTable={true} />}
-          />
-          <Route
-            path="accessibilite"
-            element={
-              <StaticPagesBuilder
-                markDown={Accessibilite}
-                contentTable={true}
-              />
-            }
-          />
-          <Route
-            path="mentionslegales"
-            element={
-              <StaticPagesBuilder
-                markDown={Mentionslegales}
-                contentTable={true}
-              />
-            }
-          />
-          <Route path="plan-du-site" element={<PlanDuSite />} />
-        </Route>
+          </Route>
       </Routes>
     </MuiDsfrThemeProvider>
   );

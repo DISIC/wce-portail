@@ -9,6 +9,18 @@
   padding: 5% 0%;
   background-size: cover;
 }
+
+.imgHomepage {
+  background-image: url(../../assets/webconf_img_40sssOP.png);
+  background-size: cover;
+  width: 40%;
+  height: 100%;
+}
+
+.homeTitle {
+  text-align: center;
+}
+
 .button {
   display: inline-block;
   height: 10px;
@@ -76,6 +88,15 @@
   margin-left: 10px;
   margin-right: 0px;
   text-align: center;
+}
+
+.joinButton {
+  width: 100%;
+}
+
+.joinButton span {
+  text-align: center;
+  width: 100%;
 }
 
 .hidden {

@@ -8,39 +8,23 @@ interface props {
 function footer({ headerFooterDisplayItem, style }: props) {
   return (
     <Footer
-      className={style}
       accessibility="fully compliant"
-      brandTop={
-        <>
-          RÉPUBLIQUE
-          <br />
-          FRANÇAISE
-        </>
-      }
-      contentDescription={
-        <div>
-          Un service proposé par la Direction Interministérielle du Numérique
-          (DINUM) et opéré par le Ministère de la Transition Écologique et de la
-          Cohésion des Territoires (MTECT).
-        </div>
-      }
-      // cookiesManagementLinkProps={{
-      //   href: '#',
-      // }}
-      homeLinkProps={{
-        to: '/',
-        title: "Accueil - Webconférence de l'Etat",
-      }}
+      contentDescription="
+        Ce message est à remplacer par les informations de votre site.
+
+        Comme exemple de contenu, vous pouvez indiquer les informations 
+        suivantes : Le site officiel d’information administrative pour les entreprises.
+        Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+        à la gestion et au développement de votre entreprise.
+        "
       termsLinkProps={{
-        to: 'mentionslegales',
+        href: '#'
       }}
       websiteMapLinkProps={{
-        to: 'plan-du-site',
-      }}
-      accessibilityLinkProps={{
-        to: 'accessibilite',
+        href: '#'
       }}
       bottomItems={[headerFooterDisplayItem]}
+
     />
   );
 }

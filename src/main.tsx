@@ -9,7 +9,7 @@ startReactDsfr({
   Link,
 });
 
-//Only in TypeScript projects
+// Only in TypeScript projects
 declare module '@codegouvfr/react-dsfr/spa' {
   interface RegisterLink {
     Link: typeof Link;

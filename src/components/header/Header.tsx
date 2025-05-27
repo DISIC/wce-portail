@@ -2,6 +2,7 @@ import { Header } from '@codegouvfr/react-dsfr/Header';
 import { Gaufre } from '@gouvfr-lasuite/integration';
 import styles from './Header.module.css';
 import '@gouvfr-lasuite/integration/dist/css/gaufre.css';
+import Button from '@codegouvfr/react-dsfr/Button';
 
 type errorObj = {
   message: string;
@@ -30,79 +31,29 @@ function HeaderComponent({ authenticated }: headerProps) {
   return (
     <div className={styles.parent}>
       <Header
-        brandTop={
-          <>
-            RÉPUBLIQUE
-            <br />
-            FRANÇAISE
-          </>
-        }
+        brandTop={<>INTITULE<br />OFFICIEL</>}
         homeLinkProps={{
-          to: '/',
-          title: "Accueil - Webconférence de l'Etat",
+          href: '/',
+          title: 'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)'
         }}
-        quickAccessItems={[
-          <Gaufre />,
-          {
-            iconId: 'fr-icon-mail-fill',
-            linkProps: {
-              to: 'contact',
-            },
-            text: 'Contact',
-          },
-          authenticated
-            ? {
-                iconId: 'fr-icon-user-fill',
-                buttonProps: {
-                  onClick: logOut,
-                },
-                text: 'Se déconnecter',
-              }
-            : null,
-        ]}
         id="fr-header-header-with-quick-access-items"
-        serviceTagline=""
-        serviceTitle={window.location.host}
-        navigation={[
+        quickAccessItems={[
           {
+            iconId: 'fr-icon-information-line fr-btn--icon-right',
             linkProps: {
-              to: '/',
-              target: '_self',
-              replace: true,
+              href: '#'
             },
-            text: 'Accueil',
+            text: 'Informations'
           },
           {
-            menuLinks: [
-              {
-                linkProps: {
-                  to: '/apropos',
-                },
-                text: 'Présentation du service',
-              },
-              {
-                linkProps: {
-                  to: 'faq',
-                },
-                text: 'Foire aux questions',
-              },
-              {
-                linkProps: {
-                  to: 'cgu',
-                },
-                text: "Conditions générales d'utilisation",
-              },
-            ],
-            text: 'À propos',
-          },
-          {
-            linkProps: {
-              to: 'cgu',
-              target: '_self',
+            buttonProps: {
+              onClick: function noRefCheck(){}
             },
-            text: 'Centre de ressources',
+            iconId: 'fr-btn fr-icon-account-circle-fill fr-btn--icon-right',
+            text: 'Connexion'
           },
         ]}
+        serviceTitle="Joona.fr"
       />
     </div>
   );
