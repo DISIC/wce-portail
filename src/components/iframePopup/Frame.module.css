@@ -1,0 +1,8 @@
+.buttonMoreInfo {
+
+}
+
+.frameContainerButton {
+    display: flex;
+    justify-content: end;
+}

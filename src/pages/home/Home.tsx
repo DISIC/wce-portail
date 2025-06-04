@@ -23,7 +23,7 @@ interface AuthModalProps {
 function Home(props: AuthModalProps) {
   return (
     <div className={styles.homeContainer}>
-      <div style={{width: '60%'}}>
+      <div style={{width: '55%'}}>
         <h1 className={styles.homeTitle}>Rejoindre une visio conférence</h1>
         <div style={{width: '70%', margin: 'auto'}}>
           <div style={{display: 'flex', width: '100%'}}>
@@ -53,13 +53,13 @@ function Home(props: AuthModalProps) {
               <span>Rejoindre ou créer</span>
             </Button>
             <div style={{display: 'flex', flexDirection: 'row', gap: '10px'}}>
-              <Button
+              {/* <Button
                 iconId="fr-icon-settings-5-line fr-btn--icon-right"
                 onClick={function noRefCheck(){}}
                 priority="tertiary"
               >
                 Tester votre matériel
-              </Button>
+              </Button> */}
               <Button
                 iconId="fr-icon-clipboard-line fr-btn--icon-right"
                 onClick={function noRefCheck(){}}
