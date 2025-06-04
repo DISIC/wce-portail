@@ -1,19 +1,7 @@
-.fr-icon-arrow-right-line::before,
-.fr-icon-arrow-right-line::after {
-    -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
-    mask-image: url("../../icons/system/arrow-right-line.svg");
-}
-
 .fr-icon-information-line::before,
 .fr-icon-information-line::after {
     -webkit-mask-image: url("../../icons/system/information-line.svg");
     mask-image: url("../../icons/system/information-line.svg");
-}
-
-.fr-icon-settings-5-line::before,
-.fr-icon-settings-5-line::after {
-    -webkit-mask-image: url("../../icons/system/settings-5-line.svg");
-    mask-image: url("../../icons/system/settings-5-line.svg");
 }
 
 .fr-icon-account-circle-fill::before,
@@ -28,10 +16,16 @@
     mask-image: url("../../icons/document/clipboard-line.svg");
 }
 
-.fr-icon-delete-line::before,
-.fr-icon-delete-line::after {
-    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
-    mask-image: url("../../icons/system/delete-bin-line.svg");
+.fr-icon-settings-5-line::before,
+.fr-icon-settings-5-line::after {
+    -webkit-mask-image: url("../../icons/system/settings-5-line.svg");
+    mask-image: url("../../icons/system/settings-5-line.svg");
+}
+
+.fr-icon-arrow-right-line::before,
+.fr-icon-arrow-right-line::after {
+    -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
+    mask-image: url("../../icons/system/arrow-right-line.svg");
 }
 
 .fr-icon-theme-fill::before,
@@ -41,19 +35,9 @@
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .fr-icon-arrow-right-line::before,
-    .fr-icon-arrow-right-line::after {
-        background-image: url("../../icons/system/arrow-right-line.svg");
-    }
-    
     .fr-icon-information-line::before,
     .fr-icon-information-line::after {
         background-image: url("../../icons/system/information-line.svg");
-    }
-    
-    .fr-icon-settings-5-line::before,
-    .fr-icon-settings-5-line::after {
-        background-image: url("../../icons/system/settings-5-line.svg");
     }
     
     .fr-icon-account-circle-fill::before,
@@ -66,9 +50,14 @@
         background-image: url("../../icons/document/clipboard-line.svg");
     }
     
-    .fr-icon-delete-line::before,
-    .fr-icon-delete-line::after {
-        background-image: url("../../icons/system/delete-bin-line.svg");
+    .fr-icon-settings-5-line::before,
+    .fr-icon-settings-5-line::after {
+        background-image: url("../../icons/system/settings-5-line.svg");
+    }
+    
+    .fr-icon-arrow-right-line::before,
+    .fr-icon-arrow-right-line::after {
+        background-image: url("../../icons/system/arrow-right-line.svg");
     }
     
     .fr-icon-theme-fill::before,

@@ -29,6 +29,7 @@ import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
 import jwtDecode from 'jwt-decode';
 
 import './OverrideCssApp.css'
+import Parametres from './pages/Paramètres/Parametres';
 
 type errorObj = {
   message: string;
@@ -262,6 +263,22 @@ function App() {
               />
             }
           />
+          <Route
+            path='params'
+            element={
+              <Parametres />
+            }
+          />
+          {/* <Route
+            index
+            element={
+            }
+          />
+          <Route
+            index
+            element={
+            }
+          /> */}
           </Route>
       </Routes>
     </MuiDsfrThemeProvider>

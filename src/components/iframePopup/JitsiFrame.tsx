@@ -1,22 +1,19 @@
 import Button from '@codegouvfr/react-dsfr/Button';
 import styles from './Frame.module.css'
+// import { useNavigate } from 'react-router-dom';
 
 function JitsiFrame () {
+    // const navigate = useNavigate()
     
     return (
-        <div>
-            <div>
-                <h3>Jitsi Frame</h3>
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quidem fuga tenetur eaque sunt consequatur quae porro itaque iste enim possimus aliquid,
-                    qui odio praesentium neque repellendus quibusdam cum perspiciatis doloribus.
-                </p>
+        <div className={styles.popupBoxContent}>
+            <div className={styles.boxFrame}>
+                <iframe src='/WhatsNew/test.html' className={styles.iframeContent}></iframe>
             </div>
             <div className={styles.frameContainerButton}>
                 <Button
                 className={styles.buttonMoreInfo}
-                onClick={function noRefCheck(){}}
+                onClick={() => window.location.href = '/WhatsNew/test.html'}
                 >
                 <span>Voir plus</span>
                 </Button>

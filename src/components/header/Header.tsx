@@ -82,17 +82,17 @@ function HeaderComponent({ authenticated }: headerProps) {
               ]}
               navigation={[
                 {
-                  isActive: true,
                   linkProps: {
-                    href: '#',
-                    target: '_self'
+                    to: '/',
+                    target: '_self',
+                    replace: true,
                   },
                   text: 'Accueil'
                 },
                 {
                   linkProps: {
-                    href: '#',
-                    target: '_self'
+                    to: '/params',
+                    target: '_self',
                   },
                   text: 'Paramètres'
                 },
@@ -143,7 +143,7 @@ function HeaderComponent({ authenticated }: headerProps) {
       </div>
 
         
-      <modal.Component title="Version des services">
+      <modal.Component title="Version des services" size="large">
         <div className={styles.modalContainer}>
           <div className={`${styles.flexBox} ${styles.firstFlexBox} ${styles.firstFlexBoxGap}`}>
             <button onClick={() => setModalContent("jitsi")}>Version Jitsi</button>
