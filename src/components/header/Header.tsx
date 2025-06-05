@@ -94,7 +94,7 @@ function HeaderComponent({ authenticated }: headerProps) {
                     to: '/params',
                     target: '_self',
                   },
-                  text: 'Paramètres'
+                  text: 'Mon compte'
                 },
                 {
                   linkProps: {
