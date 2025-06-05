@@ -1,10 +1,52 @@
+import Input from '@codegouvfr/react-dsfr/Input';
+import { Breadcrumb } from "@codegouvfr/react-dsfr/Breadcrumb";
+import { Tag } from "@codegouvfr/react-dsfr/Tag";
+
 import styles from './Parametres.module.css'
+import { useState } from 'react';
 
 function Parametres () {
 
+    const [isAdmin, setIsAdmin] = useState(true);
+
     return (
-        <div>
-            
+        <div className={styles.content}>
+            <Breadcrumb
+                currentPageLabel="Mon compte"
+                homeLinkProps={{
+                    href: '/'
+                }}
+                segments={[]}
+            />
+            <div className={styles.titleBlock}>
+                <h1>Mon compte</h1>
+                {isAdmin && (
+                    <div>
+                        <Tag
+                            dismissible
+                            className={styles.adminTag}
+                        >
+                            Administrateur
+                        </Tag>
+                    </div>
+                )}
+            </div>
+            <div className={styles.inputSection}>
+                <Input
+                    disabled
+                    label='Nom'
+                />
+
+                <Input
+                    disabled
+                    label='Prénom'
+                />
+
+                <Input
+                    disabled
+                    label='Email'
+                />
+            </div>
         </div>
     )
 }
