@@ -18,10 +18,10 @@ function footer({ headerFooterDisplayItem, style }: props) {
         à la gestion et au développement de votre entreprise.
         "
       termsLinkProps={{
-        href: '#'
+        to: '#'
       }}
       websiteMapLinkProps={{
-        href: '#'
+        to: '#'
       }}
       bottomItems={[headerFooterDisplayItem]}
 

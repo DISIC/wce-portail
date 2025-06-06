@@ -1,5 +1,4 @@
 import { Header } from '@codegouvfr/react-dsfr/Header';
-import { Gaufre } from '@gouvfr-lasuite/integration';
 import styles from './Header.module.css';
 import '@gouvfr-lasuite/integration/dist/css/gaufre.css';
 import Button from '@codegouvfr/react-dsfr/Button';
@@ -46,8 +45,6 @@ function HeaderComponent({ authenticated }: headerProps) {
         return <WeboverlayFrame />;
       case "voxify":
         return <VoxifyFrame />;
-      case "noiframe":
-        return <NoIframeComponent />;
       default:
         return null;
     }
@@ -60,23 +57,25 @@ function HeaderComponent({ authenticated }: headerProps) {
           <Header
               brandTop={<>INTITULE<br />OFFICIEL</>}
               homeLinkProps={{
-                href: '/',
+                to: '/',
                 title: 'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)'
               }}
               id="fr-header-header-with-quick-access-items"
               quickAccessItems={[
                 {
                   buttonProps: {
-                    onClick: modal.open.bind(modal)
+                    onClick: modal.open.bind(modal),
+                    className: 'fr-btn fr-btn--icon-right'
                   },
-                  iconId: 'fr-icon-information-line fr-btn--icon-right',
+                  iconId: 'fr-icon-information-line',
                   text: 'Informations'
                 },
                 {
                   buttonProps: {
-                    onClick: function noRefCheck(){}
+                    onClick: function noRefCheck(){},
+                    className: 'fr-btn--icon-right'
                   },
-                  iconId: 'fr-btn fr-icon-account-circle-fill fr-btn--icon-right',
+                  iconId: 'fr-icon-account-circle-fill',
                   text: 'Se déconnecter'
                 },
               ]}
@@ -91,21 +90,21 @@ function HeaderComponent({ authenticated }: headerProps) {
                 },
                 {
                   linkProps: {
-                    to: '/params',
+                    to: '/profile',
                     target: '_self',
                   },
                   text: 'Mon compte'
                 },
                 {
                   linkProps: {
-                    href: '#',
+                    to: '#',
                     target: '_self'
                   },
                   text: 'Conférences'
                 },
                 {
                   linkProps: {
-                    href: '#',
+                    to: '#',
                     target: '_self'
                   },
                   text: 'Administration'
@@ -117,23 +116,26 @@ function HeaderComponent({ authenticated }: headerProps) {
           <Header
             brandTop={<>INTITULE<br />OFFICIEL</>}
             homeLinkProps={{
-              href: '/',
+              to: '/',
               title: 'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)'
             }}
             id="fr-header-header-with-quick-access-items"
             quickAccessItems={[
               {
                 buttonProps: {
-                  onClick: modal.open.bind(modal)
+                  onClick: modal.open.bind(modal),
+                  className: 'fr-btn--icon-right'
+
                 },
-                iconId: 'fr-icon-information-line fr-btn--icon-right',
+                iconId: 'fr-icon-information-line',
                 text: 'Informations'
               },
               {
                 buttonProps: {
-                  onClick: function noRefCheck(){}
+                  onClick: function noRefCheck(){},
+                  className: 'fr-btn fr-btn--icon-right'
                 },
-                iconId: 'fr-btn fr-icon-account-circle-fill fr-btn--icon-right',
+                iconId: 'fr-icon-account-circle-fill',
                 text: 'Connexion'
               },
             ]}

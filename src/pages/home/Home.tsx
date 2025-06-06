@@ -1,6 +1,4 @@
 import { useState, MouseEventHandler, MouseEvent } from 'react';
-import HomeForm from './HomeForm';
-import HomeSlider from './HomeSlider';
 import styles from './Home.module.css';
 import Input from '@codegouvfr/react-dsfr/Input';
 import Button from '@codegouvfr/react-dsfr/Button';
@@ -23,11 +21,12 @@ interface AuthModalProps {
 function Home(props: AuthModalProps) {
   return (
     <div className={styles.homeContainer}>
-      <div style={{width: '55%'}}>
+      <div className={styles.firstContainer}>
         <h1 className={styles.homeTitle}>Rejoindre une visio conférence</h1>
         <div style={{width: '70%', margin: 'auto'}}>
           <div style={{display: 'flex', width: '100%'}}>
             <Input
+              label=""
               nativeInputProps={{
                 placeholder: 'Saisissez votre nom de conférence'
               }}
@@ -61,18 +60,18 @@ function Home(props: AuthModalProps) {
                 Tester votre matériel
               </Button> */}
               <Button
-                iconId="fr-icon-clipboard-line fr-btn--icon-right"
                 onClick={function noRefCheck(){}}
                 priority="tertiary"
               >
                 Copier le lien
+                <i className="fr-icon-clipboard-line fr-btn--icon-right" aria-hidden="true"></i>
               </Button>
           </div>
           </div>
         </div>
       </div>
-      <div>
-        {/* <img src="/static/media/l-art-numerique-des-eleves-des-dernieres-annees-de-l-ecole.jpg" alt="test" /> */}
+      <div className={styles.secondContainer}>
+        <img src="" alt="test" />
       </div>
     </div>
   );

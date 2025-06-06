@@ -2,10 +2,10 @@ import Input from '@codegouvfr/react-dsfr/Input';
 import { Breadcrumb } from "@codegouvfr/react-dsfr/Breadcrumb";
 import { Tag } from "@codegouvfr/react-dsfr/Tag";
 
-import styles from './Parametres.module.css'
+import styles from './Profile.module.css'
 import { useState } from 'react';
 
-function Parametres () {
+function Profile () {
 
     const [isAdmin, setIsAdmin] = useState(true);
 
@@ -14,7 +14,7 @@ function Parametres () {
             <Breadcrumb
                 currentPageLabel="Mon compte"
                 homeLinkProps={{
-                    href: '/'
+                    to: '/'
                 }}
                 segments={[]}
             />
@@ -51,4 +51,4 @@ function Parametres () {
     )
 }
 
-export default Parametres;
+export default Profile;

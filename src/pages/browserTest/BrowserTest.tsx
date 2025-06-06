@@ -572,8 +572,7 @@ export default function BrowserTest() {
               </FormControl>
             </Box>
             <ReactMediaRecorder
-              audio
-              constraints={{ audio: { deviceId: mic ? { exact: mic } : undefined } }}
+              audio={{ deviceId: mic ? { exact: mic } : undefined }}
               onStart={() => {
                 setMicTest(null);
                 setErrorMessage(null);
@@ -581,31 +580,34 @@ export default function BrowserTest() {
               onStop={() => {
                 setMicTest(true);
               }}
-              onError={() => {
-                setMicTest(false);
-                setErrorMessage(
-                  <Alert
-                    closable
-                    description="Veuillez autoriser le navigateur à utiliser le microphone."
-                    onClose={() => {}}
-                    small
-                    title="Information"
-                    severity="error"
-                  />
+              render={({ status, startRecording, stopRecording, mediaBlobUrl, error }) => {
+                // Handle error inside render
+                if (error) {
+                  setMicTest(false);
+                  setErrorMessage(
+                    <Alert
+                      closable
+                      description="Veuillez autoriser le navigateur à utiliser le microphone."
+                      onClose={() => {}}
+                      small
+                      title="Information"
+                      severity="error"
+                    />
+                  );
+                }
+                return (
+                  <>
+                    <Typography>Status : {status}</Typography>
+                    {mediaBlobUrl && (
+                      <audio
+                        src={mediaBlobUrl}
+                        controls
+                        style={{ display: 'block', margin: '10px auto' }}
+                      />
+                    )}
+                  </>
                 );
               }}
-              render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
-                <>
-                  <Typography>Status : {status}</Typography>
-                  {mediaBlobUrl && (
-                    <audio
-                      src={mediaBlobUrl}
-                      controls
-                      style={{ display: 'block', margin: '10px auto' }}
-                    />
-                  )}
-                </>
-              )}
             />
             <Button
               style={

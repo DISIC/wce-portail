@@ -8,28 +8,14 @@ import {
   Navigate,
   useParams,
 } from 'react-router-dom';
-import FAQ from './pages/FAQ/FAQ.md';
-import DonneesPerso from './pages/DonneesPerso/DonneesPerso.md';
-import Contact from './pages/Contact/Contact.md';
-import Cgu from './pages/Cgu/Cgu.md';
-import Apropos from './pages/Apropos/Apropos.md';
-import Accessibilite from './pages/Accessibilite/Accessibilite.md';
-import Mentionslegales from './pages/MentionsLegales/MentionsLegales.md';
-import StaticPagesBuilder from './pages/staticPagesBuilder/StaticPagesBuilder';
-import Feedback from './pages/feedback/Feedback';
-import BrowserTest from './pages/browserTest/BrowserTest';
 import Jitsi_meet from './pages/Jitsi_meet/Jitsi_meet';
 import api from './axios/axios';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
-import LoginCallback from './pages/login/LoginCallback';
-import LogoutCallback from './pages/login/LogoutCallback';
-import Error from './pages/Error/Error';
 import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
-import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
 import jwtDecode from 'jwt-decode';
 
 import './OverrideCssApp.css'
-import Parametres from './pages/Paramètres/Parametres';
+import Profile from './pages/Profile/Profile';
 
 type errorObj = {
   message: string;
@@ -264,9 +250,9 @@ function App() {
             }
           />
           <Route
-            path='params'
+            path='profile'
             element={
-              <Parametres />
+              <Profile />
             }
           />
           {/* <Route
