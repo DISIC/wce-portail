@@ -16,6 +16,7 @@ import jwtDecode from 'jwt-decode';
 
 import './OverrideCssApp.css'
 import Profile from './pages/Profile/Profile';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 type errorObj = {
   message: string;
@@ -253,6 +254,12 @@ function App() {
             path='profile'
             element={
               <Profile />
+            }
+          />
+          <Route
+            path='dashboard'
+            element={
+              <Dashboard />
             }
           />
           {/* <Route
