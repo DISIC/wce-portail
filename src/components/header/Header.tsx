@@ -108,6 +108,13 @@ function HeaderComponent({ authenticated }: headerProps) {
                     target: '_self'
                   },
                   text: 'Administration'
+                },
+                {
+                  linkProps: {
+                    to: '/dashboard',
+                    target: '_self'
+                  },
+                  text: 'Dashboard'
                 }
               ]}
               serviceTitle="Joona.fr"
