@@ -8,15 +8,30 @@ import {
   Navigate,
   useParams,
 } from 'react-router-dom';
+import FAQ from './pages/FAQ/FAQ.md';
+import DonneesPerso from './pages/DonneesPerso/DonneesPerso.md';
+import Contact from './pages/Contact/Contact.md';
+import Cgu from './pages/Cgu/Cgu.md';
+import Apropos from './pages/Apropos/Apropos.md';
+import Accessibilite from './pages/Accessibilite/Accessibilite.md';
+import Mentionslegales from './pages/MentionsLegales/MentionsLegales.md';
+import StaticPagesBuilder from './pages/staticPagesBuilder/StaticPagesBuilder';
+import Feedback from './pages/feedback/Feedback';
+import BrowserTest from './pages/browserTest/BrowserTest';
 import Jitsi_meet from './pages/Jitsi_meet/Jitsi_meet';
 import api from './axios/axios';
 import { Badge } from '@codegouvfr/react-dsfr/Badge';
+import LoginCallback from './pages/login/LoginCallback';
+import LogoutCallback from './pages/login/LogoutCallback';
+import Error from './pages/Error/Error';
 import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
+import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
 import jwtDecode from 'jwt-decode';
 
-import './OverrideCssApp.css'
-import Profile from './pages/Profile/Profile';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Profile from './pages/joona/Profile/Profile';
+import Dashboard from './pages/joona/Dashboard/Dashboard';
+import LayoutJoona from './components/joona/layout/LayoutJoona';
+import HomeJoona from './pages/joona/home/HomeJoona';
 
 type errorObj = {
   message: string;
@@ -45,6 +60,8 @@ function App() {
   const [conferenceNumber, setConferenceNumber] = useState(0);
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
+
+  const appName = import.meta.env.VITE_APP_NAME;
 
   const sendEmail = (roomName: string) => {
     api
@@ -220,62 +237,163 @@ function App() {
   };
 
   return (
-    <MuiDsfrThemeProvider>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        >
+  <MuiDsfrThemeProvider>
+    <Routes>
+      {appName === "joona" && (
+        <>
           <Route
-            index
+            path="/"
             element={
-              <Home
-                roomName={roomName}
-                setRoomName={setRoomName}
-                setIsWhitelisted={setIsWhitelisted}
-                isWhitelisted={isWhitelisted}
-                email={email}
-                setEmail={setEmail}
-                sendEmail={sendEmail}
-                joinConference={joinConference}
+              <LayoutJoona
                 authenticated={authenticated}
-                conferenceNumber={conferenceNumber}
-                participantNumber={participantsNumber}
+                setAuthenticated={setAuthenticated}
+                setError={setError}
+              />
+            }
+          >
+            <Route
+              index
+              element={
+                <HomeJoona
+                  roomName={roomName}
+                  setRoomName={setRoomName}
+                  setIsWhitelisted={setIsWhitelisted}
+                  isWhitelisted={isWhitelisted}
+                  email={email}
+                  setEmail={setEmail}
+                  sendEmail={sendEmail}
+                  joinConference={joinConference}
+                  authenticated={authenticated}
+                  conferenceNumber={conferenceNumber}
+                  participantNumber={participantsNumber}
+                />
+              }
+            />
+            <Route path="profile" element={<Profile />} />
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
+        </>
+      )}
+      {appName === "webconf" && (
+        <>
+          <Route path=":roomName" element={<Wrapper />} />
+          <Route
+            path="login_callback"
+            element={
+              <LoginCallback
+                setAuthenticated={setAuthenticated}
+                setError={setError}
               />
             }
           />
           <Route
-            path='profile'
+            path="logout_callback"
             element={
-              <Profile />
+              <LogoutCallback
+                setAuthenticated={setAuthenticated}
+                setError={setError}
+              />
             }
           />
           <Route
-            path='dashboard'
+            path="/"
             element={
-              <Dashboard />
+              <Layout
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+                setError={setError}
+              />
             }
-          />
-          {/* <Route
-            index
-            element={
-            }
-          />
-          <Route
-            index
-            element={
-            }
-          /> */}
+          >
+            <Route
+              index
+              element={
+                <Home
+                  roomName={roomName}
+                  setRoomName={setRoomName}
+                  setIsWhitelisted={setIsWhitelisted}
+                  isWhitelisted={isWhitelisted}
+                  email={email}
+                  setEmail={setEmail}
+                  sendEmail={sendEmail}
+                  joinConference={joinConference}
+                  authenticated={authenticated}
+                  conferenceNumber={conferenceNumber}
+                  participantNumber={participantsNumber}
+                />
+              }
+            />
+            <Route
+              path="/wce-api/*"
+              element={
+                <Navigate
+                  to={`/${import.meta.env.VITE_BASE_URL}`}
+                  replace={true}
+                />
+              }
+            />
+            <Route path="error" element={<Error error={error} />} />
+            <Route path="feedback" element={<Feedback setError={setError} />} />
+            <Route path="browser_test" element={<BrowserTest />} />
+            <Route
+              path="faq"
+              element={
+                <StaticPagesBuilder markDown={FAQ} contentTable={true} />
+              }
+            />
+            <Route
+              path="donneespersonnelles"
+              element={
+                <StaticPagesBuilder
+                  markDown={DonneesPerso}
+                  contentTable={true}
+                />
+              }
+            />
+            <Route
+              path="contact"
+              element={
+                <StaticPagesBuilder markDown={Contact} contentTable={false} />
+              }
+            />
+            <Route
+              path="apropos"
+              element={
+                <StaticPagesBuilder markDown={Apropos} contentTable={true} />
+              }
+            />
+            <Route
+              path="cgu"
+              element={
+                <StaticPagesBuilder markDown={Cgu} contentTable={true} />
+              }
+            />
+            <Route
+              path="accessibilite"
+              element={
+                <StaticPagesBuilder
+                  markDown={Accessibilite}
+                  contentTable={true}
+                />
+              }
+            />
+            <Route
+              path="mentionslegales"
+              element={
+                <StaticPagesBuilder
+                  markDown={Mentionslegales}
+                  contentTable={true}
+                />
+              }
+            />
+            <Route path="plan-du-site" element={<PlanDuSite />} />
           </Route>
-      </Routes>
-    </MuiDsfrThemeProvider>
-  );
+        </>
+      )}
+    </Routes>
+  </MuiDsfrThemeProvider>
+);
+
 }
 
 export default App;

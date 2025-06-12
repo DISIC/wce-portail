@@ -6,7 +6,7 @@ import { Input } from "@codegouvfr/react-dsfr/Input";
 import { Card } from "@codegouvfr/react-dsfr/Card";
 import { useEffect, useState } from 'react';
 
-import cardsData from '../../data/cardConfig.json';
+import cardsData from '../../../data/cardConfig.json';
 
 function Dashboard () {
 
@@ -27,12 +27,10 @@ function Dashboard () {
         partMaxSimult: 245
         };
     
-          // Fusion : associer chaque meta à sa valeur
         const mergedData = cardsData.map(meta => ({
         ...meta,
-        valeur: dataFromDB[meta.key] ?? 0 // valeur par défaut si absente
+        valeur: dataFromDB[meta.key] ?? 0
         }));
-        console.log("test datas", mergedData)
 
         setDatasCard(mergedData);
     }, []);
