@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "build:preprod": "tsc && vite build --mode staging",
     "build:main": "tsc && vite build --mode production",
@@ -54,7 +54,8 @@
     "rehype-raw": "^6.1.1",
     "remark-slug": "^7.0.1",
     "serve": "^14.2.3",
-    "sitemap": "^7.1.1"
+    "sitemap": "^7.1.1",
+    "sweetalert2": "^11.22.0"
   },
   "devDependencies": {
     "@semantic-release/git": "^10.0.1",
