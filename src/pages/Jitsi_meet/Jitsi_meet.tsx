@@ -265,24 +265,26 @@ const Jitsi_meet = ({
   }, [roomName]);
 
   return (
-    <JitsiMeeting
-      domain={import.meta.env.VITE_JITSI_DOMAIN}
-      roomName={roomName as string}
-      jwt={jwt1 ? jwt1 : undefined}
-      spinner={renderSpinner}
-      // config={{
-      //   hideConferenceSubject: false,
-      // }}
-      onApiReady={externalApi => {
-        if (typeof (window as any).setupRenderer === 'function') {
-          (window as any).setupRenderer(externalApi, {});
-        }
-        handleRecordingStatus(externalApi);
-        //handleApiReady(externalApi);
-      }}
-      onReadyToClose={handleReadyToClose}
-      getIFrameRef={handleJitsiIFrameRef1}
-    />
+    <>
+      <JitsiMeeting
+        domain={import.meta.env.VITE_JITSI_DOMAIN}
+        roomName={roomName as string}
+        jwt={jwt1 ? jwt1 : undefined}
+        spinner={renderSpinner}
+        // config={{
+        //   hideConferenceSubject: false,
+        // }}
+        onApiReady={externalApi => {
+          if (typeof (window as any).setupRenderer === 'function') {
+            (window as any).setupRenderer(externalApi, {});
+          }
+          handleRecordingStatus(externalApi);
+          //handleApiReady(externalApi);
+        }}
+        onReadyToClose={handleReadyToClose}
+        getIFrameRef={handleJitsiIFrameRef1}
+      />
+    </>
   );
 };
 
