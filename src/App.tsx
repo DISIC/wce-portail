@@ -28,6 +28,11 @@ import MuiDsfrThemeProvider from '@codegouvfr/react-dsfr/mui';
 import PlanDuSite from './pages/PlanDuSite/PlanDuSite';
 import jwtDecode from 'jwt-decode';
 
+import Profile from './pages/joona/Profile/Profile';
+import Dashboard from './pages/joona/Dashboard/Dashboard';
+import LayoutJoona from './components/joona/layout/LayoutJoona';
+import HomeJoona from './pages/joona/home/HomeJoona';
+
 type errorObj = {
   message: string;
   error: {
@@ -55,6 +60,8 @@ function App() {
   const [conferenceNumber, setConferenceNumber] = useState(0);
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
+
+  const appName = import.meta.env.VITE_APP_NAME;
 
   const sendEmail = (roomName: string) => {
     api
@@ -230,116 +237,163 @@ function App() {
   };
 
   return (
-    <MuiDsfrThemeProvider>
-      <Routes>
-        <Route path=":roomName" element={<Wrapper />} />
-        <Route
-          path="login_callback"
-          element={
-            <LoginCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
-        <Route
-          path="logout_callback"
-          element={
-            <LogoutCallback
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <Layout
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-              setError={setError}
-            />
-          }
-        >
+  <MuiDsfrThemeProvider>
+    <Routes>
+      {appName === "joona" && (
+        <>
           <Route
-            index
+            path="/"
             element={
-              <Home
-                roomName={roomName}
-                setRoomName={setRoomName}
-                setIsWhitelisted={setIsWhitelisted}
-                isWhitelisted={isWhitelisted}
-                email={email}
-                setEmail={setEmail}
-                sendEmail={sendEmail}
-                joinConference={joinConference}
+              <LayoutJoona
                 authenticated={authenticated}
-                conferenceNumber={conferenceNumber}
-                participantNumber={participantsNumber}
+                setAuthenticated={setAuthenticated}
+                setError={setError}
+              />
+            }
+          >
+            <Route
+              index
+              element={
+                <HomeJoona
+                  roomName={roomName}
+                  setRoomName={setRoomName}
+                  setIsWhitelisted={setIsWhitelisted}
+                  isWhitelisted={isWhitelisted}
+                  email={email}
+                  setEmail={setEmail}
+                  sendEmail={sendEmail}
+                  joinConference={joinConference}
+                  authenticated={authenticated}
+                  conferenceNumber={conferenceNumber}
+                  participantNumber={participantsNumber}
+                />
+              }
+            />
+            <Route path="profile" element={<Profile />} />
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
+        </>
+      )}
+      {appName === "webconf" && (
+        <>
+          <Route path=":roomName" element={<Wrapper />} />
+          <Route
+            path="login_callback"
+            element={
+              <LoginCallback
+                setAuthenticated={setAuthenticated}
+                setError={setError}
               />
             }
           />
           <Route
-            path="/wce-api/*"
+            path="logout_callback"
             element={
-              <Navigate
-                to={`/${import.meta.env.VITE_BASE_URL}`}
-                replace={true}
-              />
-            }
-          />
-          <Route path="error" element={<Error error={error} />} />
-          <Route path="feedback" element={<Feedback setError={setError} />} />
-          <Route path="browser_test" element={<BrowserTest />} />
-          <Route
-            path="faq"
-            element={<StaticPagesBuilder markDown={FAQ} contentTable={true} />}
-          />
-          <Route
-            path="donneespersonnelles"
-            element={
-              <StaticPagesBuilder markDown={DonneesPerso} contentTable={true} />
-            }
-          />
-          <Route
-            path="contact"
-            element={
-              <StaticPagesBuilder markDown={Contact} contentTable={false} />
-            }
-          />
-          <Route
-            path="apropos"
-            element={
-              <StaticPagesBuilder markDown={Apropos} contentTable={true} />
-            }
-          />
-          <Route
-            path="cgu"
-            element={<StaticPagesBuilder markDown={Cgu} contentTable={true} />}
-          />
-          <Route
-            path="accessibilite"
-            element={
-              <StaticPagesBuilder
-                markDown={Accessibilite}
-                contentTable={true}
+              <LogoutCallback
+                setAuthenticated={setAuthenticated}
+                setError={setError}
               />
             }
           />
           <Route
-            path="mentionslegales"
+            path="/"
             element={
-              <StaticPagesBuilder
-                markDown={Mentionslegales}
-                contentTable={true}
+              <Layout
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+                setError={setError}
               />
             }
-          />
-          <Route path="plan-du-site" element={<PlanDuSite />} />
-        </Route>
-      </Routes>
-    </MuiDsfrThemeProvider>
-  );
+          >
+            <Route
+              index
+              element={
+                <Home
+                  roomName={roomName}
+                  setRoomName={setRoomName}
+                  setIsWhitelisted={setIsWhitelisted}
+                  isWhitelisted={isWhitelisted}
+                  email={email}
+                  setEmail={setEmail}
+                  sendEmail={sendEmail}
+                  joinConference={joinConference}
+                  authenticated={authenticated}
+                  conferenceNumber={conferenceNumber}
+                  participantNumber={participantsNumber}
+                />
+              }
+            />
+            <Route
+              path="/wce-api/*"
+              element={
+                <Navigate
+                  to={`/${import.meta.env.VITE_BASE_URL}`}
+                  replace={true}
+                />
+              }
+            />
+            <Route path="error" element={<Error error={error} />} />
+            <Route path="feedback" element={<Feedback setError={setError} />} />
+            <Route path="browser_test" element={<BrowserTest />} />
+            <Route
+              path="faq"
+              element={
+                <StaticPagesBuilder markDown={FAQ} contentTable={true} />
+              }
+            />
+            <Route
+              path="donneespersonnelles"
+              element={
+                <StaticPagesBuilder
+                  markDown={DonneesPerso}
+                  contentTable={true}
+                />
+              }
+            />
+            <Route
+              path="contact"
+              element={
+                <StaticPagesBuilder markDown={Contact} contentTable={false} />
+              }
+            />
+            <Route
+              path="apropos"
+              element={
+                <StaticPagesBuilder markDown={Apropos} contentTable={true} />
+              }
+            />
+            <Route
+              path="cgu"
+              element={
+                <StaticPagesBuilder markDown={Cgu} contentTable={true} />
+              }
+            />
+            <Route
+              path="accessibilite"
+              element={
+                <StaticPagesBuilder
+                  markDown={Accessibilite}
+                  contentTable={true}
+                />
+              }
+            />
+            <Route
+              path="mentionslegales"
+              element={
+                <StaticPagesBuilder
+                  markDown={Mentionslegales}
+                  contentTable={true}
+                />
+              }
+            />
+            <Route path="plan-du-site" element={<PlanDuSite />} />
+          </Route>
+        </>
+      )}
+    </Routes>
+  </MuiDsfrThemeProvider>
+);
+
 }
 
 export default App;

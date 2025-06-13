@@ -5,10 +5,32 @@
 }
 
 .homeContainer {
-  background-image: url(../../assets/webconf_img_40sssOP.png);
-  padding: 5% 0%;
-  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  padding: 8% 0%;
 }
+
+.firstContainer {
+  width: 55%;
+}
+
+.secondContainer {
+  width: 45%;
+}
+
+.imgHomepage {
+  background-image: url(../../assets/webconf_img_40sssOP.png);
+  background-size: cover;
+  width: 40%;
+  height: 100%;
+}
+
+.homeTitle {
+  text-align: center;
+  margin-bottom: 80px;
+  font-size: 2.5em;
+}
+
 .button {
   display: inline-block;
   height: 10px;
@@ -73,9 +95,17 @@
   min-width: 60px;
   margin-top: 8px;
   margin-bottom: 5px;
-  margin-left: 10px;
   margin-right: 0px;
   text-align: center;
+}
+
+.joinButton {
+  width: 100%;
+}
+
+.joinButton span {
+  text-align: center;
+  width: 100%;
 }
 
 .hidden {
@@ -223,4 +253,18 @@
 .calendarModalButtons {
   display: flex;
   justify-content: space-between;
+}
+
+@media (max-width: 1000px) {
+  .homeContainer {
+    flex-direction: column;
+  }
+
+  .firstContainer {
+    width: 100%;
+  }
+
+  .secondContainer {
+    width: 100%;
+  }
 }

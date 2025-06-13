@@ -7,7 +7,8 @@ import React, {
 } from 'react';
 import styles from './BrowserTest.module.css';
 import Button from '@mui/material/Button';
-import { ReactMic } from 'react-mic';
+// import { ReactMic } from 'react-mic';
+import { ReactMediaRecorder } from 'react-media-recorder';
 import Webcam from 'react-webcam';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -570,14 +571,43 @@ export default function BrowserTest() {
                 </Select>
               </FormControl>
             </Box>
-            <ReactMic
-              record={record}
-              visualSetting="frequencyBars"
-              className={styles.mic}
-              //onStop={onStop}
-              //onData={onData}
-              strokeColor="green"
-              backgroundColor="#BCBCBC"
+            <ReactMediaRecorder
+              audio={{ deviceId: mic ? { exact: mic } : undefined }}
+              onStart={() => {
+                setMicTest(null);
+                setErrorMessage(null);
+              }}
+              onStop={() => {
+                setMicTest(true);
+              }}
+              render={({ status, startRecording, stopRecording, mediaBlobUrl, error }) => {
+                // Handle error inside render
+                if (error) {
+                  setMicTest(false);
+                  setErrorMessage(
+                    <Alert
+                      closable
+                      description="Veuillez autoriser le navigateur à utiliser le microphone."
+                      onClose={() => {}}
+                      small
+                      title="Information"
+                      severity="error"
+                    />
+                  );
+                }
+                return (
+                  <>
+                    <Typography>Status : {status}</Typography>
+                    {mediaBlobUrl && (
+                      <audio
+                        src={mediaBlobUrl}
+                        controls
+                        style={{ display: 'block', margin: '10px auto' }}
+                      />
+                    )}
+                  </>
+                );
+              }}
             />
             <Button
               style={
