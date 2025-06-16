@@ -32,6 +32,7 @@ import Profile from './pages/joona/Profile/Profile';
 import Dashboard from './pages/joona/Dashboard/Dashboard';
 import LayoutJoona from './components/joona/layout/LayoutJoona';
 import HomeJoona from './pages/joona/home/HomeJoona';
+import JitsiMeet from './pages/joona/jitsi_meet/jitsi_meet';
 
 type errorObj = {
   message: string;
@@ -241,6 +242,7 @@ function App() {
     <Routes>
       {appName === "joona" && (
         <>
+          <Route path=":roomName" element={<JitsiMeet />} />
           <Route
             path="/"
             element={
