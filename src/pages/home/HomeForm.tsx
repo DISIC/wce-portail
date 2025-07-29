@@ -272,6 +272,7 @@ function HomeForm(props: AuthModalProps) {
             setOpen={setOpen}
             buttons={props.buttons}
             openModal={openModal}
+            onClose={() => setOpenModal(false)}
           />
           <Button
             className={styles.plusButton}
