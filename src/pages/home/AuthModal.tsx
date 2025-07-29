@@ -8,6 +8,8 @@ import CalendarModalComponent from './CalendarModal';
 import { useState, useEffect } from 'react';
 
 import styles from './AuthModal.module.css';
+import api from '../../axios/axios';
+import { useNavigate } from 'react-router';
 
 const modal = createModal({
   id: 'AgentConnect',
@@ -27,6 +29,7 @@ interface AuthModalProps {
   setOpen: (e: boolean) => void;
   buttons: boolean;
   openModal: boolean;
+  onClose: () => void;
 }
 
 function roomNameConstraintOk(roomName: string) {
@@ -47,6 +50,7 @@ export default function AuthModal(props: AuthModalProps) {
     'Recevoir le code de vérification par email'
   );
   const [isCheked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href + props.roomName);
@@ -74,6 +78,57 @@ export default function AuthModal(props: AuthModalProps) {
     setMsg(null);
     setButtonMsg('Recevoir le code de vérification par email');
   }, []);
+
+  useEffect(() => {
+    if(props.openModal && !props.authenticated){
+      checkRoomOpened(props.roomName);
+      const intervalId = setInterval(() => checkRoomOpened(props.roomName), 10000);
+  
+      return () => clearInterval(intervalId);
+    }
+  }, [props.openModal, props.authenticated, props.roomName]);
+
+  // Observe modal DOM changes to detect when it is closed.
+  // Observation is only started if the modal is open to avoid unnecessary side effects on page load.
+  useEffect(() => {
+    if (!props.openModal) return;
+
+    const modalElement = document.getElementById(modal.id);
+
+    if (!modalElement) return;
+
+    const observer = new MutationObserver(() => {
+      const isOpen = modalElement.classList.contains('fr-modal--opened');
+
+      if (!isOpen) {
+        // Trigger the modal close handler function
+        props.onClose();
+      }
+    });
+
+    observer.observe(modalElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, [props.openModal]);
+
+  /**
+   * a function that checks if the room is opened and could accept guests
+   * @param room the conference name
+   */
+  const checkRoomOpened = (room: string) => {
+      api
+      .get('/roomExists/' + room)
+      .then(res => {
+        props.setOpen(false);
+        return navigate('/' + room);
+      })
+      .catch(err => {
+        console.log(`Room ${room} not opened yet`)
+      });
+  }
 
   const agentConnect = (room: string) => {
     fetch(
@@ -184,6 +239,15 @@ export default function AuthModal(props: AuthModalProps) {
             <Badge severity="success">Message envoyé.</Badge>
           </p>
         ) : null}
+        <h4>
+          Vous êtes invité de la réunion ?
+        </h4>
+        <p>
+          <small>
+            la conférence {props.roomName} n'a pas encore été créée.<br></br>
+            Vous pouvez rester sur cette page en attendant l'organisateur
+          </small>
+        </p>
       </modal.Component>
       <div className={styles.buttons}>
         <Button

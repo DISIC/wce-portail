@@ -79,7 +79,7 @@ export default function Feedback({ setError }: feedbackProps) {
 
   const sendFeedback = () => {
     if (qty < 1) {
-      setMsg({ message: 'le champ qualité est oblogatoire!', error: {} });
+      setMsg({ message: 'le champ qualité est obligatoire!', error: {} });
       return;
     }
     const jmmc_objectId = sessionStorage.getItem('jmmc_object_id');
@@ -100,7 +100,7 @@ export default function Feedback({ setError }: feedbackProps) {
       })
       .catch(() => {
         setMsg({
-          message: "erreur de l'envoi des données merci de réesayer",
+          message: "erreur de l'envoi des données merci de réessayer",
           error: {},
         });
       });
