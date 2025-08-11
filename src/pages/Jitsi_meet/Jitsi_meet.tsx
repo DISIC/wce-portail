@@ -72,11 +72,11 @@ const Jitsi_meet = ({
   useEffect(() => {
     if (roomName && jwt) {
       if (!roomNameConstraintOk(roomName)) {
-        setError({
-          message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
-          error: { status: '404', stack: '' },
-        });
-        navigate('/error');
+        // setError({
+        //   message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+        //   error: { status: '404', stack: '' },
+        // });
+        navigate('/');
       }
 
       try {
@@ -107,11 +107,11 @@ const Jitsi_meet = ({
       }
       if (roomName && !roomNameConstraintOk(roomName)) {
         setRoomName(roomName);
-        setError({
-          message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
-          error: { status: '404', stack: '' },
-        });
-        navigate('/error');
+        // setError({
+        //   message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+        //   error: { status: '404', stack: '' },
+        // });
+        navigate('/');
       } else {
         api.get(`/${roomName}`).then(res => {
           if (res.data.error || res.data.login) {
