@@ -225,6 +225,7 @@ function App() {
           setMsg={setMsg}
           setRoomName={setRoomName}
           jwt={jwt}
+          setOpenModal={setOpenModal}
         />
       );
     }
