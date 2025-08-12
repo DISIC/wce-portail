@@ -128,7 +128,7 @@ const Jitsi_meet = ({
             message: "la page que vous demandez n'existe pas",
             error: { status: '404', stack: '' },
           });
-          setRoomName(roomName);
+          setRoomName(roomName ?? '');
           navigate('/');
           setOpenModal(true);
         } else {
