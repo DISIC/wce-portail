@@ -7,6 +7,7 @@ import {
   useNavigate,
   Navigate,
   useParams,
+  useSearchParams
 } from 'react-router-dom';
 import FAQ from './pages/FAQ/FAQ.md';
 import DonneesPerso from './pages/DonneesPerso/DonneesPerso.md';
@@ -216,6 +217,13 @@ function App() {
 
   const Wrapper = () => {
     const { roomName } = useParams();
+
+    // search the jwt param from url
+    const [searchParams] = useSearchParams();
+    const jwt = searchParams.get('jwt');
+    if(jwt){
+      setJwt(jwt)
+    }
 
     if (isAlphanumeric(roomName)) {
       return (
