@@ -55,7 +55,7 @@ function App() {
   const [conferenceNumber, setConferenceNumber] = useState(0);
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
-
+  const [openModal, setOpenModal] = useState(false);
   const sendEmail = (roomName: string) => {
     api
       .post('conference/create/byemail', { roomName, email: email })
@@ -145,7 +145,7 @@ function App() {
     api
       .get(`/${roomName}`)
       .then(res => {
-        if (res.data.error) {
+        if (res.data.error || res.data.login) {
           setError({
             message: "la page que vous demandez n'existe pas",
             error: { status: '404', stack: '' },
@@ -189,7 +189,9 @@ function App() {
             message: "la page que vous demandez n'existe pas",
             error: { status: '404', stack: '' },
           });
-          navigate('/error');
+          setRoomName(roomName);
+          navigate('/');
+          setOpenModal(true);
         } else {
           if (error.request) {
             setError({
@@ -273,6 +275,8 @@ function App() {
                 setEmail={setEmail}
                 sendEmail={sendEmail}
                 joinConference={joinConference}
+                setOpenModal={setOpenModal}
+                openModal={openModal}
                 authenticated={authenticated}
                 conferenceNumber={conferenceNumber}
                 participantNumber={participantsNumber}

@@ -27,13 +27,15 @@ interface AuthModalProps {
   buttons: boolean;
   conferenceNumber: number;
   participantNumber: number;
+  openModal: boolean;
+  setOpenModal: (e: any) => void;
 }
 
 function HomeForm(props: AuthModalProps) {
   const [message, setMessage] = useState<JSX.Element | string>(<></>);
   const [messageType, setMessageType] = useState<string>('');
   const [open, setOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ function HomeForm(props: AuthModalProps) {
           if (res.data.toLowerCase() == 'internet') {
             if (!props.authenticated) {
               // modal.open();
-              setOpenModal(true);
+              props.setOpenModal(true);
             }
             if (props.authenticated) {
               props.joinConference(room);
@@ -74,7 +76,7 @@ function HomeForm(props: AuthModalProps) {
           api.get('/authentication/whereami').then(res => {
             if (res.data.toLowerCase() == 'internet') {
               if (!props.authenticated) {
-                setOpenModal(true);
+                props.setOpenModal(true);
               }
               if (props.authenticated) {
                 return props.joinConference(props.roomName);
@@ -86,7 +88,7 @@ function HomeForm(props: AuthModalProps) {
           });
         });
     }
-    setOpenModal(false);
+    props.setOpenModal(false);
   }
 
   const change = (e: string) => {
@@ -271,8 +273,8 @@ function HomeForm(props: AuthModalProps) {
             {...props}
             setOpen={setOpen}
             buttons={props.buttons}
-            openModal={openModal}
-            onClose={() => setOpenModal(false)}
+            openModal={props.openModal}
+            onClose={() => props.setOpenModal(false)}
           />
           <Button
             className={styles.plusButton}

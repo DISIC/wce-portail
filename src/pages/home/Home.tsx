@@ -12,6 +12,8 @@ interface AuthModalProps {
   setIsWhitelisted: (e: any) => void;
   setRoomName: (e: any) => void;
   joinConference: (e: any) => void;
+  openModal: boolean;
+  setOpenModal: (e: any) => void;
   authenticated: boolean | null;
   conferenceNumber: number;
   participantNumber: number;

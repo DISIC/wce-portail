@@ -81,7 +81,6 @@ export default function AuthModal(props: AuthModalProps) {
 
   useEffect(() => {
     if(props.openModal && !props.authenticated){
-      checkRoomOpened(props.roomName);
       const intervalId = setInterval(() => checkRoomOpened(props.roomName), 10000);
   
       return () => clearInterval(intervalId);
