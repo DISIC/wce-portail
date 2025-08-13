@@ -43,7 +43,7 @@ interface JwtPayload {
 
 function App() {
   const [roomName, setRoomName] = useState('');
-  const [jwt, setJwt] = useState(null);
+  const [jwt, setJwt] = useState<string | null>(null);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState<errorObj>({
     message: "la page que vous demandez n'existe pas",
@@ -57,6 +57,7 @@ function App() {
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
   const [openModal, setOpenModal] = useState(false);
+  const [searchParams] = useSearchParams();
   const sendEmail = (roomName: string) => {
     api
       .post('conference/create/byemail', { roomName, email: email })
@@ -217,13 +218,7 @@ function App() {
 
   const Wrapper = () => {
     const { roomName } = useParams();
-
-    // search the jwt param from url
-    const [searchParams] = useSearchParams();
-    const jwt = searchParams.get('jwt');
-    if(jwt){
-      setJwt(jwt)
-    }
+    const jwtparameter = searchParams.get('jwt');
 
     if (isAlphanumeric(roomName)) {
       return (
@@ -232,7 +227,7 @@ function App() {
           setError={setError}
           setMsg={setMsg}
           setRoomName={setRoomName}
-          jwt={jwt}
+          jwt={jwtparameter || jwt}
           setOpenModal={setOpenModal}
         />
       );
