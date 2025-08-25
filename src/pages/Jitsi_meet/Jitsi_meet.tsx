@@ -20,6 +20,7 @@ interface JitsiMeetProps {
   setMsg: (e: ReactNode) => void;
   setRoomName: (e: string) => void;
   jwt: any;
+  setOpenModal: (e: any) => void;
 }
 
 const Jitsi_meet = ({
@@ -28,6 +29,7 @@ const Jitsi_meet = ({
   setMsg,
   setRoomName,
   jwt,
+  setOpenModal,
 }: JitsiMeetProps) => {
   const navigate = useNavigate();
   const { roomName } = useParams();
@@ -72,11 +74,11 @@ const Jitsi_meet = ({
   useEffect(() => {
     if (roomName && jwt) {
       if (!roomNameConstraintOk(roomName)) {
-        setError({
-          message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
-          error: { status: '404', stack: '' },
-        });
-        navigate('/error');
+        // setError({
+        //   message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+        //   error: { status: '404', stack: '' },
+        // });
+        navigate('/');
       }
 
       try {
@@ -96,7 +98,7 @@ const Jitsi_meet = ({
         }
       } catch (error) {
         setError({
-          message: "le jwt n'est pas valid",
+          message: "le jwt n'est pas valide",
           error: { status: '404', stack: '' },
         });
         navigate('/error');
@@ -107,11 +109,11 @@ const Jitsi_meet = ({
       }
       if (roomName && !roomNameConstraintOk(roomName)) {
         setRoomName(roomName);
-        setError({
-          message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
-          error: { status: '404', stack: '' },
-        });
-        navigate('/error');
+        // setError({
+        //   message: `Le nom de la conférence ${roomName} n'est pas valide. Merci de respecter la convention de nommage indiquée dans le formulaire.`,
+        //   error: { status: '404', stack: '' },
+        // });
+        navigate('/');
       } else {
         api.get(`/${roomName}`).then(res => {
           if (res.data.error || res.data.login) {
@@ -120,7 +122,31 @@ const Jitsi_meet = ({
           if (res.data.jwt) {
             joinConference(roomName as string);
           }
-        });
+        }).catch((error: any) => {
+        if (error.response) {
+          setError({
+            message: "la page que vous demandez n'existe pas",
+            error: { status: '404', stack: '' },
+          });
+          setRoomName(roomName ?? '');
+          navigate('/');
+          setOpenModal(true);
+        } else {
+          if (error.request) {
+            setError({
+              message: "la page que vous demandez n'existe pas",
+              error: { status: '404', stack: '' },
+            });
+            navigate('/error');
+          } else {
+            setError({
+              message: "la page que vous demandez n'existe pas",
+              error: { status: '500', stack: '' },
+            });
+            navigate('/error');
+          }
+        }
+      });
       }
     }
   }, [roomName]);

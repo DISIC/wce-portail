@@ -7,6 +7,7 @@ import {
   useNavigate,
   Navigate,
   useParams,
+  useSearchParams
 } from 'react-router-dom';
 import FAQ from './pages/FAQ/FAQ.md';
 import DonneesPerso from './pages/DonneesPerso/DonneesPerso.md';
@@ -42,7 +43,7 @@ interface JwtPayload {
 
 function App() {
   const [roomName, setRoomName] = useState('');
-  const [jwt, setJwt] = useState(null);
+  const [jwt, setJwt] = useState<string | null>(null);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState<errorObj>({
     message: "la page que vous demandez n'existe pas",
@@ -55,7 +56,8 @@ function App() {
   const [conferenceNumber, setConferenceNumber] = useState(0);
   const [participantsNumber, setparticipantsNumber] = useState(0);
   const [msg, setMsg] = useState<ReactNode>(<></>);
-
+  const [openModal, setOpenModal] = useState(false);
+  const [searchParams] = useSearchParams();
   const sendEmail = (roomName: string) => {
     api
       .post('conference/create/byemail', { roomName, email: email })
@@ -145,7 +147,7 @@ function App() {
     api
       .get(`/${roomName}`)
       .then(res => {
-        if (res.data.error) {
+        if (res.data.error || res.data.login) {
           setError({
             message: "la page que vous demandez n'existe pas",
             error: { status: '404', stack: '' },
@@ -189,7 +191,9 @@ function App() {
             message: "la page que vous demandez n'existe pas",
             error: { status: '404', stack: '' },
           });
-          navigate('/error');
+          setRoomName(roomName);
+          navigate('/');
+          setOpenModal(true);
         } else {
           if (error.request) {
             setError({
@@ -214,6 +218,7 @@ function App() {
 
   const Wrapper = () => {
     const { roomName } = useParams();
+    const jwtparameter = searchParams.get('jwt');
 
     if (isAlphanumeric(roomName)) {
       return (
@@ -222,7 +227,8 @@ function App() {
           setError={setError}
           setMsg={setMsg}
           setRoomName={setRoomName}
-          jwt={jwt}
+          jwt={jwtparameter || jwt}
+          setOpenModal={setOpenModal}
         />
       );
     }
@@ -273,6 +279,8 @@ function App() {
                 setEmail={setEmail}
                 sendEmail={sendEmail}
                 joinConference={joinConference}
+                setOpenModal={setOpenModal}
+                openModal={openModal}
                 authenticated={authenticated}
                 conferenceNumber={conferenceNumber}
                 participantNumber={participantsNumber}
