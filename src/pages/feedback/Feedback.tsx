@@ -82,6 +82,16 @@ export default function Feedback({ setError }: feedbackProps) {
       setMsg({ message: 'le champ qualité est obligatoire!', error: {} });
       return;
     }
+
+    if ((qty < 3 || (inv > 1 && inv < 3)) && text.trim() === '') {
+      setMsg({
+        message:
+          'Merci de préciser un commentaire lorsque la note est inférieure à 3.',
+        error: {},
+      });
+      return;
+    }
+
     const jmmc_objectId = sessionStorage.getItem('jmmc_object_id');
     api
       .post('feedback', {
@@ -186,7 +196,13 @@ export default function Feedback({ setError }: feedbackProps) {
             // onChange={e => setText(e.target.value)}
             className={styles.textInput}
             textArea
-            label="Informations complémentaires que vous pourriez partager sur le contexte d'utilisation ou votre appréciation sur la qualité de la webconférence :"
+            label={
+              <>
+                {(qty < 3 || (inv > 1 && inv < 3)) && <span className={styles.label}></span>}
+                Informations complémentaires que vous pourriez partager sur le contexte d'utilisation 
+                ou votre appréciation sur la qualité de la webconférence 
+              </>
+            }
           ></Input>
           {msg.message ? (
             <Badge
