@@ -218,7 +218,7 @@ export default function Feedback({ setError }: feedbackProps) {
               {
                 <p>
                   Avez-vous rencontré des difficultés ?{' '}
-                  <a href="/static/contact">
+                  <a href="/contact">
                     Cliquez ici pour demander de l'assistance
                   </a>
                 </p>
