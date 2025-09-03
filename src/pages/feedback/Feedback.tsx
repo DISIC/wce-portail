@@ -83,7 +83,7 @@ export default function Feedback({ setError }: feedbackProps) {
       return;
     }
 
-    if ((qty < 3 || (inv > 1 && inv < 3)) && text.trim() === '') {
+    if ((qty < 3 || (inv >= 1 && inv < 3)) && text.trim() === '') {
       setMsg({
         message:
           'Merci de préciser un commentaire lorsque la note est inférieure à 3.',
@@ -198,7 +198,7 @@ export default function Feedback({ setError }: feedbackProps) {
             textArea
             label={
               <>
-                {(qty < 3 || (inv > 1 && inv < 3)) && <span className={styles.label}></span>}
+                {(qty < 3 || (inv >= 1 && inv < 3)) && <span className={styles.label}></span>}
                 Informations complémentaires que vous pourriez partager sur le contexte d'utilisation 
                 ou votre appréciation sur la qualité de la webconférence 
               </>
