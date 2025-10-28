@@ -154,7 +154,7 @@ const Jitsi_meet = ({
   return (
     <>
       <JitsiMeeting
-        domain={import.meta.env.VITE_JITSI_DOMAIN}
+        domain={`${import.meta.env.VITE_JITSI_DOMAIN}?embedded=1`}
         roomName={roomName as string}
         jwt={jwt1 ? jwt1 : undefined}
         spinner={renderSpinner}
@@ -168,17 +168,7 @@ const Jitsi_meet = ({
           //handleApiReady(externalApi);
         }}
         onReadyToClose={handleReadyToClose}
-        getIFrameRef={iframeRef => {
-          // Modify th iframe
-          const iframe = iframeRef.querySelector('iframe');
-          if (iframe) {
-            const hasQuery = iframe.src.includes('?');
-            iframe.src = `${iframe.src}${hasQuery ? '&' : '?'}embedded=1`;
-          }
-
-          // Reuse existing function
-          handleJitsiIFrameRef1(iframeRef);
-        }}
+        getIFrameRef={handleJitsiIFrameRef1}
       />
     </>
   );
