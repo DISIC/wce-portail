@@ -161,6 +161,11 @@ const Jitsi_meet = ({
         // config={{
         //   hideConferenceSubject: false,
         // }}
+        getIFrameRef={iframeRef => {
+          // Ajoute le paramètre embedded=1 à la fin de l'URL
+          const hasQuery = iframeRef.src.includes('?');
+          iframeRef.src = `${iframeRef.src}${hasQuery ? '&' : '?'}embedded=1`;
+        }}
         onApiReady={externalApi => {
           if (typeof (window as any).setupRenderer === 'function') {
             (window as any).setupRenderer(externalApi, {});
