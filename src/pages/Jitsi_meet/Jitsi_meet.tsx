@@ -154,8 +154,8 @@ const Jitsi_meet = ({
   return (
     <>
       <JitsiMeeting
-        domain={`${import.meta.env.VITE_JITSI_DOMAIN}?embedded=1`}
-        roomName={roomName as string}
+        domain={import.meta.env.VITE_JITSI_DOMAIN}
+        roomName={`${roomName}?embedded=1` as string}
         jwt={jwt1 ? jwt1 : undefined}
         spinner={renderSpinner}
         // config={{
